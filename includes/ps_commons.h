@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ps_commons.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 13:51:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/01 15:00:14 by jgermany         ###   ########.fr       */
+/*   Created: 2023/08/01 13:56:09 by jgermany          #+#    #+#             */
+/*   Updated: 2023/08/01 15:00:11 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
+#ifndef PS_COMMONS_H
 
-# define PUSH_SWAP_H
+# define PS_COMMONS_H
 
-# include "ps_commons.h"
+# include "../libs/libft/libft.h"
 
 #endif
