@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 13:02:44 by jgermany          #+#    #+#              #
-#    Updated: 2023/06/27 20:25:16 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/04 18:16:43 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,8 +100,8 @@ $(NAME): 			$(OBJS_MAN)
 					make -C $(DIR_PF)
 					$(AR) $(ARFLM) $@ $(OBJS_MAN)
 
-bonus: 				$(OBJS_BON)
-					$(AR) $(ARFLB) $(NAME) $^
+bonus: 				all $(OBJS_BON)
+					$(AR) $(ARFLB) $(NAME) $(OBJS_BON)
 
 %.o: 				%.c $(LFT_HDR)
 					$(CC) $(CCFL) -I$(INCDIR) -c $< -o $@

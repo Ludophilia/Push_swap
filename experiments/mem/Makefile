@@ -5,43 +5,38 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/04 18:16:25 by jgermany         ###   ########.fr        #
+#    Created: 2023/08/02 17:34:56 by jgermany          #+#    #+#              #
+#    Updated: 2023/08/02 18:39:55 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := push_swap
+NAME := memmove
 
-SRCS_DIRM := srcs
-INCL_DIRM := includes
-FT := libs/libft
-
-CC	:= cc
-CFLAGS := -Wall -Wextra -Werror
-all: CFLAGS += -I$(INCL_DIRM)
-LIBFLAGS += -lft -L$(FT)
-
-SRCS := $(SRCS_DIRM)/push_swap.c
+SRCS := memmove.c
 OBJS := $(SRCS:.c=.o)
+FT := ../../libs/libft
+
+CC := cc
+CFLAGS := -Wall -Wextra -Werror -I.
+LIBFLAGS := -lft -L$(FT)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C $(FT) bonus
+	make -C $(FT) all
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 
-$(OBJS): $(INCL_DIRM)/ps_commons.h
-$(SRCS_DIRM)/push_swap.o: $(INCL_DIRM)/push_swap.h
+memmove.o: memmove.h
 
 clean:
 	make -C $(FT) clean
 	rm -f $(OBJS)
 
-fclean: clean
+fclean:
 	make -C $(FT) fclean
 	rm -f $(NAME)
 
 re: fclean all
 
+.PHONY: all clean fclean re
 .SILENT: clean fclean
-.PHONY: all re clean fclean
