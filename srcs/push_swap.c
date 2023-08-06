@@ -6,37 +6,16 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/06 16:42:03 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:56:18 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// 2/08 - What to do?
-void	traverse_stack(t_stk *stack)
-{
-	t_list	*node;
-
-	node = *stack->head;
-	ft_dprintf(1, "stack size : %i\n", stack->size);
-	while (node != NULL)
-	{
-		ft_dprintf(1, "%i\n", *(int *)node->content);
-		node = node->next;
-	}
-}
-
-int	pop_and_clean_stack(t_stk *stack)
-{
-	t_list	*popped_node;
-
-	popped_node = pop_stack(stack);
-	if (popped_node == NULL)
-		return (-1);
-	ft_lstdelone(popped_node, free);
-	return (0);
-}
-
+// 6/08 - What to do now?
+// Implement every push_swap operations... INCLUDING the error cases,
+// and test everything of course.
+// 
 int	main(void)
 {
 	t_stk	stack_a;

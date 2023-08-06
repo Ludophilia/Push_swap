@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/06 16:34:46 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:56:11 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,29 @@ t_list	*pop_stack(t_stk *stack)
 	node->next = NULL;
 	stack->size--;
 	return (node);
+}
+
+// Remove
+void	traverse_stack(t_stk *stack)
+{
+	t_list	*node;
+
+	node = *stack->head;
+	ft_dprintf(1, "stack size : %i\n", stack->size);
+	while (node != NULL)
+	{
+		ft_dprintf(1, "%i\n", *(int *)node->content);
+		node = node->next;
+	}
+}
+
+int	pop_and_clean_stack(t_stk *stack)
+{
+	t_list	*popped_node;
+
+	popped_node = pop_stack(stack);
+	if (popped_node == NULL)
+		return (-1);
+	ft_lstdelone(popped_node, free);
+	return (0);
 }
