@@ -9,7 +9,7 @@
 # Foundations
 
 - [x] Find how to implement a stack and ACTUALLY implement one. 
-- [ ] Implement the basic operations of a stack: pop/push.
+- [x] Implement the basic operations of a stack: pop/push.
 
 - [ ] Implement the basic operations that the push_swap game requires
 - [ ] Find if standard sorting algorithms (qsort, bsort...) works on those

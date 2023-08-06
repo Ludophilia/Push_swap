@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   stackmgr.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 13:51:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/06 14:44:36 by jgermany         ###   ########.fr       */
+/*   Created: 2023/08/06 14:00:02 by jgermany          #+#    #+#             */
+/*   Updated: 2023/08/06 16:24:37 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
+#ifndef STACKMGR_H
 
-# define PUSH_SWAP_H
+# define STACKMGR_H
 
 # include "ps_commons.h"
-# include "stackmgr.h"
+
+int		init_stack(t_stk *stack);
+t_list	*pop_stack(t_stk *stack);
+t_list	**push_stack(int nb, t_stk *stack);
+void	free_stack(t_stk *stack);
 
 #endif
