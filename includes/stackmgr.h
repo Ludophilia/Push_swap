@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:00:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/06 16:55:58 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/07 14:45:44 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 # define STACKMGR_H
 
-# include "ps_commons.h"
+# include "pusw_commons.h"
 
-int		init_stack(t_stk *stack);
-t_list	*pop_stack(t_stk *stack);
-t_list	**push_stack(int nb, t_stk *stack);
-void	free_stack(t_stk *stack);
+t_stk	*mgr_stack_init(char name);
+t_list	*mgr_stack_pop(t_stk *stack);
+t_list	**mgr_stack_push(int nb, t_stk *stack);
+void	mgr_stack_free(t_stk *stack);
 
 // Remove
 void	traverse_stack(t_stk *stack);

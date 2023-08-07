@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/06 16:41:45 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:58:12 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	pop_and_clean_stack(t_stk *stack)
 {
 	t_list	*popped_node;
 
-	popped_node = pop_stack(stack);
+	popped_node = mgr_stack_pop(stack);
 	if (popped_node == NULL)
 		return (-1);
 	ft_lstdelone(popped_node, free);

@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:51:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/06 14:44:36 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:57:43 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define PUSH_SWAP_H
 
-# include "ps_commons.h"
+# include "pusw_commons.h"
 # include "stackmgr.h"
 
 #endif

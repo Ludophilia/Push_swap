@@ -6,31 +6,40 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/06 16:56:11 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/07 18:38:18 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stackmgr.h"
 
-int	init_stack(t_stk *stack)
+t_stk	*mgr_stack_init(char name)
 {
+	t_stk	*stack;
 	t_list	**head;
 
+	stack = ft_calloc(1, sizeof(t_stk));
+	if (stack == NULL)
+		return (NULL);
 	head = ft_calloc(1, sizeof(head));
 	if (head == NULL)
-		return (-1);
+	{
+		free(stack);
+		return (NULL);
+	}
+	stack->name = name;
 	stack->head = head;
 	stack->size = 0;
-	return (0);
+	return (stack);
 }
 
-void free_stack(t_stk *stack)
+void mgr_stack_free(t_stk *stack)
 {
 	ft_lstclear(stack->head, free);
 	free(stack->head);
+	free(stack);
 }
 
-t_list	**push_stack(int nb, t_stk *stack)
+t_list	**mgr_stack_push(int nb, t_stk *stack)
 {
 	t_list	*node;
 	int		*nb_store;
@@ -53,7 +62,7 @@ t_list	**push_stack(int nb, t_stk *stack)
 	return (stack->head);
 }
 
-t_list	*pop_stack(t_stk *stack)
+t_list	*mgr_stack_pop(t_stk *stack)
 {
 	t_list	*node;
 
@@ -72,19 +81,19 @@ void	traverse_stack(t_stk *stack)
 	t_list	*node;
 
 	node = *stack->head;
-	ft_dprintf(1, "stack size : %i\n", stack->size);
 	while (node != NULL)
 	{
 		ft_dprintf(1, "%i\n", *(int *)node->content);
 		node = node->next;
 	}
+	ft_dprintf(2, "[DEBUG] Done. Stack size: %i\n", stack->size);
 }
 
 int	pop_and_clean_stack(t_stk *stack)
 {
 	t_list	*popped_node;
 
-	popped_node = pop_stack(stack);
+	popped_node = mgr_stack_pop(stack);
 	if (popped_node == NULL)
 		return (-1);
 	ft_lstdelone(popped_node, free);

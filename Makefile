@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/06 16:20:58 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/07 12:57:27 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ $(NAME): $(OBJS)
 	make -C $(FT) bonus
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 
-$(OBJS): $(INCL_DIRM)/ps_commons.h
+$(OBJS): $(INCL_DIRM)/pusw_commons.h
 $(SRCS_DIRM)/push_swap.o: $(INCL_DIRM)/push_swap.h
 $(SRCS_DIRM)/stackmgr.o: $(INCL_DIRM)/stackmgr.h
 
