@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/07 20:52:58 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/08 14:20:38 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@
 // Implement every push_swap operations... INCLUDING the error cases,
 // and test everything of course.
 
-// - sa/sb/ss: swap instructions 
+// - sa/sb/ss: swap instructions
 // - pa/pb: push instructions
 // - ra/rb/rr: rotate
 // - rra/rrb/rrr: reverse rotate
 
 // Generic swap instruction
-void	pusw_swap(t_stk *stacks[3])
+void	pusw_swap_stacks(t_stk *stack0, t_stk *stack1)
 {
+	t_stk	**stacks;
 	t_list	*nodes[2];
-	int		is_valid[2];
 	int		i;
 
+	stacks = (t_stk *[3]){stack0, stack1, 0};
 	i = -1;
-	ft_bzero(is_valid, 2 * sizeof(int));
 	while (stacks[++i])
 	{
 		if (*stacks[i]->head && (*stacks[i]->head)->next)
@@ -40,46 +40,49 @@ void	pusw_swap(t_stk *stacks[3])
 			nodes[0]->next = nodes[1]->next;
 			nodes[1]->next = nodes[0];
 			*stacks[i]->head = nodes[1];
-			is_valid[i] = 1;
 		}
+		else
+			stacks[i] = 0;
 	}
-	if (is_valid[0] && !is_valid[1])
-		ft_printf("s%c\n", stacks[0]->name);
-	else if (!is_valid[0] && is_valid[1])
-		ft_printf("s%c\n", stacks[1]->name);
-	else if (is_valid[0] && is_valid[1])
+	if (stacks[0] && !stacks[1])
+		ft_printf("s%c\n", stack0->name);
+	else if (!stacks[0] && stacks[1])
+		ft_printf("s%c\n", stack1->name);
+	else if (stacks[0] && stacks[1])
 		ft_printf("ss\n");
 }
 
 int	main(void)
 {
-	t_stk	*stack_a;
-	t_stk	*stack_b;
+	t_stk	*stacks[3];
 
-	stack_a = mgr_stack_init('a');
-	stack_b = mgr_stack_init('b');
-	if (stack_a == NULL || stack_b == NULL) 
+	stacks[0] = mgr_stack_init('a');
+	stacks[1] = mgr_stack_init('b');
+	stacks[2] = NULL;
+	if (stacks[0] == NULL || stacks[1] == NULL) 
 		return (1);
-	if (mgr_stack_push(1, stack_a) == NULL)
+	if (mgr_stack_push(1, stacks[0]) == NULL)
 		return (1);
-	if (mgr_stack_push(2, stack_a) == NULL)
+	if (mgr_stack_push(2, stacks[0]) == NULL)
 		return (1);
-	if (mgr_stack_push(3, stack_a) == NULL)
+	if (mgr_stack_push(3, stacks[0]) == NULL)
 		return (1);
-	if (mgr_stack_push(1, stack_b) == NULL)
+	if (mgr_stack_push(1, stacks[1]) == NULL)
 		return (1);
-	if (mgr_stack_push(2, stack_b) == NULL)
+	if (mgr_stack_push(2, stacks[1]) == NULL)
 		return (1);
-	pusw_swap((t_stk *[3]){stack_b, stack_a, 0});
-	traverse_stack(stack_a);
-	traverse_stack(stack_b);
-	// if (pusw_swap(stack_a) == -1)
+	pusw_swap_stacks(stacks[0], stacks[1]);
+	pusw_swap_stacks(stacks[0], NULL);
+	pusw_swap_stacks(stacks[1], NULL);
+	traverse_stack(stacks[0]);
+	traverse_stack(stacks[1]);
+	// if (pusw_swap(stacks[0]) == -1)
 	// 	return (1);
-	// traverse_stack(stack_a);
-	// if (pusw_swap(stack_a) == -1)
+	// traverse_stack(stacks[0]);
+	// if (pusw_swap(stacks[0]) == -1)
 	// 	return (1);
-	// traverse_stack(stack_a);
-	mgr_stack_free(stack_a);
-	mgr_stack_free(stack_b);
+	// traverse_stack(stacks[0]);
+	mgr_stack_free(stacks[0]);
+	mgr_stack_free(stacks[1]);
 	return (0);
 }
