@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/08 15:38:26 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/08 19:18:25 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	traverse_stack(t_stk *stack)
 {
 	t_list	*node;
 
-	ft_dprintf(2, "\nName: stack %c; stack size: %i\n",
+	ft_dprintf(2, "Name: stack %c; stack size: %i\n",
 		stack->name, stack->size);
 	node = *stack->head;
 	while (node != NULL)
@@ -88,7 +88,7 @@ void	traverse_stack(t_stk *stack)
 		ft_dprintf(1, "%i\n", *(int *)node->content);
 		node = node->next;
 	}
-	ft_dprintf(2, "\n");
+	// ft_dprintf(2, "\n");
 }
 
 int	pop_and_clean_stack(t_stk *stack)
