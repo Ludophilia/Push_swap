@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/08 19:18:25 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:49:46 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_stk	*mgr_stack_init(char name)
 	return (stack);
 }
 
-void mgr_stack_free(t_stk *stack)
+void	mgr_stack_free(t_stk *stack)
 {
 	ft_lstclear(stack->head, free);
 	free(stack->head);
@@ -75,29 +75,21 @@ t_list	*mgr_stack_pop(t_stk *stack)
 	return (node);
 }
 
-// Remove
 void	traverse_stack(t_stk *stack)
 {
 	t_list	*node;
 
 	ft_dprintf(2, "Name: stack %c; stack size: %i\n",
 		stack->name, stack->size);
+	if (stack->size == 0)
+	{
+		ft_printf("[empty]\n");
+		return ;
+	}
 	node = *stack->head;
 	while (node != NULL)
 	{
 		ft_dprintf(1, "%i\n", *(int *)node->content);
 		node = node->next;
 	}
-	// ft_dprintf(2, "\n");
-}
-
-int	pop_and_clean_stack(t_stk *stack)
-{
-	t_list	*popped_node;
-
-	popped_node = mgr_stack_pop(stack);
-	if (popped_node == NULL)
-		return (-1);
-	ft_lstdelone(popped_node, free);
-	return (0);
 }
