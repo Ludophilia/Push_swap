@@ -12,8 +12,9 @@
 - [x] Implement the basic operations of a stack: pop/push.
 - [x] Implement the basic operations that the push_swap game requires
 
-- [o] Implement the stack init from argv.
-	- [ ] Mind error cases 
+- [o] Implement the stack init from argv. Mind error cases...
+	- [x] 
+	- [ ]
 
 - [ ] Find if standard sorting algorithms (qsort, bsort...) works on those
 stacks

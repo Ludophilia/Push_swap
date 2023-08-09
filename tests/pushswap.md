@@ -163,6 +163,9 @@ A list comprised of 1 number
 
 ## Error cases
 
+No list:
+`./push_swap`
+
 A list comprised of non numbers:
 `./push_swap 1 2 trois 4 5`
 `./push_swap "" "" "" ""`
