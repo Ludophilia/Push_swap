@@ -6,13 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/09 13:49:46 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:39:03 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stackmgr.h"
 
-t_stk	*mgr_stack_init(char name)
+t_stk	*stkmgr_stack_init(char name)
 {
 	t_stk	*stack;
 	t_list	**head;
@@ -32,14 +32,14 @@ t_stk	*mgr_stack_init(char name)
 	return (stack);
 }
 
-void	mgr_stack_free(t_stk *stack)
+void	stkmgr_stack_free(t_stk *stack)
 {
 	ft_lstclear(stack->head, free);
 	free(stack->head);
 	free(stack);
 }
 
-t_list	**mgr_stack_push(int nb, t_stk *stack)
+t_list	**stkmgr_stack_push(int nb, t_stk *stack)
 {
 	t_list	*node;
 	int		*nb_store;
@@ -62,7 +62,7 @@ t_list	**mgr_stack_push(int nb, t_stk *stack)
 	return (stack->head);
 }
 
-t_list	*mgr_stack_pop(t_stk *stack)
+t_list	*stkmgr_stack_pop(t_stk *stack)
 {
 	t_list	*node;
 
@@ -89,7 +89,7 @@ void	traverse_stack(t_stk *stack)
 	node = *stack->head;
 	while (node != NULL)
 	{
-		ft_dprintf(1, "%i\n", *(int *)node->content);
+		ft_printf("%i\n", *(int *)node->content);
 		node = node->next;
 	}
 }

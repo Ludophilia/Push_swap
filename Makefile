@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/07 12:57:27 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/09 15:12:27 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ CFLAGS := -Wall -Wextra -Werror
 all: CFLAGS += -I$(INCL_DIRM)
 LIBFLAGS += -lft -L$(FT)
 
-SRCS := $(SRCS_DIRM)/push_swap.c
+SRCS := $(SRCS_DIRM)/main.c
+SRCS += $(SRCS_DIRM)/pushswap.c
 SRCS += $(SRCS_DIRM)/stackmgr.c
 
 OBJS := $(SRCS:.c=.o)
@@ -33,7 +34,8 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 
 $(OBJS): $(INCL_DIRM)/pusw_commons.h
-$(SRCS_DIRM)/push_swap.o: $(INCL_DIRM)/push_swap.h
+$(SRCS_DIRM)/main.o: $(INCL_DIRM)/main.h
+$(SRCS_DIRM)/pushswap.o: $(INCL_DIRM)/pushswap.h
 $(SRCS_DIRM)/stackmgr.o: $(INCL_DIRM)/stackmgr.h
 
 clean:

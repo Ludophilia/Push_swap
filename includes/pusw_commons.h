@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:56:09 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/07 17:30:41 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:16:25 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # define PUSW_COMMONS_H
 
 # include "../libs/libft/libft.h"
-# include <stdarg.h>
 
 typedef struct s_stk
 {
