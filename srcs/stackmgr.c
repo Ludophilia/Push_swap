@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/09 14:39:03 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/12 12:07:07 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,30 @@ t_list	*stkmgr_stack_pop(t_stk *stack)
 	return (node);
 }
 
-void	traverse_stack(t_stk *stack)
+int	stkmgr_stacks_fill(int size, int *cli_nbs, t_stk *stacks[3])
 {
-	t_list	*node;
+	int	i;
 
-	ft_dprintf(2, "Name: stack %c; stack size: %i\n",
-		stack->name, stack->size);
-	if (stack->size == 0)
+	ft_bzero(stacks, 3 * sizeof(t_stk *));
+	stacks[0] = stkmgr_stack_init('a');
+	if (stacks[0] == NULL)
+		return (-1);
+	stacks[1] = stkmgr_stack_init('b');
+	if (stacks[1] == NULL)
 	{
-		ft_printf("[empty]\n");
-		return ;
+		stkmgr_stack_free(stacks[0]);
+		return (-1);
 	}
-	node = *stack->head;
-	while (node != NULL)
+	i = size;
+	while (--i >= 0)
 	{
-		ft_printf("%i\n", *(int *)node->content);
-		node = node->next;
+		if (stkmgr_stack_push(cli_nbs[i], stacks[0]) == NULL)
+		{
+			free(cli_nbs);
+			stkmgr_stack_free(stacks[0]);
+			stkmgr_stack_free(stacks[1]);
+		}
 	}
+	free(cli_nbs);
+	return (0);
 }
