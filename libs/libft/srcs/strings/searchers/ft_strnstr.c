@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:44:51 by jgermany          #+#    #+#             */
-/*   Updated: 2022/12/17 01:17:17 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/12 13:48:37 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 			j++;
 		}
 		i++;
-	}		
+	}
 	return ((char *)0);
 }

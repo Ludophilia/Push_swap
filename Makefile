@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/12 12:58:57 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/12 14:52:15 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ OBJS := $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	make -C $(FT) all
 	make -C $(FT) bonus
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 

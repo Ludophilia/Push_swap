@@ -6,18 +6,18 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 13:02:44 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/04 18:16:43 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/12 13:46:18 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 				:= libft.a
 
+LIB 				:= ft
+INCDIR 				:= includes
+LIBDIR 				:= .
+
 CC 					:= cc
 CCFL 				:= -Wall -Wextra -Werror
-
-LIB 				:= ft
-INCDIR 				:= .
-LIBDIR 				:= .
 
 DIR_CHAR			:= ./srcs/characters
 DIR_FIL				:= ./srcs/files
@@ -27,7 +27,7 @@ DIR_STR				:= ./srcs/strings
 DIR_LST				:= ./srcs/lists
 DIR_PF				:= $(DIR_STR)/printers/ft_dprintf
 
-LFT_HDR				:= ./libft.h
+LFT_HDR				:= ./includes/libft.h
 
 SRCS_MAN			:= $(DIR_CHAR)/classifiers/ft_isalnum.c
 SRCS_MAN			+= $(DIR_CHAR)/classifiers/ft_isalpha.c
@@ -100,8 +100,8 @@ $(NAME): 			$(OBJS_MAN)
 					make -C $(DIR_PF)
 					$(AR) $(ARFLM) $@ $(OBJS_MAN)
 
-bonus: 				all $(OBJS_BON)
-					$(AR) $(ARFLB) $(NAME) $(OBJS_BON)
+bonus: 				$(OBJS_BON)
+					$(AR) $(ARFLB) $(NAME) $^
 
 %.o: 				%.c $(LFT_HDR)
 					$(CC) $(CCFL) -I$(INCDIR) -c $< -o $@

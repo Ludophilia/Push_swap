@@ -6,17 +6,18 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 14:16:47 by jgermany          #+#    #+#              #
-#    Updated: 2023/06/27 20:17:49 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/12 13:53:11 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 LFTDIR							:= ../../../..
+INCDIR							:= ../../../../includes
 
 NAME							:= $(LFTDIR)/libft.a
 
 CC								:= cc
 CFLAGS							:= -Wall -Wextra -Werror 
-CFLAGS							+= -I$(LFTDIR)
+CFLAGS							+= -I$(INCDIR)
 
 AR								:= ar
 ARFL							:= -rcs

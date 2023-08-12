@@ -6,13 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:51:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/09 14:58:02 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:49:19 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
+#ifndef PUSHSWAP_H
 
-# define PUSH_SWAP_H
+# define PUSHSWAP_H
 
 # include "pusw_commons.h"
 # include "stackmgr.h"

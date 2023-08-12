@@ -19,5 +19,4 @@ stacks
 	- [ ] If so, how to adapt them to the language pushswap if needed? Start
 	with a simple one to see.
 
-
 - [ ]  
