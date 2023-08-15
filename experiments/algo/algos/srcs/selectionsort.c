@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algos.h                                            :+:      :+:    :+:   */
+/*   selectionsort.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 21:03:09 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/15 19:48:32 by jgermany         ###   ########.fr       */
+/*   Created: 2023/08/15 19:27:49 by jgermany          #+#    #+#             */
+/*   Updated: 2023/08/15 19:29:56 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGOS_H
+#include "../includes/algos.h"
 
-# define ALGOS_H
+void	selection_sort(int *nbs, int size)
+{
+	int	ij[2];
+	int	smallest;
+	int	tmp;
 
-# include "../../../../libs/libft/includes/libft.h"
-
-int		*cli_init_arr_from_args(int argc, char **argv);
-void	cli_print_nbs(int *arr, int size);
-
-void	bubble_sort(int *nbs, int size);
-void	selection_sort(int *nbs, int size);
-
-#endif
+	ij[0] = -1;
+	while (++ij[0] < size)
+	{
+		ij[1] = -1 + ij[0];
+		smallest = ij[0];
+		while (++ij[1] < size)
+		{
+			if (nbs[ij[1]] < nbs[smallest])
+				smallest = ij[1];
+		}
+		tmp = nbs[ij[0]];
+		nbs[ij[0]] = nbs[smallest];
+		nbs[smallest] = tmp;
+	}
+}

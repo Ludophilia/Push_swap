@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algos.h                                            :+:      :+:    :+:   */
+/*   cli.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 21:03:09 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/15 19:48:32 by jgermany         ###   ########.fr       */
+/*   Created: 2023/08/15 13:34:35 by jgermany          #+#    #+#             */
+/*   Updated: 2023/08/15 19:48:43 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGOS_H
+#include "../includes/algos.h"
 
-# define ALGOS_H
+int	*cli_init_arr_from_args(int argc, char **argv)
+{
+	int	*nbs;
+	int	i;
 
-# include "../../../../libs/libft/includes/libft.h"
+	nbs = ft_calloc(argc, sizeof(int));
+	if (nbs == NULL)
+		return (NULL);
+	i = -1;
+	while (argv[++i])
+		nbs[i] = ft_atoi(argv[i]);
+	return (nbs);
+}
 
-int		*cli_init_arr_from_args(int argc, char **argv);
-void	cli_print_nbs(int *arr, int size);
+void	cli_print_nbs(int *arr, int size)
+{
+	int *start;
 
-void	bubble_sort(int *nbs, int size);
-void	selection_sort(int *nbs, int size);
-
-#endif
+	start = arr;
+	while ((arr - start) < size)
+		ft_printf("%i\n", *arr++);
+}

@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/02 17:34:56 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/14 21:21:41 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/15 19:38:36 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,21 +18,25 @@ FT_INCL_DIR := ../../../libs/libft/includes
 
 FT := ../../../libs/libft
 
-SRCS := $(SRCS_DIR)/algos.c
+SRCS := $(SRCS_DIR)/main.c
+SRCS += $(SRCS_DIR)/bubblesort.c
+SRCS += $(SRCS_DIR)/cli.c
+SRCS += $(SRCS_DIR)/selectionsort.c
+
 OBJS := $(SRCS:.c=.o)
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
-# CFLAGS += -I$(INCL_DIR) -I$(FT_INCL_DIR)
 LIBFLAGS := -lft -L$(FT)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(FT) all
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFLAGS)
 
-$(SRCS_DIR)/algos.o: $(INCL_DIR)/algos.h
+%.o: %.c $(INCL_DIR)/algos.h
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	make -C $(FT) clean
