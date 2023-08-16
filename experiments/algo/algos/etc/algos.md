@@ -26,4 +26,16 @@ position of the list.
 Each pass starts at the (pass)th position of the list as the (pass)th 
 leftmost positions are always sorted.
 
-# 
+# Insertion sort 
+
+Selection sort is a comparison algorithm too.
+
+On a list of size n, n passes are done.
+
+The size of the "sorted zone" increase by one at every pass. So at the first
+pass, only one element is touched, at the second, two elements... 
+
+During a pass, the rightmost element of the "sorted zone" is compared with the
+one that comes before. If the rightmost element is inferior, the twos are
+swapped. This operation is repeated until the first element of the list is
+eventually reached.
