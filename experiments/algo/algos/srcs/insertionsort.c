@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algos.h                                            :+:      :+:    :+:   */
+/*   insertionsort.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 21:03:09 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/16 16:52:40 by jgermany         ###   ########.fr       */
+/*   Created: 2023/08/16 16:27:39 by jgermany          #+#    #+#             */
+/*   Updated: 2023/08/16 16:53:08 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGOS_H
+#include "../includes/algos.h"
 
-# define ALGOS_H
+void insertion_sort(int *nbs, int size)
+{
+	int	ij[2];
+	int	tmp;
 
-# include "../../../../libs/libft/includes/libft.h"
-
-int		*cli_init_arr_from_args(int argc, char **argv);
-void	cli_print_nbs(int *arr, int size);
-
-void	bubble_sort(int *nbs, int size);
-void	selection_sort(int *nbs, int size);
-void 	insertion_sort(int *nbs, int size);
-
-#endif
+	ij[0] = -1;
+	while (++ij[0] < size)
+	{
+		ij[1] = ij[0] + 1;
+		while (--ij[1])
+		{
+			if (nbs[ij[1] - 1] > nbs[ij[1]])
+			{
+				tmp = nbs[ij[1] - 1];
+				nbs[ij[1] - 1] = nbs[ij[1]];
+				nbs[ij[1]] = tmp;
+			}
+		}
+	}
+}
