@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:49:52 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/16 22:04:45 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:25:35 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,70 @@
 // element in the right sub, element of right sub is picked first, else
 // the left sub element is picked.
 
-// if there is more than 2 elements, although,  When one element is chosen, the
-// pointer move to the next element and does a new comparison...
+// When one element is picked, the pointer move to the next element and
+// a new comparison is made...
 
-void	merge_sort(int *nbs, int size)
+// merge frees the array passed to it and create a new one. There is no
+// other way of doing anyway.
+
+int	*merge_nbs(int *lnbs, int lsize, int *rnbs, int rsize)
 {
-	if (size > 1)
+	int	*merged;
+	int ijk[3];
+
+	merged = ft_calloc(lsize + rsize, sizeof(int));
+	if (merged == NULL)
+		return (NULL);
+	*(long *)&ijk = 0;
+	ijk[2] = -1;
+	while (++ijk[2] < lsize + rsize)
 	{
-		// size: 2 ; size 1/2: 1
-		// size: 3 ; size 1/2: 1 ; size 2/2: (size - size 1/2)
-		merge_sort(nbs)
+		// How can mark that a value has been already selected?
+		// loverflow and roverflow at 1. If it has overflown, loverflow or 
+		// roverflow will prevent the value being chosen again...
+		if (lnbs[ijk[0]] < rnbs[ijk[1]])
+		{
+			merged[ijk[2]] = lnbs[ijk[0]];
+			if (ijk[0] < lsize)
+				++ijk[0];
+		}
+		else if (rnbs[ijk[1]] < lnbs[ijk[0]])
+		{
+			merged[ijk[2]] = rnbs[ijk[1]];
+			if (ijk[1] < rsize)
+				++ijk[1];
+		}
 	}
+	free(lnbs);
+	free(rnbs);
+	return (merged);
+}
+
+int	*merge_sort(int *nbs, int size)
+{
+	int	*sorted;
+	int	*tmp;
+	int	i;	
+
+	if (!nbs || size < 1)
+		return (NULL);
+	sorted = ft_calloc(size, sizeof(int));
+	if (sorted == NULL)
+		return (NULL);
+	i = -1;
+	while (++i < size)
+		sorted = nbs[i];
+	if (size >= 2)
+	{
+		tmp = sorted;
+		sorted = merge_nbs(merge_sort(sorted, size / 2),
+			size / 2,
+			merge_sort(sorted + size / 2, size - (size / 2)),
+			size - (size / 2));
+		free(tmp);
+		return (sorted); // merge(merge_sort(), merge_sort())
+	}
+	return (sorted); // base case, arr of size 1.
 }
 
 
