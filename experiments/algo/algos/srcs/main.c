@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:49:52 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/18 21:04:02 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/18 22:33:21 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,26 @@
 // 14/08 - What to do? Implement base algorithms...
 
 // Let's continue with radix sort. The last one will be quicksort.
+
+// Radix sort.
+
+// A non comparative (What does this mean ?) sorting algorithm...
+// ...that sorts numbers according to the value of their significant digits,
+
+// For each "level" of significant digit (e.g. LSD: from the one that worth
+// 10**0 to the one that worth 10**n, iteratively)
+
+// The numbers are reordered following the digit hierarchy within that base.
+
+// Example.
+
+// 0 10 555 1 68 69
+
+// 0 10 1 555 68 69 [10**0] 
+// 0 1 10 555 68 69 [10**1]
+// 0 1 10 68 69 555 [10**2]
+
+// (how to sort negative numbers?)
 
 int	main(int argc, char **argv)
 {
