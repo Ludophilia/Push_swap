@@ -6,13 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 16:27:39 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/16 16:53:08 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/18 20:16:15 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/algos.h"
 
-void insertion_sort(int *nbs, int size)
+void	insertion_sort(int *nbs, int size)
 {
 	int	ij[2];
 	int	tmp;

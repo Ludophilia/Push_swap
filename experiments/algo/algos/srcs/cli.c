@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 13:34:35 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/15 19:48:43 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/18 20:16:00 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	*cli_init_arr_from_args(int argc, char **argv)
 
 void	cli_print_nbs(int *arr, int size)
 {
-	int *start;
+	int	*start;
 
 	start = arr;
 	while ((arr - start) < size)

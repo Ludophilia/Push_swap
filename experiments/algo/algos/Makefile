@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/02 17:34:56 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/16 16:52:59 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/18 20:19:46 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS += $(SRCS_DIR)/bubblesort.c
 SRCS += $(SRCS_DIR)/cli.c
 SRCS += $(SRCS_DIR)/selectionsort.c
 SRCS += $(SRCS_DIR)/insertionsort.c
+SRCS += $(SRCS_DIR)/mergesort.c
 
 OBJS := $(SRCS:.c=.o)
 
