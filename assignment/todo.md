@@ -18,7 +18,7 @@
 - [o] Familiarize yourself with the standard sorting algorithms: bubble sort,
 selection sort, insertion sort, heapsort, quick sort, merge sort... Learn 
 about their principe, their complexity, and so one...
-- [ ] Implement most of these algorithms to deepen your understanding
+- [o] Implement most of these algorithms to deepen your understanding
 - [ ] Now that you have implemented them and understand them better, do you
 have any idea about which one to choose and how to adapt it to the language
 pushswap? Some ideas and observations: 

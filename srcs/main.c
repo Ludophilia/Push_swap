@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/12 13:24:29 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/22 22:40:57 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	tmp_traverse_stack(t_stk *stack)
 	}
 }
 
+// 19/08 - What to do?
+// I've work on different algorithms the last 5 days (insertion, bubble,
+// selection, mergesort...)...
+
+// The goal is simple. Find HOW to adapt those algorithms to a stack data
+// structure
 int	main(int argc, char **argv)
 {
 	t_stk	*stacks[3];
