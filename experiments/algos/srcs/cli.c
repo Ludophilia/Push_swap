@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 13:34:35 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/18 20:16:00 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/27 17:56:43 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	cli_print_nbs(int *arr, int size)
 	int	*start;
 
 	start = arr;
+	ft_printf("Sorted numbers:\n");
 	while ((arr - start) < size)
 		ft_printf("%i\n", *arr++);
 }

@@ -15,9 +15,8 @@ The limits varies according to the stack initial size:
 
 # Bucket sort presentation
 
-[24/08 - edit please]
-
 A sorting algorithm that relies on "buckets" to sort data.
+
 A bucket is a buffer (list, linked list...) that stores elements that 
 are within a certain interval. (ex: 0-9, 10-19, 20-29...) 
 

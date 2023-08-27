@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algos.h                                            :+:      :+:    :+:   */
+/*   bucketsort.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 21:03:09 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/27 23:21:52 by jgermany         ###   ########.fr       */
+/*   Created: 2023/08/27 23:12:30 by jgermany          #+#    #+#             */
+/*   Updated: 2023/08/27 23:19:10 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALGOS_H
+#ifndef BUCKETSORT_H
 
-# define ALGOS_H
+# define BUCKETSORT_H
 
 # include "../../../libs/libft/includes/libft.h"
-# include <stdio.h>
+# include "../includes/algos.h"
 
-int		*cli_init_arr_from_args(int argc, char **argv);
-void	cli_print_nbs(int *arr, int size);
-
-void	bubble_sort(int *nbs, int size);
-void	selection_sort(int *nbs, int size);
-void	insertion_sort(int *nbs, int size);
-
-int		*merge_sort(int *nbs, int size);
-int		*stable_counting_sort(int *nbs, int size);
-int		*bucket_sort(int *nbs, int size);
+void	print_bucket(t_list *bucket, int number);
+int		get_size_freq_arr2(int *nbs, int size);
+void	free_buckets(t_list ***buckets, int buck_size);
 
 #endif
