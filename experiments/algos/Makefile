@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/02 17:34:56 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/27 23:03:26 by jgermany         ###   ########.fr        #
+#    Updated: 2023/08/28 14:24:06 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,14 +41,14 @@ $(NAME): $(OBJS)
 	make -C $(FT) bonus
 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFLAGS)
 
-%.o: %.c $(INCL_DIR)/algos.h
+%.o: %.c $(INCL_DIR)/algos.h $(INCL_DIR)/bucketsort.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	make -C $(FT) clean
 	rm -f $(OBJS)
 
-fclean:
+fclean: clean
 	make -C $(FT) fclean
 	rm -f $(NAME)
 

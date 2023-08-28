@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 23:03:58 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/27 23:16:43 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/08/28 14:28:54 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	print_bucket(t_list *bucket, int number)
 	printf("\n");
 }
 
-int	get_size_freq_arr2(int *nbs, int size)
+int	get_nbs_per_bucket(int *nbs, int size)
 {
-	int	max;
-	int	i;
+	long	max;
+	int		i;
+	int 	nbs_per_bucket;
 
 	i = -1;
 	max = 0;
@@ -42,7 +43,9 @@ int	get_size_freq_arr2(int *nbs, int size)
 		if (nbs[i] > max)
 			max = nbs[i];
 	}
-	return (max);
+	max += 1;
+	nbs_per_bucket = (max / BUCKET_SIZE) + 1;
+	return (nbs_per_bucket);
 }
 
 void	free_buckets(t_list ***buckets, int buck_size)
