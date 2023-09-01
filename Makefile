@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/09/01 15:46:31 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/01 18:14:11 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ LIBFLAGS += -lft -L$(FT)
 SRCS := $(SRCS_DIRM)/main.c
 SRCS += $(SRCS_DIRM)/pushswap.c
 SRCS += $(SRCS_DIRM)/stackmgr.c
+SRCS += $(SRCS_DIRM)/stackmgr_utils.c
 SRCS += $(SRCS_DIRM)/climgr.c
 SRCS += $(SRCS_DIRM)/climgr_utils.c
 

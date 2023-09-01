@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/12 12:07:07 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:38:20 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_stk	*stkmgr_stack_init(char name)
 	stack = ft_calloc(1, sizeof(t_stk));
 	if (stack == NULL)
 		return (NULL);
-	head = ft_calloc(1, sizeof(head));
+	head = ft_calloc(1, sizeof(t_list *));
 	if (head == NULL)
 	{
 		free(stack);
@@ -30,13 +30,6 @@ t_stk	*stkmgr_stack_init(char name)
 	stack->head = head;
 	stack->size = 0;
 	return (stack);
-}
-
-void	stkmgr_stack_free(t_stk *stack)
-{
-	ft_lstclear(stack->head, free);
-	free(stack->head);
-	free(stack);
 }
 
 t_list	**stkmgr_stack_push(int nb, t_stk *stack)

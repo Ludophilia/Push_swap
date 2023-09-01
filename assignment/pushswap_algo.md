@@ -1,5 +1,41 @@
 # Push Swap - The Algorithm Problem
 
+# What is this ?
+
+`./push_swap <integers>`
+
+push_swap is a program which takes as arguments a list of integers, ordered
+or not.
+
+Those args are then stored on a stack `a` with the first arg is on top, last
+arg is on the bottom, and sorted with the help of a second stack `b`.
+
+The algorithm used to sort the stack `a` should exclusively use the following
+instructions:
+
+- push instructions: `pa`, `pb`
+- swap instructions: `sa`, `sb`, `ss`
+- rotate instructions: `ra`, `rb`, `rr`
+- reverse rotate instructions: `rra`, `rrb`, `rrr`
+
+The instructions used to sort the stack `a` filled with the `<integers>` will
+be printed on stdout.
+Beware the stack should be sorted in less than 8 instructions (12 in 
+the assignment) whatever its content.
+
+# Project Presentation
+
+Push swap is an algorithmic project whose goal is to sort a stack of ints
+[a] using and auxilliary stack [b] and a limited number of push_swap
+instructions.
+
+The limits varies according to the stack initial size:
+
+- 3 numbers -> 3 instructions max.
+- 5 numbers -> 12 instructions max.
+- 100 numbers -> 700 instructions max.
+- 500 numbers -> 5500 instructions max.
+
 ## Optimization techniques
 
 - A different aglo for sorting 3, 5, 100 and 500 numbers?
@@ -38,7 +74,7 @@ limitations while computing the cheapest move by example.
 
 PROPOSITION 1
 
-- Do nothing is the stack is already sorted.
+- Do nothing if the stack is already sorted.
 
 - A custom algo for 3 nbs. 3 instructions max.
 
