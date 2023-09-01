@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/12 14:52:15 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/01 15:46:31 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS := $(SRCS_DIRM)/main.c
 SRCS += $(SRCS_DIRM)/pushswap.c
 SRCS += $(SRCS_DIRM)/stackmgr.c
 SRCS += $(SRCS_DIRM)/climgr.c
+SRCS += $(SRCS_DIRM)/climgr_utils.c
 
 OBJS := $(SRCS:.c=.o)
 
@@ -40,6 +41,7 @@ $(SRCS_DIRM)/main.o: $(INCL_DIRM)/main.h
 $(SRCS_DIRM)/pushswap.o: $(INCL_DIRM)/pushswap.h
 $(SRCS_DIRM)/stackmgr.o: $(INCL_DIRM)/stackmgr.h
 $(SRCS_DIRM)/climgr.o: $(INCL_DIRM)/climgr.h
+$(SRCS_DIRM)/climgr_utils.o: $(INCL_DIRM)/climgr.h
 
 clean:
 	make -C $(FT) clean

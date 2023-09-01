@@ -26,6 +26,7 @@ pushswap? Some ideas and observations:
 	- swapping is done with swap instruction.
 	- prefer O(1) to O(n) to O(n * logn)...
 
-# 
+# ????
 
-- [ ] ???
+- [x] Implement a method to substitute every nb in the stack by their rank.
+[214, 3, -42] should become [2, 1, 0]...

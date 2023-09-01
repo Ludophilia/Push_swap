@@ -6,38 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/12 13:39:44 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:05:49 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "climgr.h"
 
-static long	cli_atol(char *str)
-{
-	long	res;
-	int		sign;
-	int		i;
-
-	i = 0;
-	res = 0;
-	sign = 1;
-	while (str[i] >= '\t' && str[i] <= '\r')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = 10 * res + (str[i] - '0');
-		i++;
-	}
-	return (sign * res);
-}
-
-int	cli_check_if_full_digits(char **args)
+static int	cli_check_if_full_digits(char **args)
 {
 	int		ij[2];
 	char	*arg;
@@ -61,7 +36,7 @@ int	cli_check_if_full_digits(char **args)
 	return (0);
 }
 
-int	*cli_integerize_args(int argc, char **argv)
+static int	*cli_integerize_args(int argc, char **argv)
 {
 	int		*nbs;
 	int		ij[2];
@@ -88,6 +63,35 @@ int	*cli_integerize_args(int argc, char **argv)
 	return (nbs);
 }
 
+static int	*cli_substitute_nbs_by_rank(int *nbs, int size)
+{
+	int	ijk[3];
+	int	min[2];
+	int	*subt_nbs_tmp[2];
+
+	if (cli_set_subt_nbs(subt_nbs_tmp, ijk, nbs, size) == -1)
+		return (NULL);
+	while (++ijk[0] < size)
+	{
+		ijk[1] = -1;
+		*(long *)min = 0x7FFFFFFF;
+		while (++ijk[1] < size)
+		{
+			if (nbs[ijk[1]] <= min[0] && !cli_is_nb_in_nbs(
+					nbs[ijk[1]], subt_nbs_tmp[1], ijk[0]))
+			{
+				min[0] = nbs[ijk[1]];
+				min[1] = ijk[1];
+			}
+		}
+		subt_nbs_tmp[1][ijk[2]] = min[0];
+		subt_nbs_tmp[0][min[1]] = ijk[2]++;
+	}
+	free(nbs);
+	free(subt_nbs_tmp[1]);
+	return (*subt_nbs_tmp);
+}
+
 int	cli_project_init(int argc, char **argv, t_stk *stacks[3])
 {
 	int	*cli_nbs;
@@ -99,6 +103,9 @@ int	cli_project_init(int argc, char **argv, t_stk *stacks[3])
 	if (cli_check_if_full_digits(argv) == -1)
 		return (-1);
 	cli_nbs = cli_integerize_args(argc, argv);
+	if (cli_nbs == NULL)
+		return (-1);
+	cli_nbs = cli_substitute_nbs_by_rank(cli_nbs, argc);
 	if (cli_nbs == NULL)
 		return (-1);
 	if (stkmgr_stacks_fill(argc, cli_nbs, stacks) == -1)
