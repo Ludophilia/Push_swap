@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/01 20:29:38 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/02 21:22:10 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,16 @@ void	tmp_traverse_stack(t_stk *stack)
 	}
 }
 
-// 31/08 - I want a vizualizer and a tester. 
+// 2/09 - I want a vizualizer and a tester.
+
+// I need:
+// - A linked list to write the instructions
+// - Something to init it.
+// - To mod every method.
 int	main(int argc, char **argv)
 {
 	t_stk	*stacks[3];
+	t_list	*instr_head[1];
 	int		init_status;
 
 	init_status = cli_project_init(argc, argv, stacks);
@@ -50,5 +56,6 @@ int	main(int argc, char **argv)
 	tmp_traverse_stack(stacks[1]);
 	stkmgr_stack_free(stacks[0]);
 	stkmgr_stack_free(stacks[1]);
+	ft_lstclear(instr_head, free);
 	return (0);
 }

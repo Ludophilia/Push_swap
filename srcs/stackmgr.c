@@ -6,13 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/01 19:38:20 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:16:43 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stackmgr.h"
 
-t_stk	*stkmgr_stack_init(char name)
+t_stk	*stkmgr_stack_init(char *name)
 {
 	t_stk	*stack;
 	t_list	**head;
@@ -73,10 +73,10 @@ int	stkmgr_stacks_fill(int size, int *cli_nbs, t_stk *stacks[3])
 	int	i;
 
 	ft_bzero(stacks, 3 * sizeof(t_stk *));
-	stacks[0] = stkmgr_stack_init('a');
+	stacks[0] = stkmgr_stack_init("a");
 	if (stacks[0] == NULL)
 		return (-1);
-	stacks[1] = stkmgr_stack_init('b');
+	stacks[1] = stkmgr_stack_init("b");
 	if (stacks[1] == NULL)
 	{
 		stkmgr_stack_free(stacks[0]);

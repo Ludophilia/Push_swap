@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:56:09 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/01 20:28:10 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:16:05 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct s_stk
 {
-	char	name;
+	char	*name;
 	t_list	**head;
 	int		size;
 }	t_stk;

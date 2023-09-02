@@ -22,9 +22,9 @@ about their principe, their complexity, and so one...
 - [x] Now that you have implemented them and understand them better, do you
 have any idea about which one to choose and how to adapt it to the language
 pushswap? Some ideas and observations: 
-	- iteration is done with (rotate/rev rotate) instructions and stack size.
-	- swapping is done with swap instruction.
-	- prefer O(1) to O(n) to O(n * logn)...
+	- Iteration is done with (rotate/rev rotate) instructions and stack size.
+	- Swapping is done with swap instruction.
+	- Prefer O(1) to O(n) to O(n * logn)...
 
 # ????
 

@@ -6,24 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/08/09 15:08:31 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/02 21:31:17 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-static t_list	*lstseclast(t_list *lst)
-{
-	while (lst)
-	{
-		if (lst->next != NULL && lst->next->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (NULL);
-}
-
-void	pusw_rev_rotate(t_stk *stack0, t_stk *stack1)
+int	pusw_rev_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 {
 	t_stk	**stacks;
 	t_list	*nodes[2];
@@ -35,7 +24,7 @@ void	pusw_rev_rotate(t_stk *stack0, t_stk *stack1)
 	{
 		if (stacks[i]->size > 1)
 		{
-			nodes[0] = lstseclast(*stacks[i]->head);
+			nodes[0] = pusw_lstseclast(*stacks[i]->head);
 			nodes[1] = ft_lstlast(*stacks[i]->head);
 			nodes[1]->next = *stacks[i]->head;
 			*stacks[i]->head = nodes[1];
@@ -44,15 +33,12 @@ void	pusw_rev_rotate(t_stk *stack0, t_stk *stack1)
 		else
 			stacks[i] = 0;
 	}
-	if (stacks[0] && !stacks[1])
-		ft_printf("rr%c\n", stack0->name);
-	else if (!stacks[0] && stacks[1])
-		ft_printf("rr%c\n", stack1->name);
-	else if (stacks[0] && stacks[1])
-		ft_printf("rrr\n");
+	if (pusw_deter_instr("rr", stacks[0], stacks[1], instr_head) == -1)
+		return (-1);
+	return (0);
 }
 
-void	pusw_rotate(t_stk *stack0, t_stk *stack1)
+int	pusw_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 {
 	t_stk	**stacks;
 	t_list	*nodes[2];
@@ -73,30 +59,29 @@ void	pusw_rotate(t_stk *stack0, t_stk *stack1)
 		else
 			stacks[i] = 0;
 	}
-	if (stacks[0] && !stacks[1])
-		ft_printf("r%c\n", stack0->name);
-	else if (!stacks[0] && stacks[1])
-		ft_printf("r%c\n", stack1->name);
-	else if (stacks[0] && stacks[1])
-		ft_printf("rr\n");
+	if (pusw_deter_instr("r", stacks[0], stacks[1], instr_head) == -1)
+		return (-1);
+	return (0);
 }
 
-void	pusw_push(t_stk *from_stack, t_stk *to_stack)
+int	pusw_push(t_stk *from_stack, t_stk *to_stack, t_list **instr_head)
 {
 	t_list	*from_node;
 
 	from_node = stkmgr_stack_pop(from_stack);
 	if (from_node == NULL)
-		return ;
+		return (-1);
 	if (to_stack->head == NULL)
 		*to_stack->head = from_node;
 	else
 		ft_lstadd_front(to_stack->head, from_node);
-	ft_printf("p%c\n", to_stack->name);
 	to_stack->size++;
+	if (pusw_store_instr("p", to_stack->name, instr_head) == -1)
+		return (-1);
+	return (0);
 }
 
-void	pusw_swap(t_stk *stack0, t_stk *stack1)
+int	pusw_swap(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 {
 	t_stk	**stacks;
 	t_list	*nodes[2];
@@ -117,10 +102,7 @@ void	pusw_swap(t_stk *stack0, t_stk *stack1)
 		else
 			stacks[i] = 0;
 	}
-	if (stacks[0] && !stacks[1])
-		ft_printf("s%c\n", stack0->name);
-	else if (!stacks[0] && stacks[1])
-		ft_printf("s%c\n", stack1->name);
-	else if (stacks[0] && stacks[1])
-		ft_printf("ss\n");
+	if (pusw_deter_instr("s", stacks[0], stacks[1], instr_head) == -1)
+		return (-1);
+	return (0);
 }
