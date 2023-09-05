@@ -6,14 +6,14 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/05 17:28:20 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:25:25 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include "stackmgr.h"
 
-void	tmp_traverse_stack(t_stk *stack)
+static void	tmp_traverse_stack(t_stk *stack)
 {
 	t_list	*node;
 
@@ -32,19 +32,26 @@ void	tmp_traverse_stack(t_stk *stack)
 	}
 }
 
-// 2/09 - I want a vizualizer and a tester.
+static void	tmp_traverse_instructions(t_list *start)
+{
+	ft_printf("Instructions:\n");
+	if (start == NULL)
+		ft_printf("[empty]\n");
+	while (start)
+	{
+		ft_printf("(%s)\n", (char *)start->content);
+		start = start->next;
+	}
+}
 
-// I need:
-// - A linked list to write the instructions
-// - Something to init it.
-// - To mod every method.
+// 2/09 - I want a vizualizer and a tester.
 int	main(int argc, char **argv)
 {
 	t_stk	*stacks[3];
-	// t_list	*instr_head[1];
+	t_list	*instr_head[1];
 	int		init_status;
 
-	init_status = cli_project_init(argc, argv, stacks);
+	init_status = cli_project_init(argc, argv, stacks, instr_head);
 	if (init_status == 0)
 		return (0);
 	if (init_status == -1)
@@ -54,10 +61,24 @@ int	main(int argc, char **argv)
 	}
 	tmp_traverse_stack(stacks[0]);
 	tmp_traverse_stack(stacks[1]);
-
-	
+	game_push(stacks[0], stacks[1], instr_head);
+	game_push(stacks[0], stacks[1], instr_head);
+	game_swap(stacks[1], 0, instr_head);
+	game_swap(stacks[0], 0, instr_head);
+	game_swap(stacks[0], stacks[1], instr_head);
+	game_rotate(stacks[1], 0, instr_head);
+	game_rotate(stacks[0], 0, instr_head);
+	game_rotate(stacks[0], stacks[1], instr_head);
+	game_rev_rotate(stacks[1], 0, instr_head);
+	game_rev_rotate(stacks[0], 0, instr_head);
+	game_rev_rotate(stacks[0], stacks[1], instr_head);	
+	game_push(stacks[1], stacks[0], instr_head);
+	game_push(stacks[1], stacks[0], instr_head);
+	tmp_traverse_instructions(*instr_head);
+	tmp_traverse_stack(stacks[0]);
+	tmp_traverse_stack(stacks[1]);
 	stkmgr_stack_free(stacks[0]);
 	stkmgr_stack_free(stacks[1]);
-	// ft_lstclear(instr_head, free);
+	ft_lstclear(instr_head, free);
 	return (0);
 }
