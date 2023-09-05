@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pusw_commons.h                                     :+:      :+:    :+:   */
+/*   pushswap_commons.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:56:09 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/02 17:16:05 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:08:04 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSW_COMMONS_H
+#ifndef PUSHSWAP_COMMONS_H
 
-# define PUSW_COMMONS_H
+# define PUSHSWAP_COMMONS_H
 
 # include "../libs/libft/includes/libft.h"
 # include <limits.h>

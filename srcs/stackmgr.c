@@ -6,31 +6,11 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/02 17:16:43 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:51:35 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stackmgr.h"
-
-t_stk	*stkmgr_stack_init(char *name)
-{
-	t_stk	*stack;
-	t_list	**head;
-
-	stack = ft_calloc(1, sizeof(t_stk));
-	if (stack == NULL)
-		return (NULL);
-	head = ft_calloc(1, sizeof(t_list *));
-	if (head == NULL)
-	{
-		free(stack);
-		return (NULL);
-	}
-	stack->name = name;
-	stack->head = head;
-	stack->size = 0;
-	return (stack);
-}
 
 t_list	**stkmgr_stack_push(int nb, t_stk *stack)
 {
@@ -68,7 +48,27 @@ t_list	*stkmgr_stack_pop(t_stk *stack)
 	return (node);
 }
 
-int	stkmgr_stacks_fill(int size, int *cli_nbs, t_stk *stacks[3])
+t_stk	*stkmgr_stack_init(char *name)
+{
+	t_stk	*stack;
+	t_list	**head;
+
+	stack = ft_calloc(1, sizeof(t_stk));
+	if (stack == NULL)
+		return (NULL);
+	head = ft_calloc(1, sizeof(t_list *));
+	if (head == NULL)
+	{
+		free(stack);
+		return (NULL);
+	}
+	stack->name = name;
+	stack->head = head;
+	stack->size = 0;
+	return (stack);
+}
+
+int	stkmgr_stacks_init(int size, int *cli_nbs, t_stk *stacks[3])
 {
 	int	i;
 
@@ -90,6 +90,7 @@ int	stkmgr_stacks_fill(int size, int *cli_nbs, t_stk *stacks[3])
 			free(cli_nbs);
 			stkmgr_stack_free(stacks[0]);
 			stkmgr_stack_free(stacks[1]);
+			return (-1);
 		}
 	}
 	free(cli_nbs);

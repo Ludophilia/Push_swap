@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/02 16:36:36 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:39:46 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	cli_project_init(int argc, char **argv, t_stk *stacks[3])
 	cli_nbs = cli_substitute_nbs_by_rank(cli_nbs, argc);
 	if (cli_nbs == NULL)
 		return (-1);
-	if (stkmgr_stacks_fill(argc, cli_nbs, stacks) == -1)
+	if (stkmgr_stacks_init(argc, cli_nbs, stacks) == -1)
 		return (-1);
 	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/09/02 21:17:22 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/05 18:16:44 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ all: CFLAGS += -I$(INCL_DIRM)
 LIBFLAGS += -lft -L$(FT)
 
 SRCS := $(SRCS_DIRM)/main.c
-SRCS += $(SRCS_DIRM)/pushswap.c
-SRCS += $(SRCS_DIRM)/pushswap_utils.c
+SRCS += $(SRCS_DIRM)/gamemgr.c
+SRCS += $(SRCS_DIRM)/gamemgr_utils.c
 SRCS += $(SRCS_DIRM)/stackmgr.c
 SRCS += $(SRCS_DIRM)/stackmgr_utils.c
 SRCS += $(SRCS_DIRM)/climgr.c
@@ -38,13 +38,14 @@ $(NAME): $(OBJS)
 	make -C $(FT) bonus
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 
-$(OBJS): $(INCL_DIRM)/pusw_commons.h
-$(SRCS_DIRM)/main.o: $(INCL_DIRM)/main.h
-$(SRCS_DIRM)/pushswap.o: $(INCL_DIRM)/pushswap.h
-$(SRCS_DIRM)/pushswap_utils.o: $(INCL_DIRM)/pushswap.h
-$(SRCS_DIRM)/stackmgr.o: $(INCL_DIRM)/stackmgr.h
-$(SRCS_DIRM)/climgr.o: $(INCL_DIRM)/climgr.h
-$(SRCS_DIRM)/climgr_utils.o: $(INCL_DIRM)/climgr.h
+%.o:							$(INCL_DIRM)/pushswap_commons.h
+$(SRCS_DIRM)/climgr_utils.o: 	$(INCL_DIRM)/climgr.h
+$(SRCS_DIRM)/climgr.o: 			$(INCL_DIRM)/climgr.h
+$(SRCS_DIRM)/gamemgr_utils.o: 	$(INCL_DIRM)/gamemgr.h
+$(SRCS_DIRM)/gamemgr.o: 		$(INCL_DIRM)/gamemgr.h
+$(SRCS_DIRM)/main.o:			$(INCL_DIRM)/main.h
+$(SRCS_DIRM)/stackmgr_utils.o:	$(INCL_DIRM)/stackmgr.h
+$(SRCS_DIRM)/stackmgr.o:		$(INCL_DIRM)/stackmgr.h
 
 clean:
 	make -C $(FT) clean
