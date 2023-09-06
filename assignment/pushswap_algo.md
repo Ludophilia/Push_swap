@@ -70,7 +70,35 @@ limitations while computing the cheapest move by example.
 
 - Check what if the stack is already sorted. Do nothing in this case...
 
-## Algorithmic candidates
+## Algorithmic candidates - 3 numbers
+
+### Goal
+
+3 numbers in less than 3 instructions
+-> target: 012
+
+### Cases
+
+3 permutations of 3 numbers, so 6 possibilities
+
+0 1 2 // [Already sorted] (min mid max)
+0 2 1 // rra sa (min max mid)
+
+1 2 0 // rra (mid max min)
+1 0 2 // sa (mid min max)
+
+2 0 1 // ra (max min mid)
+2 1 0 // sa rra (max mid min)
+
+### Logic
+
+What should be used for the logic?
+
+- Check min, max, mid.
+- Do a different thing according to the position of min/max in
+stack.
+
+## Algorithmic candidates - 100/500 numbers
 
 PROPOSITION 1
 

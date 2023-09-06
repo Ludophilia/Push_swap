@@ -31,11 +31,17 @@ pushswap? Some ideas and observations:
 - [x] Implement a method to substitute every nb in the stack by their rank.
 [214, 3, -42] should become [2, 1, 0]...
 
-- [ ] Change the way the instructions are printed on stdout. 
-	- [ ] Create a linked list responsible of storing those instructions
+- [x] Change the way the instructions are printed on stdout. 
+	- [x] Create a linked list responsible of storing those instructions
 
 - [x] Implement a is_sorted method.
 
 - [ ] Create an algorithm for storing 3 numbers... in less than 3 instructions.
 
 - [ ] Create an algorithm for storing 5 numbers... in less than 12 instructions.
+
+- [ ] Create an algorithm for storing 100 numbers... in less than 700
+instructions.
+
+- [ ] Create an algorithm for storing 500 numbers... in less than 5500
+instructions.
