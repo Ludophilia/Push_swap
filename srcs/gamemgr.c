@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/05 17:59:09 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:02:01 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ int	game_swap(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 		else
 			stacks[i] = 0;
 	}
-	if (game_choose_instr("s", stacks[0], stacks[1], instr_head) == -1)
-		return (-1);
+	if (stacks[0] || stacks[1])
+	{
+		if (game_choose_instr("s", stacks[0], stacks[1], instr_head) == -1)
+			return (-1);
+	}
 	return (0);
 }
 
@@ -76,8 +79,11 @@ int	game_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 		else
 			stacks[i] = 0;
 	}
-	if (game_choose_instr("r", stacks[0], stacks[1], instr_head) == -1)
-		return (-1);
+	if (stacks[0] || stacks[1])
+	{
+		if (game_choose_instr("r", stacks[0], stacks[1], instr_head) == -1)
+			return (-1);
+	}
 	return (0);
 }
 
@@ -102,7 +108,10 @@ int	game_rev_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 		else
 			stacks[i] = 0;
 	}
-	if (game_choose_instr("rr", stacks[0], stacks[1], instr_head) == -1)
-		return (-1);
+	if (stacks[0] || stacks[1])
+	{
+		if (game_choose_instr("rr", stacks[0], stacks[1], instr_head) == -1)
+			return (-1);
+	}
 	return (0);
 }
