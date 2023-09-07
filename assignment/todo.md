@@ -42,6 +42,8 @@ pushswap? Some ideas and observations:
 
 - [ ] Create an algorithm for sorting 5 numbers... in less than 12 instructions.
 
+- [ ] Manage the case 4 numbers. (Because it will happen too.)
+
 - [ ] Create an algorithm for sorting 100 numbers... in less than 700
 instructions.
 

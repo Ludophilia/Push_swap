@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/07 13:17:14 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:50:16 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static void	tmp_traverse_instructions(t_list *start)
 		start = start->next;
 	}
 }
+
+// 5 nbs... 
+
 
 // 6/09 - I still want a vizualizer and a tester.
 // 7/09 - This thing has to be tested...

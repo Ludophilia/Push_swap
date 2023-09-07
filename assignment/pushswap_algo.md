@@ -70,7 +70,7 @@ limitations while computing the cheapest move by example.
 
 - Check what if the stack is already sorted. Do nothing in this case...
 
-## Algorithmic candidates - 2 numbers
+## Algorithmic candidate - 2 numbers
 
 ### Goal
 
@@ -84,8 +84,7 @@ limitations while computing the cheapest move by example.
 0 1 // [Already sorted] (min max)
 1 0 // sa (max min)
 
-
-## Algorithmic candidates - 3 numbers
+## Algorithmic candidate - 3 numbers
 
 ### Goal
 
@@ -112,6 +111,60 @@ What should be used for the logic?
 - Check min, max, mid.
 - Do a different thing according to the position of min/max in
 stack.
+
+## Algorithmic candidate - 5 numbers
+
+### Goal
+
+5 numbers in less than 12 instructions
+-> target: 0 1 2 3 4
+
+### Cases
+
+5 permutations of 5 numbers, so 120 possibilities (oof)
+
+1 2 3 4 5 (sorted)
+1 2 3 5 4
+
+1 2 4 3 5
+1 2 4 5 3
+
+1 2 5 4 3
+1 2 5 3 4
+
+2 1 3 4 5
+2 1 3 5 4
+
+2 1 4 3 5
+2 1 4 5 3
+
+2 1 5 4 3
+2 1 5 3 4
+
+(...) (I won't list them all, you serious or what?)
+
+### Logic
+
+[a] 4 3 2 1 5 [b] *
+
+- push 2 nbs out of stack a
+-> [a] 2 1 5 [b] 3 4
+(pa) (pa) | 2 max
+
+- sort them individually (b in reverse)
+-> [a] 1 2 5 [b] 4 3
+(sa) | 2 max + (sb) | 1 max (ss opti possible)
+
+- insertion sort
+-> [a] 1 2 5 [b] 4 3
+-> [a] 3 4 5 1 2 [b] *
+(rra) (pa) (pa) 
+
+- rotate till minimum (0 for me)
+-> [a] 1 2 3 4 5 [b] *
+(rra) (rra)
+
+9 / 12 instructions in this case
 
 ## Algorithmic candidates - 100/500 numbers
 
