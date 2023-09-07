@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/09/05 18:16:44 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/07 13:19:16 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS += $(SRCS_DIRM)/stackmgr.c
 SRCS += $(SRCS_DIRM)/stackmgr_utils.c
 SRCS += $(SRCS_DIRM)/climgr.c
 SRCS += $(SRCS_DIRM)/climgr_utils.c
+SRCS += $(SRCS_DIRM)/three_sorter.c
 
 OBJS := $(SRCS:.c=.o)
 
@@ -46,6 +47,7 @@ $(SRCS_DIRM)/gamemgr.o: 		$(INCL_DIRM)/gamemgr.h
 $(SRCS_DIRM)/main.o:			$(INCL_DIRM)/main.h
 $(SRCS_DIRM)/stackmgr_utils.o:	$(INCL_DIRM)/stackmgr.h
 $(SRCS_DIRM)/stackmgr.o:		$(INCL_DIRM)/stackmgr.h
+$(SRCS_DIRM)/three_sorter.o:	$(INCL_DIRM)/sorter.h
 
 clean:
 	make -C $(FT) clean

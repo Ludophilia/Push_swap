@@ -26,7 +26,7 @@ pushswap? Some ideas and observations:
 	- Swapping is done with swap instruction.
 	- Prefer O(1) to O(n) to O(n * logn)...
 
-# ????
+# Project core
 
 - [x] Implement a method to substitute every nb in the stack by their rank.
 [214, 3, -42] should become [2, 1, 0]...
@@ -36,12 +36,14 @@ pushswap? Some ideas and observations:
 
 - [x] Implement a is_sorted method.
 
-- [ ] Create an algorithm for storing 3 numbers... in less than 3 instructions.
+- [x] Create an algorithm for sorting 3 numbers... in less than 3 instructions.
 
-- [ ] Create an algorithm for storing 5 numbers... in less than 12 instructions.
+- [x] Manage the case 1 and 2 numbers. (Because it will happen too.)
 
-- [ ] Create an algorithm for storing 100 numbers... in less than 700
+- [ ] Create an algorithm for sorting 5 numbers... in less than 12 instructions.
+
+- [ ] Create an algorithm for sorting 100 numbers... in less than 700
 instructions.
 
-- [ ] Create an algorithm for storing 500 numbers... in less than 5500
+- [ ] Create an algorithm for sorting 500 numbers... in less than 5500
 instructions.

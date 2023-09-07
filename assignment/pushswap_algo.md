@@ -70,6 +70,21 @@ limitations while computing the cheapest move by example.
 
 - Check what if the stack is already sorted. Do nothing in this case...
 
+## Algorithmic candidates - 2 numbers
+
+### Goal
+
+2 numbers in less than 1 instructions
+-> target: 01
+
+### Cases
+
+2 permutations of 2 numbers, so 2 possibilities
+
+0 1 // [Already sorted] (min max)
+1 0 // sa (max min)
+
+
 ## Algorithmic candidates - 3 numbers
 
 ### Goal
