@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/07 13:50:16 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/08 19:42:39 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,16 @@ static void	tmp_traverse_instructions(t_list *start)
 	}
 }
 
-// 5 nbs... 
-
+// 5 nbs;
+int	sort_upto_5nbs(t_stk *stackA, t_stk *stackB, t_list **instrs)
+{
+	if (stkmgr_stack_is_sorted(stackA, 0) || (stackA->size > 5))
+		return (0);
+	// push 2 nbs on b.
+	// sort a.
+	// sort b.
+	// insertion sort !
+}
 
 // 6/09 - I still want a vizualizer and a tester.
 // 7/09 - This thing has to be tested...
@@ -66,6 +74,7 @@ int	main(int argc, char **argv)
 	tmp_traverse_stack(stacks[1]);
 	// (void)tmp_traverse_instructions;
 	sort_upto_3nbs(stacks[0], instr_head);
+	
 	tmp_traverse_instructions(*instr_head);
 	tmp_traverse_stack(stacks[0]);
 	tmp_traverse_stack(stacks[1]);
