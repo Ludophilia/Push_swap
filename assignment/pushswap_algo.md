@@ -157,8 +157,10 @@ stack.
 
 - insertion sort
 -> [a] 1 2 5 [b] 4 3
+(rra)
+-> [a] 5 1 2 [b] 4 3 (peek(a) > peek(b))
+ (pa) (pa)
 -> [a] 3 4 5 1 2 [b] *
-(rra) (pa) (pa) 
 
 - rotate till minimum (0 for me)
 -> [a] 1 2 3 4 5 [b] *

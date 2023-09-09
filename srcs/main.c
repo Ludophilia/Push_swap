@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/08 19:42:39 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/09 14:48:48 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,47 @@ static void	tmp_traverse_instructions(t_list *start)
 	}
 }
 
+int	smart_rotate(t_stk *stackA, t_stk *stackB, t_list **instr)
+{
+	// 1/ SMART ROTATE STACK A 
+	//	Need to know what's on top of stack b.
+	//	and what's on top of stack a.
+	
+	// 	-> [a] 0 15 30 [b] 4 3
+	// 	(ra)
+	// 	-> [a] 15 30 0 [b] 4 3 (first one who meets: peek(a) > peek(b)
+	// 	in a sorted list)
+
+	// Need to know in which order the stack need to be rotated. 
+	// size: 4. if i < 2 or 4/2, use ra/rb else rra/rrb
+	
+}
+
+int	sort_insertion_sort(t_stk *stackA, t_stk *stackB, t_list **instrs)
+{
+	
+}
+
 // 5 nbs;
 int	sort_upto_5nbs(t_stk *stackA, t_stk *stackB, t_list **instrs)
 {
 	if (stkmgr_stack_is_sorted(stackA, 0) || (stackA->size > 5))
 		return (0);
-	// push 2 nbs on b.
-	// sort a.
-	// sort b.
-	// insertion sort !
+	if (game_push(stackA, stackB, instrs) == -1
+		|| game_push(stackA, stackB, instrs) == -1)
+		return (-1);
+	if (sort_upto_3nbs(stackA, instrs) == -1)
+		return (-1);
+	if (sort_2nbs(stackB, instrs) == -1)
+		return (-1);
+	// insertion sort:
+		// - smart rotate (rotate stack in a direction or another till 
+		// a condition is met)
+		// - push to a till stack a is empty (will be ajusted)
+		// - (smart) rotate stack b 'till 0 the top of the stack is 0.
+	return (0);
 }
+
 
 // 6/09 - I still want a vizualizer and a tester.
 // 7/09 - This thing has to be tested...
@@ -72,9 +103,19 @@ int	main(int argc, char **argv)
 	}
 	tmp_traverse_stack(stacks[0]);
 	tmp_traverse_stack(stacks[1]);
-	// (void)tmp_traverse_instructions;
+
 	sort_upto_3nbs(stacks[0], instr_head);
-	
+
+	// (void)tmp_traverse_instructions;
+	// sort_upto_5nbs(stacks[0], stacks[1], instr_head);
+	// sort_upto_3nbs(stacks[0], instr_head);
+
+	// game_push(stacks[0], stacks[1], instr_head);
+	// game_push(stacks[0], stacks[1], instr_head);
+
+	// sort_2nbs(stacks[0], instr_head);
+	// sort_2nbs(stacks[1], instr_head);
+
 	tmp_traverse_instructions(*instr_head);
 	tmp_traverse_stack(stacks[0]);
 	tmp_traverse_stack(stacks[1]);
