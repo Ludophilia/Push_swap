@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/01 20:29:07 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:44:34 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ void	stkmgr_stack_free(t_stk *stack)
 	ft_lstclear(stack->head, free);
 	free(stack->head);
 	free(stack);
+}
+
+int	stkmgr_stack_peek(t_stk *stack)
+{
+	return (*(int *)(*stack->head)->content);
 }

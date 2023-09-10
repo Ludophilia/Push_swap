@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:00:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/05 18:15:45 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:35:13 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ t_list	**stkmgr_stack_push(int nb, t_stk *stack);
 
 void	stkmgr_stack_free(t_stk *stack);
 int		stkmgr_stack_is_sorted(t_stk *stack, int rev);
+int		stkmgr_stack_peek(t_stk *stack);
 
 #endif

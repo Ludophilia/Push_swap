@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/09 14:48:48 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/10 23:48:58 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,73 @@ static void	tmp_traverse_instructions(t_list *start)
 	}
 }
 
-int	smart_rotate(t_stk *stackA, t_stk *stackB, t_list **instr)
-{
-	// 1/ SMART ROTATE STACK A 
-	//	Need to know what's on top of stack b.
-	//	and what's on top of stack a.
-	
-	// 	-> [a] 0 15 30 [b] 4 3
-	// 	(ra)
-	// 	-> [a] 15 30 0 [b] 4 3 (first one who meets: peek(a) > peek(b)
-	// 	in a sorted list)
+// int	smart_reset(t_stk *stackA, t_stk *stackB, t_list **instr)
 
-	// Need to know in which order the stack need to be rotated. 
-	// size: 4. if i < 2 or 4/2, use ra/rb else rra/rrb
-	
+int	sort_smart_rotate(t_stk *stackA, t_stk *stackB, t_list **instr)
+{
+	t_list*	nodes[2];
+	int		fwd;
+	int		i;
+	int		candidate[2];
+
+	nodes[0] = *stackA->head;
+	nodes[1] = *stackB->head;
+	fwd = 0;
+	i = 0;
+	candidate[0] = 0x7FFFFFFF;
+	candidate[1] = -1;
+	while (nodes[0])
+	{
+		// if (*(int *)nodes[0]->content == 1 && *(int *)nodes[1]->content == 0)
+		// {
+		// 	candidate = ij[0];
+		// 	break ;
+		// }
+		if (*(int *)nodes[0]->content > *(int *)nodes[1]->content
+			&& *(int *)nodes[0]->content < candidate[0])
+		{
+				candidate[0] = *(int *)nodes[0]->content;
+				candidate[1] = i;
+		}
+		nodes[0] = nodes[0]->next;
+		i++;
+	}
+	// ft_printf("candidate = %i, position = %i\n", candidate[0], candidate[1]);
+	if (candidate[0] == 0x7FFFFFFF)
+		return (0);
+	if (candidate[1] < stackA->size / 2)
+		fwd = 1;
+	while (*(int *)(*stackA->head)->content != candidate[0])
+	{
+		if (fwd && game_rotate(stackA, 0, instr) == -1)
+			return (-1);
+		else if (!fwd && game_rev_rotate(stackA, 0, instr) == -1)
+			return (-1);
+	}
+	return (0);
 }
 
 int	sort_insertion_sort(t_stk *stackA, t_stk *stackB, t_list **instrs)
 {
-	
+	// t_list	*nodeB;
+
+	// nodeB = *stackB->head;
+	// if (sort_smart_rotate(stackA, stackB, instrs) == -1
+	// 	|| game_push(stackB, stackA, instrs) == -1)
+	// 	return (-1);
+	while (*stackB->head)
+	{
+		if (sort_smart_rotate(stackA, stackB, instrs) == -1
+			|| game_push(stackB, stackA, instrs) == -1)
+			return (-1);
+	}
+	return (0);
+	// smart_rotate(stackA, stackB, instrs);
+	// game_push(stackB, stackA, instrs);
+
+	// smart_rotate(stackA, stackB, instrs);
+	// game_push(stackB, stackA, instrs);
+
 }
 
 // 5 nbs;
@@ -76,6 +124,10 @@ int	sort_upto_5nbs(t_stk *stackA, t_stk *stackB, t_list **instrs)
 		return (-1);
 	if (sort_2nbs(stackB, instrs) == -1)
 		return (-1);
+	tmp_traverse_stack(stackA);
+	tmp_traverse_stack(stackB);
+
+	sort_insertion_sort(stackA, stackB, instrs);
 	// insertion sort:
 		// - smart rotate (rotate stack in a direction or another till 
 		// a condition is met)
@@ -104,7 +156,7 @@ int	main(int argc, char **argv)
 	tmp_traverse_stack(stacks[0]);
 	tmp_traverse_stack(stacks[1]);
 
-	sort_upto_3nbs(stacks[0], instr_head);
+	sort_upto_5nbs(stacks[0], stacks[1], instr_head);
 
 	// (void)tmp_traverse_instructions;
 	// sort_upto_5nbs(stacks[0], stacks[1], instr_head);
