@@ -40,9 +40,9 @@ pushswap? Some ideas and observations:
 
 - [x] Manage the case 1 and 2 numbers. (Because it will happen too.)
 
-- [ ] Create an algorithm for sorting 5 numbers... in less than 12 instructions.
+- [x] Create an algorithm for sorting 5 numbers... in less than 12 instructions.
 	- [x] Adapt your sort_comp_case2 so it can sort in reverse?
-	- [ ] Manage the case 4 numbers. (Because it will happen too.)
+	- [x] Manage the case 4 numbers. (Because it will happen too.)
 
 - [ ] Create an algorithm for sorting 100 numbers... in less than 700
 instructions.
