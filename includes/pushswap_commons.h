@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:56:09 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/05 18:08:04 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:42:34 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include "../libs/libft/includes/libft.h"
 # include <limits.h>
+# include <stdint.h>
 
 typedef struct s_stk
 {
