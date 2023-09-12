@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/10 15:44:34 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:11:02 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,25 @@ void	stkmgr_stack_free(t_stk *stack)
 int	stkmgr_stack_peek(t_stk *stack)
 {
 	return (*(int *)(*stack->head)->content);
+}
+
+void	stkmgr_get_minimum(int min[2], t_stk *stack)
+{
+	t_list	*nodes;
+	int		i;
+
+	min[0] = 0x7FFFFFFF;
+	min[1] = -1;
+	nodes = *stack->head;
+	i = 0;
+	while (nodes)
+	{
+		if (*(int *)nodes->content < min[0])
+		{
+			min[0] = *(int *)nodes->content;
+			min[1] = i;
+		}
+		i++;
+		nodes = nodes->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/11 22:08:06 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:14:16 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ static void	tmp_traverse_stack(t_stk *stack)
 
 static void	tmp_traverse_instructions(t_list *start)
 {
-	ft_printf("Instructions:\n");
-	if (start == NULL)
-		ft_printf("[empty]\n");
 	while (start)
 	{
 		ft_printf("%s\n", (char *)start->content);
@@ -43,7 +40,6 @@ static void	tmp_traverse_instructions(t_list *start)
 	}
 }
 
-// 6/09 - I still want a vizualizer and a tester.
 int	main(int argc, char **argv)
 {
 	t_stk	*stacks[3];
@@ -58,12 +54,13 @@ int	main(int argc, char **argv)
 		ft_dprintf(2, "Error\n");
 		return (1);
 	}
-	tmp_traverse_stack(stacks[0]);
-	tmp_traverse_stack(stacks[1]);
+	// tmp_traverse_stack(stacks[0]);
+	// tmp_traverse_stack(stacks[1]);
+	(void)tmp_traverse_stack;
 	sort_upto_5nbs(stacks[0], stacks[1], instr_head);
 	tmp_traverse_instructions(*instr_head);
-	tmp_traverse_stack(stacks[0]);
-	tmp_traverse_stack(stacks[1]);
+	// tmp_traverse_stack(stacks[0]);
+	// tmp_traverse_stack(stacks[1]);
 	stkmgr_stack_free(stacks[0]);
 	stkmgr_stack_free(stacks[1]);
 	ft_lstclear(instr_head, free);
