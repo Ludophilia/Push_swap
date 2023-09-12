@@ -174,21 +174,14 @@ PROPOSITION 1
 
 - Do nothing if the stack is already sorted.
 
-- A custom algo for 3 nbs. 3 instructions max.
-
-- A custom for 5 that relies on the one used for sorting 3 numbers. 12 
-instructions max.
-
 - For 100 and 500, a mix of quick sort + insertion sort? I've watched videos of
 push swap solvers and read medium papers, this combination seems efficient
 enough to score under 5500 for 500 nbs, and 700 for 100 numbers... We will see.
 
-Two phases:
-
 0. Pre optimisations: 
-	- Sort the position of the numbers; not the numbers directly. That can be
+	- [x] Sort the position of the numbers; not the numbers directly. That can be
 	used to speed up some operations. (ex: if you have found 0 or size - 1...)
-	- Store the push swap instructions in a buffer instead of writing them
+	- [x] Store the push swap instructions in a buffer instead of writing them
 	directly on stdout.
 
 1. Pre sorting on stack b.

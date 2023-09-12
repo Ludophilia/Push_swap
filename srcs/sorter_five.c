@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/12 12:57:14 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:35:21 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,14 @@ int	sort_upto_5nbs(t_stk *stackA, t_stk *stackB, t_list **instrs)
 {
 	if (stkmgr_stack_is_sorted(stackA, 0) || (stackA->size > 5))
 		return (0);
-	while (stackA->size != 3)
+	while (stackA->size > 3)
 		if (game_push(stackA, stackB, instrs) == -1)
 			return (-1);
 	if (sort_upto_3nbs(stackA, instrs) == -1)
 		return (-1);
 	if (stackA->size == 2 && sort_2nbs(stackB, instrs) == -1)
 		return (-1);
-	if (sort_insertion_sort(stackA, stackB, instrs) == -1)
+	if (stackB->size > 0 && sort_insertion_sort(stackA, stackB, instrs) == -1)
 		return (-1);
 	return (0);
 }
