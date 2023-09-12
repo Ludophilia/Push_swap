@@ -185,22 +185,62 @@ enough to score under 5500 for 500 nbs, and 700 for 100 numbers... We will see.
 	directly on stdout.
 
 1. Pre sorting on stack b.
-	- define a pivot (and a sub pivot). Those numbers will be used to determine
-	if a nb should be pushed to b and what position they should
-	have on the stack. (> sub nb -> bottom b, < sub nb -> top b) 
-	- Push onto stack b everything that is > to the pivot
-	- repeat the operation with higher pivots until there is only
-	3 or 5 nbs left in stack a.
- 
-1.5. Sort those 3-5 numbers with the custom made 3 or 5 sorting algo.
+	- Define a pivot (large) and a sub pivot. Those numbers will be used to
+	determine if a nb should be pushed to b and what position they should
+	have on the stack. (nb < subpivot -> top b, nb > subpivot -> bottom b) 
+	- Push onto stack b everything that is inferior (>) to the pivot
+	- Repeat the operation with higher pivots until there is only
+	3 nbs left in stack a. (those nbs should be the highest stackA->size - 1,
+	stackA->size - 2, stackA->size - 3)
 
-2. Insertion sort from stack b to stack a. 
-	- Take the number on top on stack b and push it to stack a if inferior 
-	to the one on top on a, otherwise rotate a to place it to its correct
-	position. It shouldnt cost to much as phase 1. made the nbs very close to
-	each other.
+	The goal is roughly to create something like this in the stack b:
+		- bucket 4 (ex: nbs from 83-103) [Turn #2t - Everything from 83 to 124, nb < pivot / 2, ]
+		- bucket 2 (ex: nbs from 41-61) [Turn #1t - Everything from 41 to 82, nb < pivot / 2, ]
+		- bucket 0 (ex: nbs from 0-19) [Turn #0t - Everything from 0 to 40, nb < pivot / 2, ]
+		- bucket 1 (ex: nbs from 20-40) [Turn #0b - Everything from 0 to 40, nb >= pivot / 2]
+		- bucket 3 (ex: nbs from 62-82) [Turn #1b - Everything from 41 to 82, nb < pivot / 2, ]
 
-3. Post optimisations:
+	It's more efficient than a design like the one below because while the buckets 
+	have roughly the same size (20 nbs), the number of elements considered in stack
+	a in every turn is twice the bucket size (40nbs), that means less rotations to
+	find the correct numbers to push to b:
+		- bucket 4 (nbs from 83-103) [Turn #4]
+		- bucket 3 (nbs from 62-82) [Turn #3]
+		- bucket 2 (nbs from 41-61) [Turn #2]
+		- bucket 1 (nbs from 20-40) [Turn #1]
+		- bucket 0 (nbs from 0-19) [Turn #0]
+
+2. Sort those 3 numbers on stack a with the custom made 3 sorting algo.
+
+3. Selection sort + Insertion sort?
+	- At this point we have the highest numbers sorted in stack a. Why not
+	**search stack b** for the nb that immediately comes before the one on
+	**stack a's head**? We know it exists, because we are sorting ranks,
+	not numbers...
+		- It's possible however that this strategy costs too much rotations
+		on B because the next lowest is too far away from the head...
+		So what to do?
+			- Normally it won't be too far thanks to chunking.
+
+	- Why not use insertion sort then? We take the nb on **top on stack b**
+	and **search/smart rotate stack a** to insert it into a.
+
+	- The solution will certainly be an arbitration between selection and
+	insertion sort. The one which costs the less wins...
+
+	- One problem... It's easy with selection sort to stay within the bounds
+	of the bucket, but with insertion sort?
+		- ???
+
+
+
+3. Insertion sort from stack b to stack a. 
+	- Take the number on **top on stack b** and push it to stack a. 
+	- Use smart rotate on a to place it in the correct position.
+
+Each turn, there is an arbitration done between selection sort and insertion?
+
+4. Post optimisations:
 	- Write a subroutine that is capable of analysing instructions and 
 	optimizing them by spotting the one that can be cancelled, the rotations
 	r* r* that can be replaced by rr, the combinations that can be simplified.

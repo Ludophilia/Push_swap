@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/12 13:14:16 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:43:02 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ static void	tmp_traverse_instructions(t_list *start)
 		ft_printf("%s\n", (char *)start->content);
 		start = start->next;
 	}
+}
+
+int	sort_upto_100nbs(t_stk *stackA, t_stk *stackB, t_list **instrs)
+{
+	
 }
 
 int	main(int argc, char **argv)
