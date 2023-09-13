@@ -212,7 +212,7 @@ enough to score under 5500 for 500 nbs, and 700 for 100 numbers... We will see.
 
 2. Sort those 3 numbers on stack a with the custom made 3 sorting algo.
 
-3. Selection sort + Insertion sort?
+3. Selection sort
 	- At this point we have the highest numbers sorted in stack a. Why not
 	**search stack b** for the nb that immediately comes before the one on
 	**stack a's head**? We know it exists, because we are sorting ranks,
@@ -230,13 +230,19 @@ enough to score under 5500 for 500 nbs, and 700 for 100 numbers... We will see.
 
 	- One problem... It's easy with selection sort to stay within the bounds
 	of the bucket, but with insertion sort?
-		- ???
+		- I don't think insertion sort is a good idea as it disrupts the flow
+		of selection sort. If the top of stack a is 110, and I look for 109,
+		but it's too far, should I then put 98 that is on top of stack b?
+		And what should I do next turn? Find 97?
+		- One alternative approach would be to use the bottom of stack a to
+		store those numbers.
+			- [a] 102 103 104 105
+			- [b] 98 97 96 ... 101
 
+			- [a] 102 103 104 105
+			- [b] 98 97 96 ... 101
 
-
-3. Insertion sort from stack b to stack a. 
-	- Take the number on **top on stack b** and push it to stack a. 
-	- Use smart rotate on a to place it in the correct position.
+	(We will come back with more experience...)
 
 Each turn, there is an arbitration done between selection sort and insertion?
 
