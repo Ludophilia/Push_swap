@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/13 19:43:08 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:18:35 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ static void	tmp_traverse_instructions(t_list *start)
 	}
 }
 
-// int	sort_presort_100(t_stk *stackA, t_stk *stackB, t_list **instrs)
-// {
-// }
-
-int	sort_upto_100nbs(t_stk **stacks, t_list **instrs)
+// if (game_push(stacks[0], stacks[1], instrs) == -1)
+// 	return (-1);
+// if ((node[0] >= (pivot[0] + (pivot[1] - pivot[0]) / 2)
+// 		&& game_rotate(stacks[1], 0, instrs) == -1))
+// 	return (-1);
+int	sort_presort_100(t_stk **stacks, t_list **instrs)
 {
 	int	ij[2];
 	int	pivot[3];
@@ -63,9 +64,8 @@ int	sort_upto_100nbs(t_stk **stacks, t_list **instrs)
 			pivot[1] = pivot[2] * (ij[0] + 1);
 			if (node[0] < node[1] && node[0] >= pivot[0] && node[0] < pivot[1])
 			{
-				if (game_push(stacks[0], stacks[1], instrs) == -1)
-					return (-1);
-				if ((node[0] >= (pivot[0] + (pivot[1] - pivot[0]) / 2)
+				if (game_push(stacks[0], stacks[1], instrs) == -1
+					|| (node[0] >= (pivot[0] + (pivot[1] - pivot[0]) / 2)
 						&& game_rotate(stacks[1], 0, instrs) == -1))
 					return (-1);
 			}
@@ -75,6 +75,13 @@ int	sort_upto_100nbs(t_stk **stacks, t_list **instrs)
 		}
 		ij[0]++;
 	}
+	return (0);
+}
+
+int	sort_upto_100nbs(t_stk **stacks, t_list **instrs)
+{
+	if (sort_presort_100(stacks, instrs) == -1)
+		return (-1);
 	return (0);
 }
 
