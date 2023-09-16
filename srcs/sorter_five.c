@@ -6,13 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/12 15:35:21 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:41:53 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sorter.h"
 
-int	sort_smart_reset(t_stk *stack, int rev, t_list **instrs)
+int	sort5_smart_reset(t_stk *stack, int rev, t_list **instrs)
 {
 	t_list	*node;
 	int		i;
@@ -40,13 +40,13 @@ int	sort_smart_reset(t_stk *stack, int rev, t_list **instrs)
 	return (0);
 }
 
-void	sort_search_candidates(int candidates[2], t_stk *stackA, t_stk *stackB)
+void	sort5_search_candidates(int candidates[2], t_stk *stackA, t_stk *stackB)
 {
 	t_list	*nodes[2];
 	int		min[2];
 	int		i;
 
-	*(long *)candidates = 0xFFFFFFFF7FFFFFFF;
+	*(long *)candidates = (0xFFFFFFFFL << 32) + 0x7FFFFFFF;
 	nodes[0] = *stackA->head;
 	nodes[1] = *stackB->head;
 	i = 0;
@@ -69,12 +69,12 @@ void	sort_search_candidates(int candidates[2], t_stk *stackA, t_stk *stackB)
 	}
 }
 
-int	sort_smart_rotate(t_stk *stackA, t_stk *stackB, t_list **instr)
+int	sort5_smart_rotate(t_stk *stackA, t_stk *stackB, t_list **instr)
 {
 	int		fwd;
 	int		candidates[2];
 
-	sort_search_candidates(candidates, stackA, stackB);
+	sort5_search_candidates(candidates, stackA, stackB);
 	fwd = 1;
 	if (candidates[1] > stackA->size / 2)
 		fwd = 0;
@@ -88,15 +88,15 @@ int	sort_smart_rotate(t_stk *stackA, t_stk *stackB, t_list **instr)
 	return (0);
 }
 
-int	sort_insertion_sort(t_stk *stackA, t_stk *stackB, t_list **instrs)
+int	sort5_insertion_sort(t_stk *stackA, t_stk *stackB, t_list **instrs)
 {
 	while (*stackB->head)
 	{
-		if (sort_smart_rotate(stackA, stackB, instrs) == -1
+		if (sort5_smart_rotate(stackA, stackB, instrs) == -1
 			|| game_push(stackB, stackA, instrs) == -1)
 			return (-1);
 	}
-	if (sort_smart_reset(stackA, 0, instrs) == -1)
+	if (sort5_smart_reset(stackA, 0, instrs) == -1)
 		return (-1);
 	return (0);
 }
@@ -112,7 +112,7 @@ int	sort_upto_5nbs(t_stk *stackA, t_stk *stackB, t_list **instrs)
 		return (-1);
 	if (stackA->size == 2 && sort_2nbs(stackB, instrs) == -1)
 		return (-1);
-	if (stackB->size > 0 && sort_insertion_sort(stackA, stackB, instrs) == -1)
+	if (stackB->size > 0 && sort5_insertion_sort(stackA, stackB, instrs) == -1)
 		return (-1);
 	return (0);
 }

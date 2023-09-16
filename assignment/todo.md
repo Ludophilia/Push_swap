@@ -46,6 +46,8 @@ pushswap? Some ideas and observations:
 
 - [ ] Create an algorithm for sorting 100 numbers... in less than 700
 instructions.
+	- [ ] Optimize: choose a good pivot ; compress instrucs ;
 
 - [ ] Create an algorithm for sorting 500 numbers... in less than 5500
 instructions.
+
