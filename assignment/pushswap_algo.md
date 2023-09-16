@@ -185,11 +185,11 @@ enough to score under 5500 for 500 nbs, and 700 for 100 numbers... We will see.
 	directly on stdout.
 
 1. Pre sorting on stack b.
-	- Define a pivot (large) and a sub pivot. Those numbers will be used to
+	- [x] Define a pivot (large) and a sub pivot. Those numbers will be used to
 	determine if a nb should be pushed to b and what position they should
 	have on the stack. (nb < subpivot -> top b, nb > subpivot -> bottom b) 
-	- Push onto stack b everything that is inferior (>) to the pivot
-	- Repeat the operation with higher pivots until there is only
+	- [x] Push onto stack b everything that is inferior (>) to the pivot
+	- [x] Repeat the operation with higher pivots until there is only
 	3 nbs left in stack a. (those nbs should be the highest stackA->size - 1,
 	stackA->size - 2, stackA->size - 3)
 
@@ -210,7 +210,7 @@ enough to score under 5500 for 500 nbs, and 700 for 100 numbers... We will see.
 		- bucket 1 (nbs from 20-40) [Turn #1]
 		- bucket 0 (nbs from 0-19) [Turn #0]
 
-2. Sort those 3 numbers on stack a with the custom made 3 sorting algo.
+2. [x] Sort those 3 numbers on stack a with the custom made 3 sorting algo.
 
 3. Selection sort
 	- At this point we have the highest numbers sorted in stack a. Why not
@@ -221,6 +221,9 @@ enough to score under 5500 for 500 nbs, and 700 for 100 numbers... We will see.
 		on B because the next lowest is too far away from the head...
 		So what to do?
 			- Normally it won't be too far thanks to chunking.
+
+
+	(We will come back with more experience...)
 
 	- Why not use insertion sort then? We take the nb on **top on stack b**
 	and **search/smart rotate stack a** to insert it into a.
@@ -242,7 +245,6 @@ enough to score under 5500 for 500 nbs, and 700 for 100 numbers... We will see.
 			- [a] 102 103 104 105
 			- [b] 98 97 96 ... 101
 
-	(We will come back with more experience...)
 
 Each turn, there is an arbitration done between selection sort and insertion?
 

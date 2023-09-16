@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/14 15:18:35 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/16 13:48:01 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,48 +40,41 @@ static void	tmp_traverse_instructions(t_list *start)
 	}
 }
 
-// if (game_push(stacks[0], stacks[1], instrs) == -1)
-// 	return (-1);
-// if ((node[0] >= (pivot[0] + (pivot[1] - pivot[0]) / 2)
-// 		&& game_rotate(stacks[1], 0, instrs) == -1))
-// 	return (-1);
 int	sort_presort_100(t_stk **stacks, t_list **instrs)
 {
 	int	ij[2];
-	int	pivot[3];
-	int	node[2];
+	int	piv[3];
+	int	nod[2];
 
-	node[1] = stacks[0]->size - 3;
-	pivot[2] = stacks[0]->size / 2;
-	ij[0] = 0;
-	while (stacks[0]->size > 3)
+	nod[1] = stacks[0]->size - 3;
+	piv[2] = stacks[0]->size / 2;
+	ij[0] = -1;
+	while (stacks[0]->size > 3 && ++ij[0] > -1)
 	{
 		ij[1] = stacks[0]->size;
+		*(long *)piv = (piv[2] * (ij[0] + 1L) << 32) + piv[2] * ij[0];
 		while (ij[1]-- > 0)
 		{
-			node[0] = *(int *)(*stacks[0]->head)->content;
-			pivot[0] = (pivot[2] * ij[0]);
-			pivot[1] = pivot[2] * (ij[0] + 1);
-			if (node[0] < node[1] && node[0] >= pivot[0] && node[0] < pivot[1])
-			{
+			nod[0] = *(int *)(*stacks[0]->head)->content;
+			if (nod[0] < nod[1] && (nod[0] >= piv[0] && nod[0] < piv[1]))
 				if (game_push(stacks[0], stacks[1], instrs) == -1
-					|| (node[0] >= (pivot[0] + (pivot[1] - pivot[0]) / 2)
+					|| (nod[0] >= (piv[0] + (piv[1] - piv[0]) / 2)
 						&& game_rotate(stacks[1], 0, instrs) == -1))
 					return (-1);
-			}
-			else
-				if (game_rotate(stacks[0], 0, instrs) == -1)
-					return (-1);
+			if (!(nod[0] < nod[1] && (nod[0] >= piv[0] && nod[0] < piv[1]))
+				&& game_rotate(stacks[0], 0, instrs) == -1)
+				return (-1);
 		}
-		ij[0]++;
 	}
 	return (0);
 }
 
 int	sort_upto_100nbs(t_stk **stacks, t_list **instrs)
 {
-	if (sort_presort_100(stacks, instrs) == -1)
+	if (sort_presort_100(stacks, instrs) == -1
+		|| sort_upto_3nbs(stacks[0], instrs) == -1)
 		return (-1);
+	// Next: SMORT selection sort.
 	return (0);
 }
 
