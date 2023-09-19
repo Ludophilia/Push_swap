@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/16 17:41:53 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:29:52 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	sort5_search_candidates(int candidates[2], t_stk *stackA, t_stk *stackB)
 		i++;
 	}
 	if (candidates[0] == 0x7FFFFFFF)
-	{		
+	{
 		stkmgr_get_minimum(min, stackA);
 		candidates[0] = min[0];
 		candidates[1] = min[1];

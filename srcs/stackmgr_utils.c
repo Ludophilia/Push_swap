@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/12 13:11:02 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:38:10 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ void	stkmgr_stack_free(t_stk *stack)
 	free(stack);
 }
 
-int	stkmgr_stack_peek(t_stk *stack)
+void	stkmgr_free_ressources(t_stk **stacks, t_list **instrs)
 {
-	return (*(int *)(*stack->head)->content);
+	stkmgr_stack_free(stacks[0]);
+	stkmgr_stack_free(stacks[1]);
+	ft_lstclear(instrs, free);
 }
 
 void	stkmgr_get_minimum(int min[2], t_stk *stack)

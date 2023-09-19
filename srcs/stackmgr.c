@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/10 15:39:12 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:54:30 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	stkmgr_stacks_init(int size, int *cli_nbs, t_stk *stacks[3])
 	{
 		if (stkmgr_stack_push(cli_nbs[i], stacks[0]) == NULL)
 		{
-			free(cli_nbs);
 			stkmgr_stack_free(stacks[0]);
 			stkmgr_stack_free(stacks[1]);
 			return (-1);

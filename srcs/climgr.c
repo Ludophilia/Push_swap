@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/05 18:45:35 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:47:03 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ int	cli_project_init(int argc, char **argv, t_stk *stks[3], t_list**instrs)
 	if (cli_nbs == NULL)
 		return (-1);
 	if (stkmgr_stacks_init(argc, cli_nbs, stks) == -1)
+	{
+		free(cli_nbs);
 		return (-1);
+	}
 	*instrs = 0;
 	return (1);
 }

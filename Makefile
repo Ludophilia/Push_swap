@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/09/16 18:33:19 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/19 13:56:29 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFLAGS 						:= -lft -L$(FT)
 
 SRCS 							:= $(SRCS_DIRM)/main.c
 SRCS 							+= $(SRCS_DIRM)/gamemgr.c
-SRCS 							+= $(SRCS_DIRM)/gamemgr_utils.c
+SRCS 							+= $(SRCS_DIRM)/instrmgr.c
 SRCS 							+= $(SRCS_DIRM)/stackmgr.c
 SRCS 							+= $(SRCS_DIRM)/stackmgr_utils.c
 SRCS 							+= $(SRCS_DIRM)/climgr.c

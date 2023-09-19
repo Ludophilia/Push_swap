@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   three_sorter.c                                     :+:      :+:    :+:   */
+/*   sorter_three.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/09 13:07:33 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:27:51 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sorter.h"
 
-void	sort_get_data_from_stack(int *nbs, int *minmax, t_stk *stack)
+void	sort3_get_data_from_stack(int *nbs, int *minmax, t_stk *stack)
 {
 	t_list	*node;
 	int		i;
@@ -38,7 +38,7 @@ int	sort_2nbs(t_stk *stack, t_list **instrs)
 	int	minmax[2];
 
 	error_status = 0;
-	sort_get_data_from_stack(nbs, minmax, stack);
+	sort3_get_data_from_stack(nbs, minmax, stack);
 	if (*stack->name == 'a' && minmax[0] == nbs[1] && minmax[1] == nbs[0])
 		error_status = game_swap(stack, 0, instrs) == -1;
 	else if (*stack->name == 'b' && minmax[0] == nbs[0] && minmax[1] == nbs[1])
@@ -55,7 +55,7 @@ int	sort_3nbs(t_stk *stackA, t_list **instrs)
 	int	minmax[2];
 
 	error_status = 0;
-	sort_get_data_from_stack(nbs, minmax, stackA);
+	sort3_get_data_from_stack(nbs, minmax, stackA);
 	if (minmax[0] == nbs[0] && minmax[1] == nbs[1])
 		error_status = (game_rev_rotate(stackA, 0, instrs) == -1
 				|| game_swap(stackA, 0, instrs) == -1);

@@ -6,30 +6,11 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/16 19:55:45 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:05:31 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-static void	tmp_traverse_stack(t_stk *stack)
-{
-	t_list	*node;
-
-	ft_dprintf(2, "Name: stack %s; stack size: %i\n",
-		stack->name, stack->size);
-	if (stack->size == 0)
-	{
-		ft_printf("[empty]\n");
-		return ;
-	}
-	node = *stack->head;
-	while (node != NULL)
-	{
-		ft_printf("%i\n", *(int *)node->content);
-		node = node->next;
-	}
-}
 
 static void	tmp_traverse_instructions(t_list *start)
 {
@@ -40,8 +21,7 @@ static void	tmp_traverse_instructions(t_list *start)
 	}
 }
 
-// 100 -> 699 max ; 500 -> 5499 max.
-int	sort_choose_algorithm(t_stk **stacks, t_list **instrs)
+int	main_choose_algorithm(t_stk **stacks, t_list **instrs)
 {	
 	if (stacks[0]->size <= 5
 		&& sort_upto_5nbs(stacks[0], stacks[1], instrs) == -1)
@@ -72,12 +52,31 @@ int	main(int argc, char **argv)
 		ft_dprintf(2, "Error\n");
 		return (1);
 	}
-	(void)tmp_traverse_stack;
-	if (sort_choose_algorithm(stacks, instrs) == -1)
-		return (1); // Please free ressources.
+	if (main_choose_algorithm(stacks, instrs) == -1)
+	{
+		stkmgr_free_ressources(stacks, instrs);
+		return (1);
+	}
 	tmp_traverse_instructions(*instrs);
-	stkmgr_stack_free(stacks[0]);
-	stkmgr_stack_free(stacks[1]);
-	ft_lstclear(instrs, free);
+	stkmgr_free_ressources(stacks, instrs);
 	return (0);
 }
+
+// static void	tmp_traverse_stack(t_stk *stack)
+// {
+// 	t_list	*node;
+
+// 	ft_dprintf(2, "Name: stack %s; stack size: %i\n",
+// 		stack->name, stack->size);
+// 	if (stack->size == 0)
+// 	{
+// 		ft_printf("[empty]\n");
+// 		return ;
+// 	}
+// 	node = *stack->head;
+// 	while (node != NULL)
+// 	{
+// 		ft_printf("%i\n", *(int *)node->content);
+// 		node = node->next;
+// 	}
+// }
