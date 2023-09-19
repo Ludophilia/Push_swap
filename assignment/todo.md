@@ -44,10 +44,18 @@ pushswap? Some ideas and observations:
 	- [x] Adapt your sort_comp_case2 so it can sort in reverse?
 	- [x] Manage the case 4 numbers. (Because it will happen too.)
 
-- [ ] Create an algorithm for sorting 100 numbers... in less than 700
-instructions.
-	- [ ] Optimize: choose a good pivot ; compress instrucs ;
-
-- [ ] Create an algorithm for sorting 500 numbers... in less than 5500
+- [x] Create an algorithm for sorting 100 numbers... in less than 700
 instructions.
 
+- [o] Create an algorithm for sorting 500 numbers... in less than 5500
+instructions.
+	- [ ] Optimize: 
+		- [x] Choose a good pivot
+		- [x] Compress instrucs : rb+ra == rr ; rrb+rra == rrr ; sa + sb == ss
+		- [ ] Use the bottom of stack a
+		- [ ] Try a sorting method different from selection sort for the conquer phase.
+		(try insertion or combine selection and insertion)
+
+# Bonus
+
+- [ ] Do the checker son. Do it...

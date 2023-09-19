@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/19 13:29:52 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:02:03 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,19 @@ int	sort5_insertion_sort(t_stk *stackA, t_stk *stackB, t_list **instrs)
 	return (0);
 }
 
-int	sort_upto_5nbs(t_stk *stackA, t_stk *stackB, t_list **instrs)
+int	sort_upto_5nbs(t_stk **stacks, t_list **instrs)
 {
-	if (stkmgr_stack_is_sorted(stackA, 0) || (stackA->size > 5))
+	if (stkmgr_stack_is_sorted(stacks[0], 0) || (stacks[0]->size > 5))
 		return (0);
-	while (stackA->size > 3)
-		if (game_push(stackA, stackB, instrs) == -1)
+	while (stacks[0]->size > 3)
+		if (game_push(stacks[0], stacks[1], instrs) == -1)
 			return (-1);
-	if (sort_upto_3nbs(stackA, instrs) == -1)
+	if (sort_upto_3nbs(stacks[0], instrs) == -1)
 		return (-1);
-	if (stackA->size == 2 && sort_2nbs(stackB, instrs) == -1)
+	if (stacks[0]->size == 2 && sort_2nbs(stacks[1], instrs) == -1)
 		return (-1);
-	if (stackB->size > 0 && sort5_insertion_sort(stackA, stackB, instrs) == -1)
+	if (stacks[1]->size > 0
+		&& sort5_insertion_sort(stacks[0], stacks[1], instrs) == -1)
 		return (-1);
 	return (0);
 }

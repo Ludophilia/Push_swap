@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 13:02:44 by jgermany          #+#    #+#              #
-#    Updated: 2023/08/12 13:46:18 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/19 20:44:42 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ INCDIR 				:= includes
 LIBDIR 				:= .
 
 CC 					:= cc
-CCFL 				:= -Wall -Wextra -Werror
+CCFL 				:= -g3 -Wall -Wextra -Werror
 
 DIR_CHAR			:= ./srcs/characters
 DIR_FIL				:= ./srcs/files
