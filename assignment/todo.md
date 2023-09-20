@@ -56,7 +56,7 @@ instructions.
 		- [ ] Try a sorting method different from selection sort
 		 for the conquer phase.
 		 	- [x] Try insertion sort
-		 	- [ ] Combine selection and insertion ?
+		 	- [ ] Combine selection and insertion?
 		- [ ] Compress instructions even more.
 
 # Bonus
