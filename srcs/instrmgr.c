@@ -6,32 +6,19 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/19 13:56:17 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:35:21 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gamemgr.h"
 
-int	game_store_instr(char *type, char *stk_name, t_list **head)
+void	game_print_instrs(t_list *start)
 {
-	t_list	*new_instr;
-	char	*instr;
-
-	instr = ft_strjoin(type, stk_name);
-	if (instr == NULL)
+	while (start)
 	{
-		ft_lstclear(head, free);
-		return (-1);
+		ft_printf("%s\n", (char *)start->content);
+		start = start->next;
 	}
-	new_instr = ft_lstnew(instr);
-	if (new_instr == NULL)
-	{
-		free(instr);
-		ft_lstclear(head, free);
-		return (-1);
-	}
-	ft_lstadd_back(head, new_instr);
-	return (0);
 }
 
 int	game_choose_instr(char *type, t_stk *stk0, t_stk *stk1, t_list **head)
@@ -55,13 +42,30 @@ int	game_choose_instr(char *type, t_stk *stk0, t_stk *stk1, t_list **head)
 	return (0);
 }
 
-t_list	*game_lstseclast(t_list *lst)
+int	game_opti_instrs(t_list **instrs)
 {
-	while (lst)
+	t_list	*nodes[2];
+	char	*strs[2];
+
+	nodes[0] = *instrs;
+	if (*nodes)
+		nodes[1] = nodes[0]->next;
+	while (nodes[0] && nodes[1])
 	{
-		if (lst->next != NULL && lst->next->next == NULL)
-			return (lst);
-		lst = lst->next;
+		strs[0] = (char *)nodes[0]->content;
+		strs[1] = (char *)nodes[1]->content;
+		if (game_cmp_inst("ra", "rb", 2, strs)
+			&& game_smp_inst("rr", nodes, strs) == -1)
+			return (-1);
+		else if (game_cmp_inst("rra", "rrb", 3, strs)
+			&& game_smp_inst("rrr", nodes, strs) == -1)
+			return (-1);
+		else if (game_cmp_inst("sa", "sb", 2, strs)
+			&& game_smp_inst("ss", nodes, strs) == -1)
+			return (-1);
+		nodes[0] = nodes[0]->next;
+		if (*nodes)
+			nodes[1] = nodes[1]->next;
 	}
-	return (NULL);
+	return (0);
 }

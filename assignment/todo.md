@@ -53,8 +53,11 @@ instructions.
 		- [x] Choose a good pivot
 		- [x] Compress instrucs : rb+ra == rr ; rrb+rra == rrr ; sa + sb == ss
 		- [ ] Use the bottom of stack a
-		- [ ] Try a sorting method different from selection sort for the conquer phase.
-		(try insertion or combine selection and insertion)
+		- [ ] Try a sorting method different from selection sort
+		 for the conquer phase.
+		 	- [x] Try insertion sort
+		 	- [ ] Combine selection and insertion ?
+		- [ ] Compress instructions even more.
 
 # Bonus
 

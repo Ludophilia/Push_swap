@@ -6,13 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/16 18:40:30 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:46:16 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sorter.h"
 
-int	sort100_presort(t_stk **stacks, int divider, t_list **instrs)
+static int	sort100_presort(t_stk **stacks, int divider, t_list **instrs)
 {
 	int	ij[2];
 	int	piv[3];
@@ -41,7 +41,7 @@ int	sort100_presort(t_stk **stacks, int divider, t_list **instrs)
 	return (0);
 }
 
-int	sort100_search_candidate_pos(int target, t_stk **stacks)
+static int	sort100_search_candid_stkb(int target, t_stk **stacks)
 {
 	int		i;
 	t_list	*node;
@@ -59,7 +59,7 @@ int	sort100_search_candidate_pos(int target, t_stk **stacks)
 	return (-1);
 }
 
-int	sort100_smart_rotate(t_stk **stacks, t_list **instrs)
+static int	sort100_smart_rot_stkb(t_stk **stacks, t_list **instrs)
 {
 	int	b_pos;
 	int	fwd;
@@ -67,7 +67,7 @@ int	sort100_smart_rotate(t_stk **stacks, t_list **instrs)
 
 	fwd = 1;
 	target = *(int *)(*stacks[0]->head)->content - 1;
-	b_pos = sort100_search_candidate_pos(target, stacks);
+	b_pos = sort100_search_candid_stkb(target, stacks);
 	if (b_pos == -1)
 		return (-1);
 	if (b_pos > stacks[1]->size / 2)
@@ -82,11 +82,11 @@ int	sort100_smart_rotate(t_stk **stacks, t_list **instrs)
 	return (0);
 }
 
-int	sort100_selection_sort(t_stk **stacks, t_list **instrs)
+static int	sort100_selection_sort(t_stk **stacks, t_list **instrs)
 {
 	while (stacks[1]->size > 1)
 	{
-		if (sort100_smart_rotate(stacks, instrs) == -1
+		if (sort100_smart_rot_stkb(stacks, instrs) == -1
 			|| game_push(stacks[1], stacks[0], instrs) == -1)
 			return (-1);
 	}

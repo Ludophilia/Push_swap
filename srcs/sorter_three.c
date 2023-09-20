@@ -6,13 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/19 13:27:51 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:31:38 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sorter.h"
 
-void	sort3_get_data_from_stack(int *nbs, int *minmax, t_stk *stack)
+static void	sort3_get_data_from_stack(int *nbs, int *minmax, t_stk *stack)
 {
 	t_list	*node;
 	int		i;
@@ -31,24 +31,7 @@ void	sort3_get_data_from_stack(int *nbs, int *minmax, t_stk *stack)
 	}
 }
 
-int	sort_2nbs(t_stk *stack, t_list **instrs)
-{
-	int	error_status;
-	int	nbs[3];
-	int	minmax[2];
-
-	error_status = 0;
-	sort3_get_data_from_stack(nbs, minmax, stack);
-	if (*stack->name == 'a' && minmax[0] == nbs[1] && minmax[1] == nbs[0])
-		error_status = game_swap(stack, 0, instrs) == -1;
-	else if (*stack->name == 'b' && minmax[0] == nbs[0] && minmax[1] == nbs[1])
-		error_status = game_swap(stack, 0, instrs) == -1;
-	if (error_status)
-		return (-1);
-	return (0);
-}
-
-int	sort_3nbs(t_stk *stackA, t_list **instrs)
+static int	sort_3nbs(t_stk *stackA, t_list **instrs)
 {
 	int	error_status;
 	int	nbs[3];
@@ -68,6 +51,23 @@ int	sort_3nbs(t_stk *stackA, t_list **instrs)
 	else if (minmax[0] == nbs[2] && minmax[1] == nbs[0])
 		error_status = (game_swap(stackA, 0, instrs) == -1
 				|| game_rev_rotate(stackA, 0, instrs) == -1);
+	if (error_status)
+		return (-1);
+	return (0);
+}
+
+int	sort_2nbs(t_stk *stack, t_list **instrs)
+{
+	int	error_status;
+	int	nbs[3];
+	int	minmax[2];
+
+	error_status = 0;
+	sort3_get_data_from_stack(nbs, minmax, stack);
+	if (*stack->name == 'a' && minmax[0] == nbs[1] && minmax[1] == nbs[0])
+		error_status = game_swap(stack, 0, instrs) == -1;
+	else if (*stack->name == 'b' && minmax[0] == nbs[0] && minmax[1] == nbs[1])
+		error_status = game_swap(stack, 0, instrs) == -1;
 	if (error_status)
 		return (-1);
 	return (0);
