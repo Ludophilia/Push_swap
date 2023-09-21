@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/20 14:45:10 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:55:19 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	sort5_smart_reset(t_stk *stack, int rev, t_list **instrs)
 		node = node->next;
 	}
 	fwd = 1;
-	if (i > stack->size / 2)
+	if (i >= stack->size / 2)
 		fwd = 0;
 	while (*(int *)(*stack->head)->content != 0)
 	{
@@ -71,7 +71,7 @@ static int	sort5_smart_rot_stka(t_stk **stacks, t_list **instr)
 
 	sort5_search_candid_stka(candidates, stacks);
 	fwd = 1;
-	if (candidates[1] > stacks[0]->size / 2)
+	if (candidates[1] >= stacks[0]->size / 2)
 		fwd = 0;
 	while (*(int *)(*stacks[0]->head)->content != candidates[0])
 	{

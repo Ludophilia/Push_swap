@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/20 14:46:16 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:55:04 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	sort100_smart_rot_stkb(t_stk **stacks, t_list **instrs)
 	b_pos = sort100_search_candid_stkb(target, stacks);
 	if (b_pos == -1)
 		return (-1);
-	if (b_pos > stacks[1]->size / 2)
+	if (b_pos >= stacks[1]->size / 2)
 		fwd = 0;
 	while (target != *(int *)(*stacks[1]->head)->content)
 	{

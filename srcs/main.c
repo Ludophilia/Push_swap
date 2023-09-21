@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/21 14:55:33 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:43:20 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,65 @@ static int	sort_choose_algorithm(t_stk **stacks, t_list **instrs)
 //			- else, try updatecost_from_a on every nba such as:
 //			nba->content + 1 != nba->next->content
 
-//		- Procedure: updatecost_from_a(node, node_next, *totalcost)
-//			- Iterate on stack b.
-//			- Find the CHEAPEST nbb such as nbb > node && node_next > nbb.
-
 //		- Return the cheapest nodeA?
-void	search_candidates_stkab(t_stk **stacks, t_list **instrs)
+
+// - Procedure: updatecost_from_a(nodeA, nodeA_next, *totalcost)
+//	- Iterate on stack b.
+//	- Find the CHEAPEST nbb such as: 
+//		- nbb > nodeA && nodeA_next > nbb (if nodeA_next) (store nodeA_next 
+//		in nodecost)
+//		- nbb < nodeA (else) (store nodeA in nodecost)
+//		- 
+
+// Updating of nodecost should be done only and only if...
+// new_cost (i + stackbcost) < nodecost[1]
+void	update_costs_from_a(t_stk **stacks, t_list *noda, t_list *noda_next,
+int **nodecost)
 {
-	uint32_t stackcost[2];
+	t_list	*nodb;
+
+	nodb = stacks[1]->head;
+	while (nodb)
+	{
+		nodb = nodb->next;
+	}
 }
 
-// -1 IQ Insertion Sort.
-// 	- Select a number in stack a nba, and a number in stack b nbb.
+// nodecost may be redifined outside...
+void	search_candids_stkab(t_stk **stacks, t_list **instrs)
+{
+	int		nodecost[3];
+	t_list	*noda[2];
+	int		i;
+
+	nodecost[0] = 0x7FFFFFFF;
+	nodecost[2] = 0x7FFFFFFF;
+	noda[0] = *stacks[0]->head;
+	noda[1] = noda[0]->next;
+	i = -1;
+	while (noda[0] && noda[1] && (++i > -1))
+	{
+		nodecost[1] = i;
+		if (i >= stacks[0]->size / 2)
+			nodecost[1] = stacks[0]->size - i;
+		if (i == 0 && stacks[1]->size != 0)
+			update_costs_from_a(stacks, noda[0], NULL, nodecost);
+		else if (*(int *)noda[0]->content + 1 != *(int *)noda[1]->content)
+			update_costs_from_a(stacks, noda[0], noda[1], nodecost);
+		noda[0] = noda[0]->next;
+		if (noda[0])
+			noda[1] = noda[0]->next;
+	}
+}
+
+// - 10 IQ Insertion Sort.
+// 	- [ ] Select a number in stack a nba, and a number in stack b nbb.
 // 	this number should be the cheapest possible in terms of rotations
 // 	while making insertion sort possible. 
-// 	- Rotate the stacks in the cheapest fashion.
-// 	- Push from b to a.
-//	- Repeat until stack a is empty
-//	- Don't forget smart rotate :)
+// 	- [ ] Rotate the stacks in the cheapest fashion.
+// 	- [ ] Push from b to a.
+//	- [ ] Repeat until stack a is empty
+//	- [ ] Don't forget smart rotate in the end :)
 int	sort500_smart_insertion_sort(t_stk **stacks, t_list **instrs)
 {
 	//  
