@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/20 19:33:26 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:55:33 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,34 @@ static int	sort_choose_algorithm(t_stk **stacks, t_list **instrs)
 	return (0);
 }
 
+// - The idea: test every possible path from nba and UPDATE each time the costs 
+// in the arr of uint32_t (nba->content, totalcost) if inferior 
 
-// You need to find the cheapest path or combination. it looks like a graph
-// problem...
+//		- define arr of uint32_t (nba->content, totalcost)
+//		- Iterate on stack a.
+//			- If (i == 0) and stack b is not empty, try updatecost_from_a from
+//			 the first node.
+//			- else, try updatecost_from_a on every nba such as:
+//			nba->content + 1 != nba->next->content
 
-// - The idea: test every possible path from nba and update each time the costs in
-// the arr of uint32_t (nba, cost) if inferior 
+//		- Procedure: updatecost_from_a(node, node_next, *totalcost)
+//			- Iterate on stack b.
+//			- Find the CHEAPEST nbb such as nbb > node && node_next > nbb.
 
-// - Iterate on stack a. Find a nba such as: nba->next->content != nba + 1.
-// If there is none, or if stack b is not empty, prefer starting 
-// from the beginning, the rotcost is 0 then. Return nba->next or
-// the beginning. Calculate the cost.
+//		- Return the cheapest nodeA?
+void	search_candidates_stkab(t_stk **stacks, t_list **instrs)
+{
+	uint32_t stackcost[2];
+}
 
-// - Iterate on stack b. Find a the cheapest nbb such as nbb > nba 
-// && nba->next > nbb.
-// Calculate the the costs... (there is only one nbb after a nba so...)
-
-
+// -1 IQ Insertion Sort.
+// 	- Select a number in stack a nba, and a number in stack b nbb.
+// 	this number should be the cheapest possible in terms of rotations
+// 	while making insertion sort possible. 
+// 	- Rotate the stacks in the cheapest fashion.
+// 	- Push from b to a.
+//	- Repeat until stack a is empty
+//	- Don't forget smart rotate :)
 int	sort500_smart_insertion_sort(t_stk **stacks, t_list **instrs)
 {
 	//  

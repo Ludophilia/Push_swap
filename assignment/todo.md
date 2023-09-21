@@ -57,7 +57,7 @@ instructions.
 		 for the conquer phase.
 		 	- [x] Try insertion sort
 		 	- [ ] Combine selection and insertion?
-		- [ ] Compress instructions even more.
+		- [ ] Compress instructions even more. ra + pb + rra -> sa + pb
 
 # Bonus
 
