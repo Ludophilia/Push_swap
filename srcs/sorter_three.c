@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/20 14:31:38 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:15:59 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	sort3_get_data_from_stack(int *nbs, int *minmax, t_stk *stack)
 	t_list	*node;
 	int		i;
 
-	*(long *)minmax = 0x7FFFFFFFL;
+	*(long *)minmax = (long)INT_MAX;
 	node = *stack->head;
 	i = -1;
 	while (++i < stack->size)

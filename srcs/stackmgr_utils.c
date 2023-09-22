@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/19 13:38:10 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:17:06 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	stkmgr_get_minimum(int min[2], t_stk *stack)
 	t_list	*nodes;
 	int		i;
 
-	min[0] = 0x7FFFFFFF;
+	min[0] = INT_MAX;
 	min[1] = -1;
 	nodes = *stack->head;
 	i = 0;

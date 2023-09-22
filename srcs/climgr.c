@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/19 12:47:03 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:15:16 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	*cli_substitute_nbs_by_rank(int *nbs, int size)
 	while (++ijk[0] < size)
 	{
 		ijk[1] = -1;
-		*(long *)min = 0x7FFFFFFF;
+		*(long *)min = INT_MAX;
 		while (++ijk[1] < size)
 		{
 			if (nbs[ijk[1]] <= min[0] && !cli_is_nb_in_nbs(
