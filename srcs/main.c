@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/21 19:43:20 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:27:09 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,41 @@ static int	sort_choose_algorithm(t_stk **stacks, t_list **instrs)
 //			 the first node.
 //			- else, try updatecost_from_a on every nba such as:
 //			nba->content + 1 != nba->next->content
-
 //		- Return the cheapest nodeA?
 
 // - Procedure: updatecost_from_a(nodeA, nodeA_next, *totalcost)
 //	- Iterate on stack b.
-//	- Find the CHEAPEST nbb such as: 
-//		- nbb > nodeA && nodeA_next > nbb (if nodeA_next) (store nodeA_next 
-//		in nodecost)
-//		- nbb < nodeA (else) (store nodeA in nodecost)
+//	- Find the CHEAPEST nbb such as:
+//		- (if nodeA_next) nbb > nodeA && nodeA_next > nbb:
+//			- if (nodecost[1] + nodeb_cost < nodecost[2])
+//				- (store nodeA_next in nodecost)
+//		- (else) (nbb < nodeA):
+//			- if (nodecost[1] + (nodeb_cost < nodecost[2]))
+//				- (store nodeA in nodecost)
 //		- 
-
-// Updating of nodecost should be done only and only if...
-// new_cost (i + stackbcost) < nodecost[1]
 void	update_costs_from_a(t_stk **stacks, t_list *noda, t_list *noda_next,
 int **nodecost)
 {
 	t_list	*nodb;
+	int		nodb_cost;
+	int		i;
 
+	i = -1;
 	nodb = stacks[1]->head;
-	while (nodb)
+	while (nodb && (++i > -1))
 	{
+		nodb_cost = i;
+		if (i >= stacks[1]->size / 2)
+			nodb_cost = stacks[1]->size - i;
+		if (nodecost[1] + nodb_cost < nodecost[2])
+		{
+			if (!noda_next && *(int *)nodb->content < *(int *)noda->content)
+				nodecost[0] = *(int *)noda->content;
+			else if (noda_next && *(int *)nodb->content > *(int *)noda->content
+				&& *(int *)nodb->content < *(int *)noda_next->content)
+				nodecost[0] = *(int *)noda_next->content;
+			nodecost[2] = nodecost[1] + nodb_cost;
+		}
 		nodb = nodb->next;
 	}
 }
