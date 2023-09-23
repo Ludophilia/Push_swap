@@ -6,13 +6,13 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/21 16:55:04 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/23 18:38:07 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sorter.h"
 
-static int	sort100_presort(t_stk **stacks, int divider, t_list **instrs)
+int	sort100_presort(t_stk **stacks, int divider, t_list **instrs)
 {
 	int	ij[2];
 	int	piv[3];
@@ -41,52 +41,16 @@ static int	sort100_presort(t_stk **stacks, int divider, t_list **instrs)
 	return (0);
 }
 
-static int	sort100_search_candid_stkb(int target, t_stk **stacks)
-{
-	int		i;
-	t_list	*node;
-
-	i = 0;
-	target = *(int *)(*stacks[0]->head)->content - 1;
-	node = *stacks[1]->head;
-	while (node)
-	{
-		if (*(int *)node->content == target)
-			return (i);
-		i++;
-		node = node->next;
-	}
-	return (-1);
-}
-
-static int	sort100_smart_rot_stkb(t_stk **stacks, t_list **instrs)
-{
-	int	b_pos;
-	int	fwd;
-	int	target;
-
-	fwd = 1;
-	target = *(int *)(*stacks[0]->head)->content - 1;
-	b_pos = sort100_search_candid_stkb(target, stacks);
-	if (b_pos == -1)
-		return (-1);
-	if (b_pos >= stacks[1]->size / 2)
-		fwd = 0;
-	while (target != *(int *)(*stacks[1]->head)->content)
-	{
-		if (fwd && game_rotate(stacks[1], 0, instrs) == -1)
-			return (-1);
-		else if (!fwd && game_rev_rotate(stacks[1], 0, instrs) == -1)
-			return (-1);
-	}
-	return (0);
-}
-
 static int	sort100_selection_sort(t_stk **stacks, t_list **instrs)
 {
+	int	b_target[2];
+
 	while (stacks[1]->size > 1)
 	{
-		if (sort100_smart_rot_stkb(stacks, instrs) == -1
+		b_target[0] = *(int *)(*stacks[0]->head)->content - 1;
+		b_target[1] = sort_get_pos_stk(b_target[0], stacks[1]);
+		if (b_target[1] == -1
+			|| sort_rotate_stk(b_target, stacks[1], instrs) == -1
 			|| game_push(stacks[1], stacks[0], instrs) == -1)
 			return (-1);
 	}
