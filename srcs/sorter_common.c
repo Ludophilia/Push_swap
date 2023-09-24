@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/23 18:39:28 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/24 21:51:03 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	sort_rotate_stk(int target[2], t_stk *stack, t_list **instrs)
 	int	fwd;
 
 	fwd = 1;
-	if (target[1] >= stack->size / 2)
+	if (target[1] > stack->size / 2)
 		fwd = 0;
 	while (target[0] != *(int *)(*stack->head)->content)
 	{

@@ -6,50 +6,52 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:43:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/23 18:35:58 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:10:03 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sorter.h"
 
-static void	sort500_update_nodecost(t_list *noda, t_list *noda_next,
-t_list *nodb, int nodecost[5])
+static void	sort500_update_nodecost(t_list *nodas[2], t_list *nodb,
+int nodecost[5])
 {
-	if (!noda_next && *(int *)nodb->content < *(int *)noda->content)
+	if (!nodas[1] && *(int *)nodb->content < *(int *)nodas[0]->content)
 	{
-		nodecost[0] = *(int *)noda->content;
+		nodecost[0] = *(int *)nodas[0]->content;
 		nodecost[1] = *(int *)nodb->content;
 		nodecost[4] = nodecost[2] + nodecost[3];
 	}
-	else if (noda_next && *(int *)nodb->content > *(int *)noda->content
-		&& *(int *)nodb->content < *(int *)noda_next->content)
+	else if (nodas[1] && *(int *)nodb->content > *(int *)nodas[0]->content
+		&& *(int *)nodb->content < *(int *)nodas[1]->content)
 	{
-		nodecost[0] = *(int *)noda_next->content;
+		nodecost[0] = *(int *)nodas[1]->content;
 		nodecost[1] = *(int *)nodb->content;
 		nodecost[4] = nodecost[2] + nodecost[3];
 	}
 }
 
-static void	sort500_update_costs_from_a(t_stk **stacks, t_list *noda,
+static void	sort500_update_costs_for_b(t_stk **stacks, t_list *noda,
 t_list *noda_next, int nodecost[5])
 {
-	int		j;
+	t_list	*nodas[2];
 	t_list	*nodb;
+	int		j;
 
 	j = -1;
 	nodb = *stacks[1]->head;
-	while (nodb && (++j > -1))
+	nodas[0] = noda;
+	nodas[1] = noda_next;
+	while (nodb && ++j > -1)
 	{
 		nodecost[3] = j;
-		if (j >= stacks[1]->size / 2)
+		if (j > stacks[1]->size / 2)
 			nodecost[3] = stacks[1]->size - j;
 		if (nodecost[2] + nodecost[3] < nodecost[4])
-			sort500_update_nodecost(noda, noda_next, nodb, nodecost);
+			sort500_update_nodecost(nodas, nodb, nodecost);
 		nodb = nodb->next;
 	}
 }
 
-// Will it always work?
 static void	sort500_search_candidates(t_stk **stacks, int nodecost[5])
 {
 	t_list	*noda[2];
@@ -61,18 +63,20 @@ static void	sort500_search_candidates(t_stk **stacks, int nodecost[5])
 	noda[0] = *stacks[0]->head;
 	noda[1] = noda[0]->next;
 	i = -1;
-	while (noda[0] && noda[1] && (++i > -1))
+	while (noda[0] && noda[1] && nodecost[4] != 0 && ++i > -1)
 	{
 		nodecost[2] = i;
-		if (i >= stacks[0]->size / 2)
+		if (i > stacks[0]->size / 2)
 			nodecost[2] = stacks[0]->size - i;
-		if (i == 0 && stacks[1]->size != 0)
-			sort500_update_costs_from_a(stacks, noda[0], NULL, nodecost);
-		else if (*(int *)noda[0]->content + 1 != *(int *)noda[1]->content)
-			sort500_update_costs_from_a(stacks, noda[0], noda[1], nodecost);
+		if (stkmgr_is_min(*(int *)noda[0]->content, stacks[0]))
+			sort500_update_costs_for_b(stacks, noda[0], NULL, nodecost);
+		if (*(int *)noda[0]->content + 1 != *(int *)noda[1]->content)
+			sort500_update_costs_for_b(stacks, noda[0], noda[1], nodecost);
 		noda[0] = noda[0]->next;
-		if (noda[0])
+		if (noda[0] && noda[0]->next)
 			noda[1] = noda[0]->next;
+		else if (noda[0] && noda[0]->next == NULL)
+			noda[1] = *stacks[0]->head;
 	}
 }
 

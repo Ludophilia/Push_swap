@@ -6,13 +6,12 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/23 18:02:18 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:20:19 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-// 100 -> 699 max ; 500 -> 5499 max.
 int	main(int argc, char **argv)
 {
 	t_stk	*stacks[3];

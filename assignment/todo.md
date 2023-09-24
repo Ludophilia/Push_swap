@@ -36,29 +36,29 @@ pushswap? Some ideas and observations:
 
 - [x] Implement a is_sorted method.
 
-- [x] Create an algorithm for sorting 3 numbers... in less than 3 instructions.
+- [x] Create an algorithm for sorting 3 numbers... in at most than 2
+instructions.
 
 - [x] Manage the case 1 and 2 numbers. (Because it will happen too.)
 
-- [x] Create an algorithm for sorting 5 numbers... in less than 12 instructions.
+- [x] Create an algorithm for sorting 5 numbers... in at most 11 instructions.
 	- [x] Adapt your sort_comp_case2 so it can sort in reverse?
 	- [x] Manage the case 4 numbers. (Because it will happen too.)
 
-- [x] Create an algorithm for sorting 100 numbers... in less than 700
+- [x] Create an algorithm for sorting 100 numbers... in at most 699
 instructions.
 
-- [o] Create an algorithm for sorting 500 numbers... in less than 5500
+- [x] Create an algorithm for sorting 500 numbers... in at most 5499
 instructions.
-	- [ ] Optimize: 
+	- [o] Optimize: 
 		- [x] Choose a good pivot
 		- [x] Compress instrucs : rb+ra == rr ; rrb+rra == rrr ; sa + sb == ss
-		- [ ] Use the bottom of stack a
-		- [ ] Try a sorting method different from selection sort
+		- [x] Try a sorting method different from selection sort
 		 for the conquer phase.
-		 	- [x] Try insertion sort
-		 	- [ ] Combine selection and insertion?
+		 	- [x] Try a more cost effective insertion sort. 
+		- [ ] Use the bottom of stack a
 		- [ ] Compress instructions even more. ra + pb + rra -> sa + pb
 
 # Bonus
 
-- [ ] Do the checker son. Do it...
+- [o] Do the checker son. Do it...

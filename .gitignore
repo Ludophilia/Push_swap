@@ -55,4 +55,7 @@ dkms.conf
 .vscode
 push_swap
 ./experiments/algos/algos
+
+# Testers
 push_swap_visualizer
+push_swap_tester

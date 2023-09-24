@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/22 19:17:06 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/24 17:26:04 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,18 @@ void	stkmgr_get_minimum(int min[2], t_stk *stack)
 		i++;
 		nodes = nodes->next;
 	}
+}
+
+int	stkmgr_is_min(int nb, t_stk *stack)
+{
+	t_list	*node;
+
+	node = *stack->head;
+	while (node)
+	{
+		if (nb > *(int *)node->content)
+			return (0);
+		node = node->next;
+	}
+	return (1);
 }
