@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/24 22:20:19 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/24 23:34:54 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ int	main(int argc, char **argv)
 		return (0);
 	if (init_status == -1 && ft_dprintf(2, "Error\n"))
 		return (1);
-	if (sort_choose_algorithm(stacks, instrs) == -1
-		|| game_opti_instrs(instrs) == -1)
+	if (stkmgr_stack_is_sorted(stacks[0], 0) == 0
+		&& (sort_choose_algorithm(stacks, instrs) == -1
+			|| game_opti_instrs(instrs) == -1))
 	{
 		stkmgr_free_ressources(stacks, instrs);
 		return (1);
