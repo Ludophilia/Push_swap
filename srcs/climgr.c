@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/22 19:15:16 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/25 19:45:26 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	cli_check_if_full_digits(char **args)
 	return (0);
 }
 
-static int	*cli_integerize_args(int argc, char **argv)
+static int	*cli_integerize_args(char **argv, int argc)
 {
 	int		*nbs;
 	int		ij[2];
@@ -92,7 +92,35 @@ static int	*cli_substitute_nbs_by_rank(int *nbs, int size)
 	return (*subt_nbs_tmp);
 }
 
-int	cli_project_init(int argc, char **argv, t_stk *stks[3], t_list**instrs)
+static int	*cli_get_nbs_from_argv(char **argv, int *argc_ptr)
+{
+	int	*cli_nbs;
+	int	sp;
+
+	sp = 0;
+	if (*argc_ptr == 1)
+	{
+		argv = ft_split(*argv, ' ');
+		if (argv == NULL)
+			return (NULL);
+		*argc_ptr = cli_strslen(argv);
+		sp = 1;
+	}
+	if (cli_check_if_full_digits(argv) == -1)
+	{
+		if (sp == 1)
+			cli_free_strs(argv);
+		return (NULL);
+	}
+	cli_nbs = cli_integerize_args(argv, *argc_ptr);
+	if (sp == 1)
+		cli_free_strs(argv);
+	if (cli_nbs == NULL)
+		return (NULL);
+	return (cli_nbs);
+}
+
+int	cli_project_init(int argc, char **argv, t_stk *stks[3], t_list **instrs)
 {
 	int	*cli_nbs;
 
@@ -100,9 +128,7 @@ int	cli_project_init(int argc, char **argv, t_stk *stks[3], t_list**instrs)
 		return (0);
 	argv++;
 	argc--;
-	if (cli_check_if_full_digits(argv) == -1)
-		return (-1);
-	cli_nbs = cli_integerize_args(argc, argv);
+	cli_nbs = cli_get_nbs_from_argv(argv, &argc);
 	if (cli_nbs == NULL)
 		return (-1);
 	cli_nbs = cli_substitute_nbs_by_rank(cli_nbs, argc);

@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/24 21:51:03 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:22:10 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ int	sort_reset_stk(t_stk *stack, t_list **instrs)
 
 int	sort_choose_algorithm(t_stk **stacks, t_list **instrs)
 {
-	if (stacks[0]->size <= 5
+	if (stacks[0]->size <= 3 && sort_upto_3nbs(stacks[0], instrs) == -1)
+		return (-1);
+	else if (stacks[0]->size > 3 && stacks[0]->size <= 5
 		&& sort_upto_5nbs(stacks, instrs) == -1)
 		return (-1);
 	else if (stacks[0]->size > 5 && stacks[0]->size <= 75
