@@ -6,11 +6,31 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:25:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/19 13:26:19 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:52:26 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "climgr.h"
+
+void	cli_free_strs(char **strs)
+{
+	int	i;
+
+	i = -1;
+	while (strs[++i])
+		free(strs[i]);
+	free(strs);
+}
+
+int	cli_strslen(char **strs)
+{
+	int	len;
+
+	len = 0;
+	while (strs[len])
+		len++;
+	return (len);
+}
 
 long	cli_atol(char *str)
 {
