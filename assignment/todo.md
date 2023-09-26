@@ -50,40 +50,41 @@ instructions.
 
 - [x] Create an algorithm for sorting 500 numbers... in at most 5499
 instructions.
-	- [o] Optimize: 
-		- [x] Choose a good pivot
-		- [x] Compress instrucs : rb+ra == rr ; rrb+rra == rrr ; sa + sb == ss
-		- [x] Try a sorting method different from selection sort
-		 for the conquer phase.
-		 	- [x] Try a more cost effective insertion sort. 
-		- [ ] Use the bottom of stack a
-		- [ ] Compress instructions even more. ra + pb + rra -> sa + pb
+- [o] Optimize: 
+	- [x] Choose a good pivot
+	- [x] Compress instrucs : rb+ra == rr ; rrb+rra == rrr ; sa + sb == ss
+	- [x] Try a sorting method different from selection sort
+		for the conquer phase.
+		- [x] Try a more cost effective insertion sort. 
+	- [c] Use the bottom of stack a
+	- [c] Compress instructions even more. ra + pb + rra -> sa + pb
 
 # Bonus (or pushswap remix)
 
-- [ ] Let's do the checker, in roughly 3 days... 
+- [o] Let's do the checker, in roughly 3 days... 
 
 ## Argument management (same as push_swap)
 
 - A checker `checker` takes the same arguments as the program push_swap.
-	- If no args, the program stops and displays nothing.
-	- If the list is incorrect in the way the list for push_swap is, 
+	- [x] If no args, the program stops and displays nothing.
+	- [x] If the list is incorrect in the way the list for push_swap is, 
 	return an error.  
 
 ## Instrs acquisition
 
-- The checker wait for instructions on its stdin (0), 
-- Analyse their conformity ("valid instr? \n terminated?")
-- Store them in a linked list
+- [ ] The checker wait for instructions on its stdin (0), 
+- [ ] Analyse their conformity ("valid instr? \n terminated?")
+- [ ] Store them in a linked list
 
 How to know if there is no more instrs? Waiting for a SIGPIPE or something that
 will close the pipe or the stream like EOF (ctrl + d)
 -> Don't need to manage this, just while read or something like this...
 
-## Instrs Execution
+## Instrs execution
 
-- Once the instrs are here, init the stacks, execute the instrs
+- [x] Once the instrs are here, init the stacks...
+- [ ] ...execute the instrs
 
 ## Final check and result
 
-- Check that b is empty and a is sorted. OK if so, KO otherwise.
+- [ ] Check that b is empty and a is sorted. OK if so, KO otherwise.

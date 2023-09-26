@@ -6,20 +6,24 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/09/23 18:07:20 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/26 18:53:25 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 							:= push_swap
+NAME_BON 						:= checker
 
 SRCS_DIRM 						:= srcs
 INCL_DIRM 						:= includes
 FT 								:= libs/libft
+SRCS_DIRB 						:= srcs_bonus
+INCL_DIRB 						:= includes_bonus
 
 CC								:= cc
 CFLAGS 							:= -Wall -Wextra -Werror
-all: CFLAGS 					+= -I$(INCL_DIRM)
 LIBFLAGS 						:= -lft -L$(FT)
+all: CFLAGS 					+= -I$(INCL_DIRM)
+bonus: CFLAGS 					+= -I$(INCL_DIRB) -I$(INCL_DIRM)
 
 SRCS 							:= $(SRCS_DIRM)/main.c
 SRCS 							+= $(SRCS_DIRM)/gamemgr.c
@@ -35,13 +39,25 @@ SRCS 							+= $(SRCS_DIRM)/sorter_five.c
 SRCS 							+= $(SRCS_DIRM)/sorter_hundred.c
 SRCS 							+= $(SRCS_DIRM)/sorter_thousand.c
 
+SRCS_BON 						:= $(SRCS_DIRB)/main_bonus.c
+SRCS_BON						+= $(SRCS_DIRM)/climgr.c
+SRCS_BON 						+= $(SRCS_DIRM)/climgr_utils.c
+SRCS_BON						+= $(SRCS_DIRM)/stackmgr.c
+SRCS_BON 						+= $(SRCS_DIRM)/stackmgr_utils.c
+
 OBJS 							:= $(SRCS:.c=.o)
+OBJS_BON 						:= $(SRCS_BON:.c=.o)
 
 all								:$(NAME)
 
+bonus							:$(NAME_BON)
+
+$(NAME_BON)						:$(OBJS_BON)
+								make -C $(FT) all bonus
+								$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
+
 $(NAME)							:$(OBJS)
-								make -C $(FT) all
-								make -C $(FT) bonus
+								make -C $(FT) all bonus
 								$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 
 %.o								:$(INCL_DIRM)/pushswap_commons.h
@@ -56,13 +72,15 @@ $(SRCS_DIRM)/sorter_three.o		:$(INCL_DIRM)/sorter.h
 $(SRCS_DIRM)/sorter_five.o		:$(INCL_DIRM)/sorter.h
 $(SRCS_DIRM)/sorter_hundred.o	:$(INCL_DIRM)/sorter.h
 
+$(SRCS_DIRB)/main_bonus.o		:$(INCL_DIRB)/main_bonus.h
+
 clean							:
 								make -C $(FT) clean
-								rm -f $(OBJS)
+								rm -f $(OBJS) $(OBJS_BON)
 
 fclean							:clean
 								make -C $(FT) fclean
-								rm -f $(NAME)
+								rm -f $(NAME) $(NAME_BON)
 
 re								:fclean all
 
