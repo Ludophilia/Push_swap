@@ -59,6 +59,31 @@ instructions.
 		- [ ] Use the bottom of stack a
 		- [ ] Compress instructions even more. ra + pb + rra -> sa + pb
 
-# Bonus
+# Bonus (or pushswap remix)
 
-- [o] Do the checker son. Do it...
+- [ ] Let's do the checker, in roughly 3 days... 
+
+## Argument management (same as push_swap)
+
+- A checker `checker` takes the same arguments as the program push_swap.
+	- If no args, the program stops and displays nothing.
+	- If the list is incorrect in the way the list for push_swap is, 
+	return an error.  
+
+## Instrs acquisition
+
+- The checker wait for instructions on its stdin (0), 
+- Analyse their conformity ("valid instr? \n terminated?")
+- Store them in a linked list
+
+How to know if there is no more instrs? Waiting for a SIGPIPE or something that
+will close the pipe or the stream like EOF (ctrl + d)
+-> Don't need to manage this, just while read or something like this...
+
+## Instrs Execution
+
+- Once the instrs are here, init the stacks, execute the instrs
+
+## Final check and result
+
+- Check that b is empty and a is sorted. OK if so, KO otherwise.
