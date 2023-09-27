@@ -6,24 +6,19 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:23:21 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/26 20:02:21 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:26:20 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_bonus.h"
 
-int	tmp_get_instrs(t_list **instrs)
+void	tmp_print_instrs(t_list *start)
 {
-	char	*input;
-
-	input = get_next_line(0);
-	while (input)
+	while (start)
 	{
-		// Analyse instrs conformity here
-		free(input);
-		input = get_next_line(0);
+		ft_printf("%s", (char *)start->content);
+		start = start->next;
 	}
-	return (0);
 }
 
 int	main(int argc, char *argv[])
@@ -37,11 +32,15 @@ int	main(int argc, char *argv[])
 		return (0);
 	if (init_status == -1 && ft_dprintf(2, "Error\n"))
 		return (1);
-	if (tmp_get_instrs(instrs) == -1 && ft_dprintf(2, "Error\n"))
+	if (instmgr_get_instrs(instrs) == -1 && ft_dprintf(2, "Error\n"))
+	{
+		stkmgr_free_ressources(stacks, instrs);
 		return (1);
-
-	// 
-	// 
+	}
+	tmp_print_instrs(*instrs);
+	// Now execute the instructions.
+	// Check if everything sorted.
+	// "KO\n" or "OK\n"?
 	stkmgr_free_ressources(stacks, instrs);
 	return (0);
 }

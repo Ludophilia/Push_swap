@@ -51,9 +51,12 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Executables
+push_swap
+checker
+
 # Extra stuff
 .vscode
-push_swap
 ./experiments/algos/algos
 
 # Testers
