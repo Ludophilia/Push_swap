@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/09/27 14:42:45 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/27 18:35:20 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,26 +27,29 @@ all: CFLAGS 					+= -I$(INCL_DIRM)
 bonus: CFLAGS 					+= -I$(INCL_DIRB) -I$(INCL_DIRM)
 
 SRCS 							:= $(SRCS_DIRM)/main.c
+SRCS 							+= $(SRCS_DIRM)/climgr.c
+SRCS 							+= $(SRCS_DIRM)/climgr_utils.c
 SRCS 							+= $(SRCS_DIRM)/gamemgr.c
 SRCS 							+= $(SRCS_DIRM)/instrmgr.c
 SRCS 							+= $(SRCS_DIRM)/instrmgr_utils.c
-SRCS 							+= $(SRCS_DIRM)/stackmgr.c
-SRCS 							+= $(SRCS_DIRM)/stackmgr_utils.c
-SRCS 							+= $(SRCS_DIRM)/climgr.c
-SRCS 							+= $(SRCS_DIRM)/climgr_utils.c
 SRCS 							+= $(SRCS_DIRM)/sorter_common.c
 SRCS 							+= $(SRCS_DIRM)/sorter_three.c
 SRCS 							+= $(SRCS_DIRM)/sorter_five.c
 SRCS 							+= $(SRCS_DIRM)/sorter_hundred.c
 SRCS 							+= $(SRCS_DIRM)/sorter_thousand.c
+SRCS 							+= $(SRCS_DIRM)/stackmgr.c
+SRCS 							+= $(SRCS_DIRM)/stackmgr_utils.c
 
 SRCS_BON 						:= $(SRCS_DIRB)/main_bonus.c
 SRCS_BON 						+= $(SRCS_DIRB)/instrmgr_bonus.c
+SRCS_BON 						+= $(SRCS_DIRB)/game_bonus.c
 SRCS_BON						+= $(SRCS_DIRM)/climgr.c
 SRCS_BON 						+= $(SRCS_DIRM)/climgr_utils.c
+SRCS_BON 						+= $(SRCS_DIRM)/gamemgr.c
+SRCS_BON 						+= $(SRCS_DIRM)/instrmgr.c
+SRCS_BON 						+= $(SRCS_DIRM)/instrmgr_utils.c
 SRCS_BON						+= $(SRCS_DIRM)/stackmgr.c
 SRCS_BON 						+= $(SRCS_DIRM)/stackmgr_utils.c
-
 
 OBJS 							:= $(SRCS:.c=.o)
 OBJS_BON 						:= $(SRCS_BON:.c=.o)
@@ -66,7 +69,6 @@ $(NAME)							:$(OBJS)
 %.o								:$(INCL_DIRM)/pushswap_commons.h
 
 $(SRCS_DIRM)/main.o				:$(INCL_DIRM)/main.h
-
 $(SRCS_DIRM)/climgr.o			:$(INCL_DIRM)/climgr.h
 $(SRCS_DIRM)/climgr_utils.o		:$(INCL_DIRM)/climgr.h
 $(SRCS_DIRM)/gamemgr.o			:$(INCL_DIRM)/gamemgr.h
@@ -81,8 +83,8 @@ $(SRCS_DIRM)/sorter_hundred.o	:$(INCL_DIRM)/sorter.h
 $(SRCS_DIRM)/sorter_thousand.o	:$(INCL_DIRM)/sorter.h
 
 $(SRCS_DIRB)/main_bonus.o		:$(INCL_DIRB)/main_bonus.h
-
 $(SRCS_DIRB)/instrmgr_bonus.o	:$(INCL_DIRB)/instrmgr_bonus.h
+$(SRCS_DIRB)/game_bonus.o		:$(INCL_DIRB)/instrmgr_bonus.h
 
 clean							:
 								make -C $(FT) clean
