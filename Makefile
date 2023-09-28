@@ -6,7 +6,7 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/09/27 18:35:20 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/28 13:06:38 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,9 @@ SRCS 							+= $(SRCS_DIRM)/stackmgr.c
 SRCS 							+= $(SRCS_DIRM)/stackmgr_utils.c
 
 SRCS_BON 						:= $(SRCS_DIRB)/main_bonus.c
+SRCS_BON 						+= $(SRCS_DIRB)/execmgr_bonus.c
+SRCS_BON 						+= $(SRCS_DIRB)/gamemgr_bonus.c
 SRCS_BON 						+= $(SRCS_DIRB)/instrmgr_bonus.c
-SRCS_BON 						+= $(SRCS_DIRB)/game_bonus.c
 SRCS_BON						+= $(SRCS_DIRM)/climgr.c
 SRCS_BON 						+= $(SRCS_DIRM)/climgr_utils.c
 SRCS_BON 						+= $(SRCS_DIRM)/gamemgr.c
@@ -84,7 +85,8 @@ $(SRCS_DIRM)/sorter_thousand.o	:$(INCL_DIRM)/sorter.h
 
 $(SRCS_DIRB)/main_bonus.o		:$(INCL_DIRB)/main_bonus.h
 $(SRCS_DIRB)/instrmgr_bonus.o	:$(INCL_DIRB)/instrmgr_bonus.h
-$(SRCS_DIRB)/game_bonus.o		:$(INCL_DIRB)/instrmgr_bonus.h
+$(SRCS_DIRB)/gamemgr_bonus.o	:$(INCL_DIRB)/gamemgr_bonus.h
+$(SRCS_DIRB)/execmgr_bonus.o	:$(INCL_DIRB)/execmgr_bonus.h
 
 clean							:
 								make -C $(FT) clean

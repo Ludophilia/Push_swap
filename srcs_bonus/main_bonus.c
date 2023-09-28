@@ -6,130 +6,29 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:23:21 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/27 19:58:22 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:11:36 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_bonus.h"
-#include "gamemgr.h" // tmp
 
-void	tmp_print_instrs(t_list *start)
+static void	tmp_traverse_stack(t_stk *stack)
 {
-	ft_printf("\n");
-	while (start)
+	t_list	*node;
+
+	ft_dprintf(2, "Name: stack %s; stack size: %i\n",
+		stack->name, stack->size);
+	if (stack->size == 0)
 	{
-		ft_printf("%s", (char *)start->content);
-		start = start->next;
+		ft_printf("[empty]\n");
+		return ;
 	}
-}
-
-// 3 + 1 length
-//	pa pb
-//	sa sb ss
-//	ra rb rr
-
-// 4 : 
-//	rra rrb rrr
-int	tmp_selec_instr2(char *instr, t_stk **stks)
-{
-	int 	(*handler)(t_stk *, t_stk *);
-	t_stk	*stkargs[2];
-	size_t	instr_len;
-
-	instr_len = ft_strlen(instr);
-
-	// Choose handler and store it in the ptr...
-	if (instr_len == 3 && *instr == 'p')
-		handler = instr_push;
-	else if (instr_len == 3 && *instr == 's')
-		handler = instr_swap;
-	else if (instr_len == 3 && *instr == 'r')
-		handler = instr_rotate;
-	else if (instr_len == 4 && instr[0] == 'r' && instr[1] == 'r')
-		handler = instr_rev_rotate;
-	else
-		handler = NULL;
-
-	// Choose the correct stack args configuration
-	if (instr_len == 3 && instr[0] == 'p' && instr[1] == 'a')
+	node = *stack->head;
+	while (node != NULL)
 	{
-		stkargs[0] = stks[1];
-		stkargs[1] = stks[0];
+		ft_printf("%i\n", *(int *)node->content);
+		node = node->next;
 	}
-	if (instr_len == 3 && instr[0] == 'p' && instr[1] == 'b')
-	{
-		stkargs[0] = stks[1];
-		stkargs[1] = stks[0];
-	}	
-
-	// //////////////////////////////////////////////////////
-	if (handler && handler(stkargs[0], stkargs[1]) == 0)
-		return (0);
-	return (-1);
-}
-
-int	tmp_selec_instr(char *instr, t_stk **stks)
-{
-	size_t	instr_len;
-
-	instr_len = ft_strlen(instr);
-
-	// Filter here
-	if (ft_strncmp(instr, "pa\n", 4) == 0
-			&& instr_push(stks[1], stks[0]) == -1)
-		return (-1);
-	else if (ft_strncmp(instr, "pb\n", 4) == 0
-			&& instr_push(stks[0], stks[1]) == -1)
-		return (-1);
-
-	// Function pointer opportunity?
-	if (ft_strncmp(instr, "sa\n", 4) == 0
-			&& instr_swap(stks[0], NULL) == -1)
-		return (-1);
-	else if (ft_strncmp(instr, "sb\n", 4) == 0
-			&& instr_swap(stks[1], NULL) == -1)
-		return (-1);
-	else if (ft_strncmp(instr, "ss\n", 4) == 0
-			&& instr_swap(stks[0], stks[1]) == -1)
-		return (-1);
-
-	// Function pointer opportunity?
-	if (ft_strncmp(instr, "ra\n", 4) == 0
-			&& instr_rotate(stks[0], NULL) == -1)
-		return (-1);
-	else if (ft_strncmp(instr, "rb\n", 4) == 0
-			&& instr_rotate(stks[1], NULL) == -1)
-		return (-1);
-	else if (ft_strncmp(instr, "rr\n", 4) == 0
-			&& instr_rotate(stks[0], stks[1]) == -1)
-		return (-1);
-
-	// Function pointer opportunity?
-	if (ft_strncmp(instr, "rra\n", 5) == 0
-			&& instr_rotate(stks[0], NULL) == -1)
-		return (-1);
-	else if (ft_strncmp(instr, "rrb\n", 5) == 0
-			&& instr_rotate(stks[1], NULL) == -1)
-		return (-1);
-	else if (ft_strncmp(instr, "rrr\n", 5) == 0
-			&& instr_rotate(stks[0], stks[1]) == -1)
-		return (-1);	
-
-	return (0);
-}
-
-
-int	tmp_exec_instrs(t_list **instrs)
-{
-	t_list	*instr;
-
-	instr = *instrs;
-	while (instr)
-	{
-		// WOW.
-		instr = instr->next;
-	}
-	return (0);	
 }
 
 // NEXT - Check if everything sorted. "KO\n" or "OK\n"?
@@ -144,13 +43,14 @@ int	main(int argc, char *argv[])
 		return (0);
 	if (init_status == -1 && ft_dprintf(2, "Error\n"))
 		return (1);
-	if (instmgr_get_instrs(instrs) == -1 && ft_dprintf(2, "Error\n"))
+	if ((instmgr_get_instrs(instrs) == -1 && ft_dprintf(2, "Error\n"))
+		|| exc_execute_instrs(instrs, stacks) == -1)
 	{
 		stkmgr_free_ressources(stacks, instrs);
 		return (1);
 	}
-	tmp_print_instrs(*instrs);
-	// Now execute the instructions.
+	tmp_traverse_stack(stacks[0]);
+	tmp_traverse_stack(stacks[1]);
 	stkmgr_free_ressources(stacks, instrs);
 	return (0);
 }

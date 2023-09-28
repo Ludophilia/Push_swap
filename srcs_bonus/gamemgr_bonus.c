@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_bonus.c                                       :+:      :+:    :+:   */
+/*   gamemgr_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:44:46 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/27 18:14:07 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:07:57 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "instrmgr_bonus.h"
+#include "gamemgr_bonus.h"
 
-static t_list	*instr_lstseclast(t_list *lst)
+static t_list	*gameinst_lstseclast(t_list *lst)
 {
 	while (lst)
 	{
@@ -23,10 +23,12 @@ static t_list	*instr_lstseclast(t_list *lst)
 	return (NULL);
 }
 
-int	instr_push(t_stk *from_stack, t_stk *to_stack)
+int	gameinst_push(t_stk *from_stack, t_stk *to_stack)
 {
 	t_list	*from_node;
 
+	if (from_stack->size == 0)
+		return (0);
 	from_node = stkmgr_stack_pop(from_stack);
 	if (from_node == NULL)
 		return (-1);
@@ -38,7 +40,7 @@ int	instr_push(t_stk *from_stack, t_stk *to_stack)
 	return (0);
 }
 
-int	instr_swap(t_stk *stack0, t_stk *stack1)
+int	gameinst_swap(t_stk *stack0, t_stk *stack1)
 {
 	t_stk	**stacks;
 	t_list	*nodes[2];
@@ -62,7 +64,7 @@ int	instr_swap(t_stk *stack0, t_stk *stack1)
 	return (0);
 }
 
-int	instr_rotate(t_stk *stack0, t_stk *stack1)
+int	gameinst_rotate(t_stk *stack0, t_stk *stack1)
 {
 	t_stk	**stacks;
 	t_list	*nodes[2];
@@ -86,7 +88,7 @@ int	instr_rotate(t_stk *stack0, t_stk *stack1)
 	return (0);
 }
 
-int	instr_rev_rotate(t_stk *stack0, t_stk *stack1)
+int	gameinst_rev_rotate(t_stk *stack0, t_stk *stack1)
 {
 	t_stk	**stacks;
 	t_list	*nodes[2];
@@ -98,7 +100,7 @@ int	instr_rev_rotate(t_stk *stack0, t_stk *stack1)
 	{
 		if (stacks[i]->size > 1)
 		{
-			nodes[0] = instr_lstseclast(*stacks[i]->head);
+			nodes[0] = gameinst_lstseclast(*stacks[i]->head);
 			nodes[1] = ft_lstlast(*stacks[i]->head);
 			nodes[1]->next = *stacks[i]->head;
 			*stacks[i]->head = nodes[1];

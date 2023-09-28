@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.h                                       :+:      :+:    :+:   */
+/*   execmgr_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 17:32:31 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/28 13:00:09 by jgermany         ###   ########.fr       */
+/*   Created: 2023/09/28 12:59:37 by jgermany          #+#    #+#             */
+/*   Updated: 2023/09/28 13:04:42 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_BONUS_H
+#ifndef EXECMGR_BONUS_H
 
-# define MAIN_BONUS_H
+# define EXECMGR_BONUS_H
 
-# include "climgr.h"
 # include "gamemgr_bonus.h"
-# include "instrmgr_bonus.h"
-# include "execmgr_bonus.h"
 # include "pushswap_commons.h"
+
+int	exc_execute_instrs(t_list **instrs, t_stk **stacks);
 
 #endif

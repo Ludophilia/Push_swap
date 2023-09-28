@@ -72,9 +72,9 @@ instructions.
 
 ## Instrs acquisition
 
-- [ ] The checker wait for instructions on its stdin (0), 
-- [ ] Analyse their conformity ("valid instr? \n terminated?")
-- [ ] Store them in a linked list
+- [x] The checker wait for instructions on its stdin (0), 
+- [x] Analyse their conformity ("valid instr? \n terminated?")
+- [x] Store them in a linked list
 
 How to know if there is no more instrs? Waiting for a SIGPIPE or something that
 will close the pipe or the stream like EOF (ctrl + d)
@@ -83,7 +83,7 @@ will close the pipe or the stream like EOF (ctrl + d)
 ## Instrs execution
 
 - [x] Once the instrs are here, init the stacks...
-- [ ] ...execute the instrs
+- [x] ...execute the instrs
 
 ## Final check and result
 
