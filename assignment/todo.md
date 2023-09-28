@@ -61,7 +61,7 @@ instructions.
 
 # Bonus (or pushswap remix)
 
-- [o] Let's do the checker, in roughly 3 days... 
+- [x] Let's do the checker, in roughly 3 days... 
 
 ## Argument management (same as push_swap)
 
@@ -87,4 +87,4 @@ will close the pipe or the stream like EOF (ctrl + d)
 
 ## Final check and result
 
-- [ ] Check that b is empty and a is sorted. OK if so, KO otherwise.
+- [x] Check that b is empty and a is sorted. OK if so, KO otherwise.

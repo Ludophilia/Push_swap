@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:32:31 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/28 13:00:09 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:22:25 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # define MAIN_BONUS_H
 
 # include "climgr.h"
+# include "stackmgr.h"
+
 # include "gamemgr_bonus.h"
 # include "instrmgr_bonus.h"
 # include "execmgr_bonus.h"

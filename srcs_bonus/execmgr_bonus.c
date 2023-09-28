@@ -6,7 +6,7 @@
 /*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 12:58:40 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/28 13:04:53 by jgermany         ###   ########.fr       */
+/*   Updated: 2023/09/28 13:16:29 by jgermany         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	exc_choose_handler(char *instr, int (**handler)(t_stk *, t_stk *))
 {
 	size_t	instr_len;
-	
+
 	instr_len = ft_strlen(instr);
 	*handler = NULL;
 	if (instr_len == 3 && *instr == 'p')
@@ -44,12 +44,12 @@ static int	exc_config_args(char *instr, t_stk **stacks, t_stk *stkargs[2])
 		stkargs[0] = stacks[0];
 		stkargs[1] = stacks[1];
 	}
-	else if (!ft_strncmp(instr, "sa\n", 3) || !ft_strncmp(instr, "ra\n", 3) 
+	else if (!ft_strncmp(instr, "sa\n", 3) || !ft_strncmp(instr, "ra\n", 3)
 		|| !ft_strncmp(instr, "rra", 3))
 	{
 		stkargs[0] = stacks[0];
 	}
-	else if (!ft_strncmp(instr, "sb\n", 3) || !ft_strncmp(instr, "rb\n", 3) 
+	else if (!ft_strncmp(instr, "sb\n", 3) || !ft_strncmp(instr, "rb\n", 3)
 		|| !ft_strncmp(instr, "rrb", 3))
 	{
 		stkargs[0] = stacks[1];
@@ -63,7 +63,7 @@ static int	exc_execute_instr(char *instr, t_stk **stacks)
 {
 	int		(*handler)(t_stk *, t_stk *);
 	t_stk	*stkargs[2];
-	
+
 	ft_bzero(stkargs, sizeof(stkargs));
 	if (exc_choose_handler(instr, &handler) == -1
 		|| exc_config_args(instr, stacks, stkargs) == -1
