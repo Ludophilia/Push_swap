@@ -6,63 +6,95 @@
 #    By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2023/09/23 18:07:20 by jgermany         ###   ########.fr        #
+#    Updated: 2023/09/28 13:06:38 by jgermany         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 							:= push_swap
+NAME_BON 						:= checker
+
+FT 								:= libs/libft
 
 SRCS_DIRM 						:= srcs
 INCL_DIRM 						:= includes
-FT 								:= libs/libft
+SRCS_DIRB 						:= srcs_bonus
+INCL_DIRB 						:= includes_bonus
 
 CC								:= cc
 CFLAGS 							:= -Wall -Wextra -Werror
-all: CFLAGS 					+= -I$(INCL_DIRM)
 LIBFLAGS 						:= -lft -L$(FT)
+all: CFLAGS 					+= -I$(INCL_DIRM)
+bonus: CFLAGS 					+= -I$(INCL_DIRB) -I$(INCL_DIRM)
 
 SRCS 							:= $(SRCS_DIRM)/main.c
+SRCS 							+= $(SRCS_DIRM)/climgr.c
+SRCS 							+= $(SRCS_DIRM)/climgr_utils.c
 SRCS 							+= $(SRCS_DIRM)/gamemgr.c
 SRCS 							+= $(SRCS_DIRM)/instrmgr.c
 SRCS 							+= $(SRCS_DIRM)/instrmgr_utils.c
-SRCS 							+= $(SRCS_DIRM)/stackmgr.c
-SRCS 							+= $(SRCS_DIRM)/stackmgr_utils.c
-SRCS 							+= $(SRCS_DIRM)/climgr.c
-SRCS 							+= $(SRCS_DIRM)/climgr_utils.c
 SRCS 							+= $(SRCS_DIRM)/sorter_common.c
 SRCS 							+= $(SRCS_DIRM)/sorter_three.c
 SRCS 							+= $(SRCS_DIRM)/sorter_five.c
 SRCS 							+= $(SRCS_DIRM)/sorter_hundred.c
 SRCS 							+= $(SRCS_DIRM)/sorter_thousand.c
+SRCS 							+= $(SRCS_DIRM)/stackmgr.c
+SRCS 							+= $(SRCS_DIRM)/stackmgr_utils.c
+
+SRCS_BON 						:= $(SRCS_DIRB)/main_bonus.c
+SRCS_BON 						+= $(SRCS_DIRB)/execmgr_bonus.c
+SRCS_BON 						+= $(SRCS_DIRB)/gamemgr_bonus.c
+SRCS_BON 						+= $(SRCS_DIRB)/instrmgr_bonus.c
+SRCS_BON						+= $(SRCS_DIRM)/climgr.c
+SRCS_BON 						+= $(SRCS_DIRM)/climgr_utils.c
+SRCS_BON 						+= $(SRCS_DIRM)/gamemgr.c
+SRCS_BON 						+= $(SRCS_DIRM)/instrmgr.c
+SRCS_BON 						+= $(SRCS_DIRM)/instrmgr_utils.c
+SRCS_BON						+= $(SRCS_DIRM)/stackmgr.c
+SRCS_BON 						+= $(SRCS_DIRM)/stackmgr_utils.c
 
 OBJS 							:= $(SRCS:.c=.o)
+OBJS_BON 						:= $(SRCS_BON:.c=.o)
 
 all								:$(NAME)
 
+bonus							:$(NAME_BON)
+
+$(NAME_BON)						:$(OBJS_BON)
+								make -C $(FT) all bonus
+								$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
+
 $(NAME)							:$(OBJS)
-								make -C $(FT) all
-								make -C $(FT) bonus
+								make -C $(FT) all bonus
 								$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 
 %.o								:$(INCL_DIRM)/pushswap_commons.h
-$(SRCS_DIRM)/climgr_utils.o		:$(INCL_DIRM)/climgr.h
-$(SRCS_DIRM)/climgr.o			:$(INCL_DIRM)/climgr.h
-$(SRCS_DIRM)/gamemgr_utils.o	:$(INCL_DIRM)/gamemgr.h
-$(SRCS_DIRM)/gamemgr.o			:$(INCL_DIRM)/gamemgr.h
+
 $(SRCS_DIRM)/main.o				:$(INCL_DIRM)/main.h
-$(SRCS_DIRM)/stackmgr_utils.o	:$(INCL_DIRM)/stackmgr.h
+$(SRCS_DIRM)/climgr.o			:$(INCL_DIRM)/climgr.h
+$(SRCS_DIRM)/climgr_utils.o		:$(INCL_DIRM)/climgr.h
+$(SRCS_DIRM)/gamemgr.o			:$(INCL_DIRM)/gamemgr.h
+$(SRCS_DIRM)/instrmgr.o			:$(INCL_DIRM)/gamemgr.h
+$(SRCS_DIRM)/instrmgr_utils.o	:$(INCL_DIRM)/gamemgr.h
 $(SRCS_DIRM)/stackmgr.o			:$(INCL_DIRM)/stackmgr.h
+$(SRCS_DIRM)/stackmgr_utils.o	:$(INCL_DIRM)/stackmgr.h
+$(SRCS_DIRM)/sorter_common.o	:$(INCL_DIRM)/sorter.h
 $(SRCS_DIRM)/sorter_three.o		:$(INCL_DIRM)/sorter.h
 $(SRCS_DIRM)/sorter_five.o		:$(INCL_DIRM)/sorter.h
 $(SRCS_DIRM)/sorter_hundred.o	:$(INCL_DIRM)/sorter.h
+$(SRCS_DIRM)/sorter_thousand.o	:$(INCL_DIRM)/sorter.h
+
+$(SRCS_DIRB)/main_bonus.o		:$(INCL_DIRB)/main_bonus.h
+$(SRCS_DIRB)/instrmgr_bonus.o	:$(INCL_DIRB)/instrmgr_bonus.h
+$(SRCS_DIRB)/gamemgr_bonus.o	:$(INCL_DIRB)/gamemgr_bonus.h
+$(SRCS_DIRB)/execmgr_bonus.o	:$(INCL_DIRB)/execmgr_bonus.h
 
 clean							:
 								make -C $(FT) clean
-								rm -f $(OBJS)
+								rm -f $(OBJS) $(OBJS_BON)
 
 fclean							:clean
 								make -C $(FT) fclean
-								rm -f $(NAME)
+								rm -f $(NAME) $(NAME_BON)
 
 re								:fclean all
 
