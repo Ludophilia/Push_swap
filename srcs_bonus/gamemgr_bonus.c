@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gamemgr_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 17:44:46 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/28 13:07:57 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:04:26 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gamemgr_bonus.h"
+#include "pushswap_bonus.h"
 
 static t_list	*gameinst_lstseclast(t_list *lst)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   stackmgr_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/24 17:26:04 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:01:27 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stackmgr.h"
+#include "pushswap.h"
 
 int	stkmgr_stack_is_sorted(t_stk *stack, int rev)
 {

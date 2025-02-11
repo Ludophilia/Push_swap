@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_thousand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:43:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/24 22:10:03 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:01:07 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
 static void	sort500_update_nodecost(t_list *nodas[2], t_list *nodb,
 int nodecost[5])

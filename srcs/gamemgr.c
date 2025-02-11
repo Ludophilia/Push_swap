@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gamemgr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/06 17:02:01 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:03:14 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gamemgr.h"
+#include "pushswap.h"
 
 int	game_push(t_stk *from_stack, t_stk *to_stack, t_list **instr_head)
 {

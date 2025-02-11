@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   climgr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/25 19:45:26 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:03:10 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "climgr.h"
+#include "pushswap.h"
 
 static int	cli_check_if_full_digits(char **args)
 {

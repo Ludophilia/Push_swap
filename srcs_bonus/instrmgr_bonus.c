@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   instrmgr_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:16:21 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/27 14:32:36 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:04:32 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "instrmgr_bonus.h"
+#include "pushswap_bonus.h"
 
 static int	instmgr_check_instr(char *instr, size_t len, char **game_instrs)
 {

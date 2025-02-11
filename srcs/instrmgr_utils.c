@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   instrmgr_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:17:29 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/20 13:30:52 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:03:17 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gamemgr.h"
+#include "pushswap.h"
 
 int	game_store_instr(char *type, char *stk_name, t_list **head)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_hundred.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/23 18:38:07 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:01:02 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
 int	sort100_presort(t_stk **stacks, int divider, t_list **instrs)
 {

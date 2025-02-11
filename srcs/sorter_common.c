@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_common.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/25 17:22:10 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:03:43 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
 int	sort_get_pos_stk(int target, t_stk *stack)
 {

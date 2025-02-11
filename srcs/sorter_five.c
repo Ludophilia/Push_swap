@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_five.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/23 18:40:33 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:03:48 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
 static void	sort5_search_candidates(int candidates[2], t_stk **stacks)
 {

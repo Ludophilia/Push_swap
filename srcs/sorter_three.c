@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_three.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/23 18:38:57 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:01:16 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
 static void	sort3_get_data_from_stack(int *nbs, int *minmax, t_stk *stack)
 {

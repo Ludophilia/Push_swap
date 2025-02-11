@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   stackmgr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/19 12:54:30 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:04:03 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stackmgr.h"
+#include "pushswap.h"
 
 t_list	**stkmgr_stack_push(int nb, t_stk *stack)
 {

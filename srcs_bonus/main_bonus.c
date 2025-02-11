@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:23:21 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/28 13:45:47 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:04:35 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main_bonus.h"
+#include "pushswap_bonus.h"
 
 int	main(int argc, char *argv[])
 {

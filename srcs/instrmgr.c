@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   instrmgr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/20 13:35:21 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:03:21 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gamemgr.h"
+#include "pushswap.h"
 
 void	game_print_instrs(t_list *start)
 {

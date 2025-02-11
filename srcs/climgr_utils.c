@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   climgr_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:25:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/25 18:52:26 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:03:05 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "climgr.h"
+#include "pushswap.h"
 
 void	cli_free_strs(char **strs)
 {
