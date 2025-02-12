@@ -6,7 +6,7 @@
 #    By: jegerman <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2025/02/11 18:16:25 by jegerman         ###   ########.fr        #
+#    Updated: 2025/02/12 12:41:17 by jegerman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ INCL_DIRB := includes_bonus
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 LIBFLAGS := -lft -L$(FT)
+
 all: CFLAGS += -I$(INCL_DIRM)
 bonus: CFLAGS += -I$(INCL_DIRB) -I$(INCL_DIRM)
 

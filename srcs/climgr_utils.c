@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:25:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:03:05 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:20:28 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,15 @@ int	cli_is_nb_in_nbs(int nb, int *nbs, int size)
 	return (0);
 }
 
-int	cli_set_subt_nbs(int **subt_nbs_tmp, int *ijk, int *nbs, int size)
+int	cli_set_subt_nbs(int **subt_nbs_tmp, int *nbs, int size)
 {
-	ijk[0] = -1;
-	ijk[2] = 0;
 	subt_nbs_tmp[0] = ft_calloc(size, sizeof(int));
 	if (subt_nbs_tmp[0] == NULL)
 	{
 		free(nbs);
 		return (-1);
 	}
+
 	subt_nbs_tmp[1] = ft_calloc(size, sizeof(int));
 	if (subt_nbs_tmp[1] == NULL)
 	{

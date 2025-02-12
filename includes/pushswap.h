@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/11 17:44:54 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:02:32 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,16 @@ typedef struct s_stk
 	int		size;
 }	t_stk;
 
+typedef struct s_ctr
+{
+	long	i;
+	long	j;
+	long	k;
+}	t_ctr;
+
 long	cli_atol(char *str);
 int		cli_is_nb_in_nbs(int nb, int *nbs, int size);
-int		cli_set_subt_nbs(int **subt_nbs, int *ijk, int *nbs, int size);
+int		cli_set_subt_nbs(int **subt_nbs, int *nbs, int size);
 void	cli_free_strs(char **strs);
 int		cli_strslen(char **strs);
 int		cli_project_init(int argc, char **argv, t_stk *stks[3], t_list**instrs);
