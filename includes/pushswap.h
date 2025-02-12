@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/12 15:02:32 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:13:33 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define STRAIGHT 0
 # define REVERSE  1
+# define INT_MAX_PLUS_ONE 2147483648L
 
 typedef struct s_stk
 {
@@ -35,9 +36,14 @@ typedef struct s_ctr
 	long	k;
 }	t_ctr;
 
+typedef struct s_min
+{
+	long	nb;
+	int		pos;
+}	t_min;
+
 long	cli_atol(char *str);
-int		cli_is_nb_in_nbs(int nb, int *nbs, int size);
-int		cli_set_subt_nbs(int **subt_nbs, int *nbs, int size);
+int		cli_init_ranked_nbs(int **ranked, long *nbs, int size);
 void	cli_free_strs(char **strs);
 int		cli_strslen(char **strs);
 int		cli_project_init(int argc, char **argv, t_stk *stks[3], t_list**instrs);
