@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:23:21 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:04:35 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:24:44 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 		stkmgr_free_ressources(stacks, instrs);
 		return (1);
 	}
-	if (stkmgr_stack_is_sorted(stacks[0], STRAIGHT) && stacks[1]->size == 0)
+	if (stkmgr_stack_is_sorted(stacks[0], DIR_STRAIGHT) && stacks[1]->size == 0)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");

@@ -6,27 +6,29 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 17:03:09 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:36:14 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-int	stkmgr_stack_is_sorted(t_stk *stack, int rev)
+int	stkmgr_stack_is_sorted(t_stk *stack, int order)
 {
 	int		i;
-	int		last[2];
+	int		prev;
+	int		nb;
 	t_list	*current;
 
-	current = *stack->head;
+	current = stack->head;
 	i = -1;
 	while (current)
 	{
-		last[1] = *(int *)current->content;
-		if (++i > 0)
-			if ((!rev && (last[0] > last[1])) || (rev && (last[0] < last[1])))
+		nb = *(int *)current->content;
+		if (++i > 0
+			&& ((order == DIR_STRAIGHT && prev > nb)
+				|| (order == DIR_REVERSE && prev < nb)))
 				return (0);
-		last[0] = *(int *)current->content;
+		prev = *(int *)current->content;
 		current = current->next;
 	}
 	return (1);

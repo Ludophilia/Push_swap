@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:03:48 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:24:18 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	sort5_insertion_sort(t_stk **stacks, t_list **instrs)
 
 int	sort_upto_5nbs(t_stk **stacks, t_list **instrs)
 {
-	if (stkmgr_stack_is_sorted(stacks[0], 0) || (stacks[0]->size > 5))
+	if (stkmgr_stack_is_sorted(stacks[0], DIR_STRAIGHT) || (stacks[0]->size > 5))
 		return (0);
 	while (stacks[0]->size > 3)
 		if (game_push(stacks[0], stacks[1], instrs) == -1)

@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:01:16 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:24:31 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	sort_3nbs(t_stk *stackA, t_list **instrs)
 
 int	sort_upto_3nbs(t_stk *stack, t_list **instrs)
 {
-	if (stkmgr_stack_is_sorted(stack, 0) || stack->size > 3)
+	if (stkmgr_stack_is_sorted(stack, DIR_STRAIGHT) || stack->size > 3)
 		return (0);
 	if (stack->size == 2 && sort_2nbs(stack, instrs) == -1)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:03:43 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:24:05 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	sort_reset_stk(t_stk *stack, t_list **instrs)
 	int		target[2];
 	int		rev;
 
-	rev = 0;
+	rev = DIR_STRAIGHT;
 	if (*stack->name == 'b')
-		rev = 1;
+		rev = DIR_REVERSE;
 	if (stkmgr_stack_is_sorted(stack, rev))
 		return (0);
 	target[0] = 0;

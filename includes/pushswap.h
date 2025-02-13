@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/13 17:32:30 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:40:41 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <limits.h>
 # include <stdint.h>
 
-# define STRAIGHT 0
-# define REVERSE  1
+# define DIR_STRAIGHT 0b1
+# define DIR_REVERSE  0b10
 
 # define ID_STK_A 0b1010
 # define ID_STK_B 0b1011
@@ -63,6 +63,7 @@ t_list	*stkmgr_stack_push(int nb, t_stk *stack);
 void	stkmgr_free_ressources(t_psw *game);
 
 int		stkmgr_stack_is_sorted(t_stk *stack, int rev);
+
 void	stkmgr_get_minimum(int min[2], t_stk *stack);
 int		stkmgr_is_min(int nb, t_stk *stack);
 
