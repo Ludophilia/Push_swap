@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:03:25 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:52:41 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 int	main(int argc, char **argv)
 {
-	t_stk	*stacks[3];
-	t_list	*instrs[1];
-	int		init_status;
+	t_psw	game;
+	int		status;
 
-	init_status = cli_project_init(argc, argv, stacks, instrs);
-	if (init_status == 0)
+	status = cli_project_init(argc, argv, &game);
+	if (status == 0)
 		return (0);
-	if (init_status == -1 && ft_dprintf(2, "Error\n"))
+	if (status == -1 && ft_dprintf(2, "Error\n"))
 		return (1);
+
+	// Why that boolean structure? If not sorted, choose an algo an optimize
+	// the instructions...
 	if (stkmgr_stack_is_sorted(stacks[0], 0) == 0
 		&& (sort_choose_algorithm(stacks, instrs) == -1
 			|| game_opti_instrs(instrs) == -1))
@@ -30,6 +32,7 @@ int	main(int argc, char **argv)
 		stkmgr_free_ressources(stacks, instrs);
 		return (1);
 	}
+
 	game_print_instrs(*instrs);
 	stkmgr_free_ressources(stacks, instrs);
 	return (0);

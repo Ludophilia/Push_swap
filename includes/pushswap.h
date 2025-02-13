@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/12 18:13:33 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:44:22 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,23 @@
 
 # define STRAIGHT 0
 # define REVERSE  1
-# define INT_MAX_PLUS_ONE 2147483648L
+
+# define ID_STK_A 0b1010
+# define ID_STK_B 0b1011
 
 typedef struct s_stk
 {
-	char	*name;
-	t_list	**head;
+	int		id;
+	t_list	*head;
 	int		size;
 }	t_stk;
+
+typedef struct s_psw
+{
+	t_stk	stack_a;
+	t_stk	stack_b;
+	t_list	*instrs;
+}	t_psw;
 
 typedef struct s_ctr
 {
@@ -46,7 +55,7 @@ long	cli_atol(char *str);
 int		cli_init_ranked_nbs(int **ranked, long *nbs, int size);
 void	cli_free_strs(char **strs);
 int		cli_strslen(char **strs);
-int		cli_project_init(int argc, char **argv, t_stk *stks[3], t_list**instrs);
+int		cli_project_init(int argc, char **argv, t_psw *game);
 
 int		game_rev_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head);
 int		game_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head);
@@ -62,13 +71,12 @@ int		game_cmp_inst(char *ins1, char *ins2, size_t len, char *strs[2]);
 int		game_smp_inst(char *new, t_list *nodes[2], char *strs[2]);
 t_list	*game_lstseclast(t_list *lst);
 
-t_stk	*stkmgr_stack_init(char *name);
-int		stkmgr_stacks_init(int size, int *cli_nbs, t_stk *stacks[3]);
+int		stkmgr_stacks_init(int *ranked, int size, t_psw *game);
 t_list	*stkmgr_stack_pop(t_stk *stack);
-t_list	**stkmgr_stack_push(int nb, t_stk *stack);
-
+t_list	*stkmgr_stack_push(int nb, t_stk *stack);
 void	stkmgr_stack_free(t_stk *stack);
 void	stkmgr_free_ressources(t_stk **stacks, t_list **instrs);
+
 int		stkmgr_stack_is_sorted(t_stk *stack, int rev);
 void	stkmgr_get_minimum(int min[2], t_stk *stack);
 int		stkmgr_is_min(int nb, t_stk *stack);

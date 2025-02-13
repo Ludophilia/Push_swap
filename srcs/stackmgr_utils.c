@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:01:27 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:50:40 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ int	stkmgr_stack_is_sorted(t_stk *stack, int rev)
 
 void	stkmgr_stack_free(t_stk *stack)
 {
-	ft_lstclear(stack->head, free);
-	free(stack->head);
-	free(stack);
+	ft_lstclear(&stack->head, free);
 }
 
 void	stkmgr_free_ressources(t_stk **stacks, t_list **instrs)

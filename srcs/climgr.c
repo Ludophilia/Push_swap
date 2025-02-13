@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/12 18:34:56 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:43:00 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	cli_check_if_full_digits(char **argv)
 	return (0);
 }
 
-static long	*cli_integerize_args(char **argv, int argc)
+static long	*cli_conv_args_to_nbs(char **argv, int argc)
 {
 	long	*nbs;
 	t_ctr	ct;
@@ -48,7 +48,7 @@ static long	*cli_integerize_args(char **argv, int argc)
 		ct.j = -1;
 		while (++ct.j < ct.i)
 			if (nbs[ct.j] == candidate)
-				candidate = INT_MAX_PLUS_ONE;
+				candidate = LLONG_MAX;
 		if (candidate < INT_MIN || candidate > INT_MAX)
 		{
 			free(nbs);
@@ -75,12 +75,12 @@ static long	*cli_get_nbs_from_argv(char **argv, int *argcp)
 	}
 	if (cli_check_if_full_digits(argv) == -1)
 	{
-		if (on_heap == 1)
+		if (on_heap)
 			cli_free_strs(argv);
 		return (NULL);
 	}
-	cli_nbs = cli_integerize_args(argv, *argcp);
-	if (on_heap == 1)
+	cli_nbs = cli_conv_args_to_nbs(argv, *argcp);
+	if (on_heap)
 		cli_free_strs(argv);
 	if (cli_nbs == NULL)
 		return (NULL);
@@ -99,23 +99,23 @@ static int	*cli_substitute_nbs_to_rank(long *nbs, int size)
 	while (++ct.i < size)
 	{
 		ct.j = -1;
-		min = (t_min){.nb = INT_MAX_PLUS_ONE, .pos = -1};
+		min = (t_min){.nb = LLONG_MAX, .pos = -1};
 		while (++ct.j < size)
 		{
-			if (nbs[ct.j] <= min.nb)
+			if (nbs[ct.j] < min.nb)
 			{
 				min.nb = nbs[ct.j];
 				min.pos = ct.j;
 			}
 		}
-		nbs[min.pos] = INT_MAX_PLUS_ONE;
+		nbs[min.pos] = LLONG_MAX;
 		ranked[min.pos] = ct.k++;
 	}
 	free(nbs);
 	return (ranked);
 }
 
-int	cli_project_init(int argc, char **argv, t_stk *stks[3], t_list **instrs)
+int	cli_project_init(int argc, char **argv, t_psw *game)
 {
 	long	*cli_nbs;
 	int		*ranked;
@@ -130,13 +130,11 @@ int	cli_project_init(int argc, char **argv, t_stk *stks[3], t_list **instrs)
 	ranked = cli_substitute_nbs_to_rank(cli_nbs, argc);
 	if (ranked == NULL)
 		return (-1);
-
-	// We're not done yet, buckle up :)
-	if (stkmgr_stacks_init(argc, ranked, stks) == -1)
+	if (stkmgr_stacks_init(ranked, argc, game) == -1)
 	{
 		free(ranked);
 		return (-1);
 	}
-	*instrs = 0;
+	free(ranked);
 	return (1);
 }
