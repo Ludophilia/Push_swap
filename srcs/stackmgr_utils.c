@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 15:50:40 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:03:09 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,6 @@ int	stkmgr_stack_is_sorted(t_stk *stack, int rev)
 		current = current->next;
 	}
 	return (1);
-}
-
-void	stkmgr_stack_free(t_stk *stack)
-{
-	ft_lstclear(&stack->head, free);
-}
-
-void	stkmgr_free_ressources(t_stk **stacks, t_list **instrs)
-{
-	stkmgr_stack_free(stacks[0]);
-	stkmgr_stack_free(stacks[1]);
-	ft_lstclear(instrs, free);
 }
 
 void	stkmgr_get_minimum(int min[2], t_stk *stack)

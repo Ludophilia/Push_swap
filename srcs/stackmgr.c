@@ -6,11 +6,18 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 16:34:45 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:35:11 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
+
+void	stkmgr_free_ressources(t_psw *game)
+{
+	ft_lstclear(&game->stack_a.head, free);
+	ft_lstclear(&game->stack_b.head, free);
+	ft_lstclear(&game->instrs, free);
+}
 
 t_list	*stkmgr_stack_push(int nb, t_stk *stack)
 {
@@ -57,7 +64,7 @@ int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
 	{
 		if (stkmgr_stack_push(ranked[i], &game->stack_a) == NULL)
 		{
-			stkmgr_stack_free(&game->stack_a);
+			ft_lstclear(&game->stack_a.head, free);
 			return (-1);
 		}
 	}
