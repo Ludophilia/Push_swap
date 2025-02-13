@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 18:24:05 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:58:00 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,22 @@ int	sort_reset_stk(t_stk *stack, t_list **instrs)
 	return (0);
 }
 
-int	sort_choose_algorithm(t_stk **stacks, t_list **instrs)
+// 14/02 - Here we are...
+int	sort_choose_algorithm(t_psw *game)
 {
-	if (stacks[0]->size <= 3 && sort_upto_3nbs(stacks[0], instrs) == -1)
+	if (game->stack_a.size <= 3
+		&& sort_upto_3nbs(game->stack_a, &game->instrs) == -1)
 		return (-1);
-	else if (stacks[0]->size > 3 && stacks[0]->size <= 5
+	else if (game->stack_a.size > 3 && game->stack_a.size <= 5
 		&& sort_upto_5nbs(stacks, instrs) == -1)
 		return (-1);
-	else if (stacks[0]->size > 5 && stacks[0]->size <= 75
+	else if (game->stack_a.size > 5 && game->stack_a.size <= 75
 		&& sort_upto_100nbs(stacks, 2, instrs) == -1)
 		return (-1);
-	else if (stacks[0]->size > 75 && stacks[0]->size <= 250
+	else if (game->stack_a.size > 75 && game->stack_a.size <= 250
 		&& sort_upto_100nbs(stacks, 4, instrs) == -1)
 		return (-1);
-	else if (stacks[0]->size > 250
+	else if (game->stack_a.size > 250
 		&& sort_over_100nbs(stacks, 9, instrs) == -1)
 		return (-1);
 	return (0);

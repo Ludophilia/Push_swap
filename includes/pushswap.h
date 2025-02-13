@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/13 18:40:41 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:00:21 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ int		stkmgr_stack_is_sorted(t_stk *stack, int rev);
 void	stkmgr_get_minimum(int min[2], t_stk *stack);
 int		stkmgr_is_min(int nb, t_stk *stack);
 
+int		sort_choose_algorithm(t_psw *game); //t_stk **stacks, t_list **instrs);
+
+
 
 
 int		game_rev_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head);
@@ -88,13 +91,12 @@ int		sort_rotate_stk(int target[2], t_stk *stack, t_list **instrs);
 int		sort_reset_stk(t_stk *stack, t_list **instrs);
 
 int		sort_2nbs(t_stk *stack, t_list **instrs);
+
 int		sort_upto_3nbs(t_stk *stack, t_list **instrs);
-int		sort_upto_5nbs(t_stk **stacks, t_list **instrs);
+int		sort_upto_5nbs(t_psw *game);
 
-int		sort100_presort(t_stk **stacks, int divider, t_list **instrs);
-int		sort_upto_100nbs(t_stk **stacks, int divider, t_list **instrs);
-int		sort_over_100nbs(t_stk **stacks, int divider, t_list **instrs);
-
-int		sort_choose_algorithm(t_stk **stacks, t_list **instrs);
+int		sort100_presort(t_psw *game, int divider);
+int		sort_upto_100nbs(t_psw *game, int divider);
+int		sort_over_100nbs(t_psw *game, int divider);
 
 #endif

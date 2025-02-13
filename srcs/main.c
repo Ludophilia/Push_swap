@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 18:38:11 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:01:40 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		return (1);
 
 	if (stkmgr_stack_is_sorted(&game.stack_a, DIR_STRAIGHT) == 0
-		&& (sort_choose_algorithm(stacks, instrs) == -1
+		&& (sort_choose_algorithm(&game) == -1
 			|| game_opti_instrs(&game.instrs) == -1))
 	{
 		stkmgr_free_ressources(&game);
