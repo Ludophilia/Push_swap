@@ -6,78 +6,77 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 18:24:31 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:57:20 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-static void	sort3_get_data_from_stack(int *nbs, int *minmax, t_stk *stack)
+static void	sort_get_numbers_and_extrema(int *nbs, t_extr *extr, t_stk *stack)
 {
 	t_list	*node;
 	int		i;
 
-	*(long *)minmax = (long)INT_MAX;
-	node = *stack->head;
+	*extr = (t_extr){.min = LLONG_MAX, .max = -1};
+	node = stack->head;
 	i = -1;
 	while (++i < stack->size)
 	{
 		nbs[i] = *(int *)node->content;
-		if (nbs[i] < minmax[0])
-			minmax[0] = nbs[i];
-		if (nbs[i] > minmax[1])
-			minmax[1] = nbs[i];
+		if (nbs[i] < extr->min)
+			extr.min = nbs[i];
+		if (nbs[i] > extr->max)
+			extr.max = nbs[i];
 		node = node->next;
 	}
 }
 
-int	sort_2nbs(t_stk *stack, t_list **instrs)
+static int	sort_3nbs(t_stk *stack, t_psw *game)
 {
-	int	error_status;
-	int	nbs[3];
-	int	minmax[2];
+	int		nbs[3];
+	t_extr	extr;
 
-	error_status = 0;
-	sort3_get_data_from_stack(nbs, minmax, stack);
-	if (*stack->name == 'a' && minmax[0] == nbs[1] && minmax[1] == nbs[0])
-		error_status = game_swap(stack, 0, instrs) == -1;
-	else if (*stack->name == 'b' && minmax[0] == nbs[0] && minmax[1] == nbs[1])
-		error_status = game_swap(stack, 0, instrs) == -1;
-	if (error_status)
+	sort_get_numbers_and_extrema(nbs, &extr, stack);
+	if (extr.min == nbs[0] && extr.max == nbs[1]
+		&& (game_rev_rotate(stack, NULL, instrs) == -1
+			|| game_swap(stack, NULL, instrs) == -1))
+		return (-1);
+	else if (extr.min == nbs[1] && extr.max == nbs[2]
+		&& game_swap(stack, NULL, instrs) == -1)
+		return (-1);
+	else if (extr.min == nbs[1] && extr.max == nbs[0]
+		&& game_rotate(stack, NULL, instrs) == -1)
+		return (-1);
+	else if (extr.min == nbs[2] && extr.max == nbs[1]
+		&& game_rev_rotate(stack, NULL, instrs) == -1)
+		return (-1);
+	else if (extr.min == nbs[2] && extr.max == nbs[0]
+		&& (game_swap(stack, NULL, instrs) == -1
+			|| game_rev_rotate(stack, NULL, instrs) == -1))
 		return (-1);
 	return (0);
 }
 
-static int	sort_3nbs(t_stk *stackA, t_list **instrs)
+int	sort_2nbs(t_stk *stack, t_psw *game)
 {
-	int	error_status;
-	int	nbs[3];
-	int	minmax[2];
+	int		nbs[3];
+	t_extr	extr;
 
-	error_status = 0;
-	sort3_get_data_from_stack(nbs, minmax, stackA);
-	if (minmax[0] == nbs[0] && minmax[1] == nbs[1])
-		error_status = (game_rev_rotate(stackA, 0, instrs) == -1
-				|| game_swap(stackA, 0, instrs) == -1);
-	else if (minmax[0] == nbs[2] && minmax[1] == nbs[1])
-		error_status = game_rev_rotate(stackA, 0, instrs) == -1;
-	else if (minmax[0] == nbs[1] && minmax[1] == nbs[2])
-		error_status = game_swap(stackA, 0, instrs) == -1;
-	else if (minmax[0] == nbs[1] && minmax[1] == nbs[0])
-		error_status = game_rotate(stackA, 0, instrs) == -1;
-	else if (minmax[0] == nbs[2] && minmax[1] == nbs[0])
-		error_status = (game_swap(stackA, 0, instrs) == -1
-				|| game_rev_rotate(stackA, 0, instrs) == -1);
-	if (error_status)
+	sort_get_numbers_and_extrema(nbs, &extr, stack);
+	if (stack->id == ID_STK_A && extr.min == nbs[1] && extr.max == nbs[0]
+		&& game_swap(stack, 0, instrs) == -1)
+		return (-1);
+	else if (stack->id == ID_STK_B && extr.min == nbs[0] && extr.max == nbs[1]
+		&& game_swap(stack, 0, instrs) == -1)
 		return (-1);
 	return (0);
 }
 
-int	sort_upto_3nbs(t_stk *stack, t_list **instrs)
+int	sort_upto_3nbs(t_stk *stack, t_psw *game)
 {
-	if (stkmgr_stack_is_sorted(stack, DIR_STRAIGHT) || stack->size > 3)
+	if (stkmgr_stack_is_sorted(stack, DIR_STRAIGHT))
 		return (0);
-	if (stack->size == 2 && sort_2nbs(stack, instrs) == -1)
+	if (stack->size == 2 && sort_2nbs(stack, game) == -1)
 		return (-1);
 	else if (stack->size == 3 && sort_3nbs(stack, instrs) == -1)
 		return (-1);

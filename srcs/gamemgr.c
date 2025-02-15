@@ -6,30 +6,31 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:03:14 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:12:05 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-int	game_push(t_stk *from_stack, t_stk *to_stack, t_list **instr_head)
-{
-	t_list	*from_node;
+// int	game_push(t_stk *from_stack, t_stk *to_stack, t_list **instr_head)
+// {
+// 	t_list	*from_node;
 
-	from_node = stkmgr_stack_pop(from_stack);
-	if (from_node == NULL)
-		return (-1);
-	if (to_stack->head == NULL)
-		*to_stack->head = from_node;
-	else
-		ft_lstadd_front(to_stack->head, from_node);
-	to_stack->size++;
-	if (game_store_instr("p", to_stack->name, instr_head) == -1)
-		return (-1);
-	return (0);
-}
+// 	from_node = stkmgr_stack_pop(from_stack);
+// 	if (from_node == NULL)
+// 		return (-1);
+// 	if (to_stack->head == NULL)
+// 		*to_stack->head = from_node;
+// 	else
+// 		ft_lstadd_front(to_stack->head, from_node);
+// 	to_stack->size++;
+// 	if (game_store_instr("p", to_stack->name, instr_head) == -1)
+// 		return (-1);
+// 	return (0);
+// }
 
-int	game_swap(t_stk *stack0, t_stk *stack1, t_list **instr_head)
+// 16/02 - Here we are...
+int	game_swap(t_stk *stack0, t_stk *stack1, t_psw *game)
 {
 	t_stk	**stacks;
 	t_list	*nodes[2];
@@ -40,7 +41,8 @@ int	game_swap(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 	while (stacks[++i])
 	{
 		if (*stacks[i]->head && (*stacks[i]->head)->next)
-		{
+		{ // When swapping, move data, not nodes... That's so stupid,
+		// always doing that.
 			nodes[0] = *stacks[i]->head;
 			nodes[1] = (*stacks[i]->head)->next;
 			nodes[0]->next = nodes[1]->next;
@@ -48,11 +50,10 @@ int	game_swap(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 			*stacks[i]->head = nodes[1];
 		}
 		else
-			stacks[i] = 0;
+			stacks[i] = NULL;
 	}
-	if (stacks[0] || stacks[1])
-	{
-		if (game_choose_instr("s", stacks[0], stacks[1], instr_head) == -1)
+	if ((stacks[0] || stacks[1])
+		&& game_choose_instr("s", stacks[0], stacks[1], game) == -1)
 			return (-1);
 	}
 	return (0);

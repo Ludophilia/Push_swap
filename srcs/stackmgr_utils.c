@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 18:36:14 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/15 13:45:40 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,37 @@ int	stkmgr_stack_is_sorted(t_stk *stack, int order)
 	return (1);
 }
 
-void	stkmgr_get_minimum(int min[2], t_stk *stack)
-{
-	t_list	*nodes;
-	int		i;
+// void	stkmgr_get_minimum(int min[2], t_stk *stack)
+// {
+// 	t_list	*nodes;
+// 	int		i;
 
-	min[0] = INT_MAX;
-	min[1] = -1;
-	nodes = *stack->head;
-	i = 0;
-	while (nodes)
-	{
-		if (*(int *)nodes->content < min[0])
-		{
-			min[0] = *(int *)nodes->content;
-			min[1] = i;
-		}
-		i++;
-		nodes = nodes->next;
-	}
-}
+// 	min[0] = INT_MAX;
+// 	min[1] = -1;
+// 	nodes = *stack->head;
+// 	i = 0;
+// 	while (nodes)
+// 	{
+// 		if (*(int *)nodes->content < min[0])
+// 		{
+// 			min[0] = *(int *)nodes->content;
+// 			min[1] = i;
+// 		}
+// 		i++;
+// 		nodes = nodes->next;
+// 	}
+// }
 
-int	stkmgr_is_min(int nb, t_stk *stack)
-{
-	t_list	*node;
+// int	stkmgr_is_min(int nb, t_stk *stack)
+// {
+// 	t_list	*node;
 
-	node = *stack->head;
-	while (node)
-	{
-		if (nb > *(int *)node->content)
-			return (0);
-		node = node->next;
-	}
-	return (1);
-}
+// 	node = *stack->head;
+// 	while (node)
+// 	{
+// 		if (nb > *(int *)node->content)
+// 			return (0);
+// 		node = node->next;
+// 	}
+// 	return (1);
+// }

@@ -6,7 +6,7 @@
 #    By: jegerman <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2025/02/12 12:41:17 by jegerman         ###   ########.fr        #
+#    Updated: 2025/02/15 13:45:11 by jegerman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,14 @@ bonus: CFLAGS += -I$(INCL_DIRB) -I$(INCL_DIRM)
 SRCS := $(SRCS_DIRM)/main.c
 SRCS += $(SRCS_DIRM)/climgr.c
 SRCS += $(SRCS_DIRM)/climgr_utils.c
-SRCS += $(SRCS_DIRM)/gamemgr.c
-SRCS += $(SRCS_DIRM)/instrmgr.c
-SRCS += $(SRCS_DIRM)/instrmgr_utils.c
-SRCS += $(SRCS_DIRM)/sorter_common.c
-SRCS += $(SRCS_DIRM)/sorter_three.c
-SRCS += $(SRCS_DIRM)/sorter_five.c
-SRCS += $(SRCS_DIRM)/sorter_hundred.c
-SRCS += $(SRCS_DIRM)/sorter_thousand.c
+# SRCS += $(SRCS_DIRM)/gamemgr.c
+# SRCS += $(SRCS_DIRM)/instrmgr.c
+# SRCS += $(SRCS_DIRM)/instrmgr_utils.c
+# SRCS += $(SRCS_DIRM)/sorter_common.c
+# SRCS += $(SRCS_DIRM)/sorter_three.c
+# SRCS += $(SRCS_DIRM)/sorter_five.c
+# SRCS += $(SRCS_DIRM)/sorter_hundred.c
+# SRCS += $(SRCS_DIRM)/sorter_thousand.c
 SRCS += $(SRCS_DIRM)/stackmgr.c
 SRCS += $(SRCS_DIRM)/stackmgr_utils.c
 
