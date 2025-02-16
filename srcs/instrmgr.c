@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/16 18:46:10 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:14:23 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,45 +70,46 @@
 // 	return (0);
 // }
 
-int	game_store_instr(char *type, char *stk_name, t_list **head)
+int	insmgr_store_instr(char *type, char *name, t_list **instr_head)
 {
-	t_list	*new_instr;
+	t_list	*instr_node;
 	char	*instr;
 
-	instr = ft_strjoin(type, stk_name);
+	instr = ft_strjoin(type, name);
 	if (instr == NULL)
 	{
-		ft_lstclear(head, free);
+		ft_lstclear(instr_head, free);
 		return (-1);
 	}
-	new_instr = ft_lstnew(instr);
-	if (new_instr == NULL)
+	instr_node = ft_lstnew(instr);
+	if (instr_node == NULL)
 	{
 		free(instr);
-		ft_lstclear(head, free);
+		ft_lstclear(instr_head, free);
 		return (-1);
 	}
-	ft_lstadd_back(head, new_instr);
+	ft_lstadd_back(instr_head, instr_node);
 	return (0);
 }
 
-int	game_choose_instr(char *type, t_stk *stk0, t_stk *stk1, t_list **head)
+// 17/02 - NEXT UP
+int	insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1, t_psw *game)
 {
-	char	*stk_name;
+	char	*stack_name;
 
-	stk_name = NULL;
-	if (stk0 && !stk1)
-		stk_name = stk0->name;
-	else if (!stk0 && stk1)
-		stk_name = stk1->name;
-	else if (stk0 && stk1)
+	stack_name = NULL;
+	if (stack0 && !stack1)
+		stack_name = stack0->name;
+	else if (!stack0 && stack1)
+		stack_name = stack1->name;
+	else if (stack0 && stack1)
 	{
 		if (!ft_strncmp(type, "r", 2) || !ft_strncmp(type, "rr", 3))
-			stk_name = "r";
+			stack_name = "r";
 		else if (!ft_strncmp(type, "s", 2))
-			stk_name = "s";
+			stack_name = "s";
 	}
-	if (game_store_instr(type, stk_name, head) == -1)
+	if (insmgr_store_instr(type, stack_name, &game->instrs) == -1)
 		return (-1);
 	return (0);
 }

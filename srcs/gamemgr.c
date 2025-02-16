@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/16 18:34:14 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:08:34 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	game_push(t_stk *from_stack, t_stk *to_stack, t_psw *game)
 	else
 		ft_lstadd_front(&to_stack->head, from_node);
 	to_stack->size++;
-	if (game_store_instr("p", to_stack->name, game) == -1)
+	if (insmgr_store_instr("p", to_stack->name, game) == -1)
 		return (-1);
 	return (0);
 }
@@ -64,7 +64,7 @@ int	game_swap(t_stk *stack0, t_stk *stack1, t_psw *game)
 			stacks[i] = NULL;
 	}
 	if ((stacks[0] || stacks[1])
-		&& game_choose_instr("s", stacks[0], stacks[1], game) == -1)
+		&& insmgr_choose_instr("s", stacks[0], stacks[1], game) == -1)
 		return (-1);
 	return (0);
 }
@@ -92,7 +92,7 @@ int	game_rotate(t_stk *stack0, t_stk *stack1, t_psw *game)
 			stacks[i] = NULL;
 	}
 	if ((stacks[0] || stacks[1])
-		&& game_choose_instr("r", stacks[0], stacks[1], game) == -1)
+		&& insmgr_choose_instr("r", stacks[0], stacks[1], game) == -1)
 		return (-1);
 	return (0);
 }
@@ -120,7 +120,7 @@ int	game_rev_rotate(t_stk *stack0, t_stk *stack1, t_psw *game)
 			stacks[i] = 0;
 	}
 	if ((stacks[0] || stacks[1])
-		&& game_choose_instr("rr", stacks[0], stacks[1], game) == -1)
+		&& insmgr_choose_instr("rr", stacks[0], stacks[1], game) == -1)
 		return (-1);
 	return (0);
 }

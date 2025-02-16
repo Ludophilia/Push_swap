@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/16 18:48:49 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:15:08 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ int		game_push(t_stk *from_stack, t_stk *to_stack, t_psw *game);
 int		game_swap(t_stk *stack0, t_stk *stack1, t_psw *game);
 
 // int		game_opti_instrs(t_list **instrs);
-int		game_choose_instr(char *type, t_stk *stk0, t_stk *stk1, t_list **head);
-int		game_store_instr(char *type, char *stk_name, t_list **head);
+int		insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1,
+		t_psw *game);
+int		insmgr_store_instr(char *type, char *name, t_list **instr_head);
 
 // int		sort_get_pos_stk(int target, t_stk *stack);
 // int		sort_rotate_stk(int target[2], t_stk *stack, t_list **instrs);
