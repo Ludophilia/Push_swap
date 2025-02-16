@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 18:55:23 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:36:02 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
 {
 	int	i;
 
-	game->stack_a = (t_stk){.id = ID_STK_A, .head = NULL, .size = 0};
-	game->stack_b = (t_stk){.id = ID_STK_B, .head = NULL, .size = 0};
+	game->stack_a = (t_stk){.id = ID_STK_A, .name = "a", .head = 0, .size = 0};
+	game->stack_b = (t_stk){.id = ID_STK_B, .name = "b", .head = 0, .size = 0};
 	game->instrs = NULL;
 	i = size;
 	while (--i >= 0)

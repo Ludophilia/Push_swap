@@ -6,11 +6,20 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/15 13:48:07 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:22:57 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
+
+static void	main_print_instrs(t_list *start)
+{
+	while (start)
+	{
+		ft_printf("%s\n", (char *)start->content);
+		start = start->next;
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -31,7 +40,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	// game_print_instrs(game.instrs);
+	// main_print_instrs(game.instrs);
 	stkmgr_free_ressources(&game);
 	return (0);
 }
