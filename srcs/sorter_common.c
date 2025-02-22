@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/16 18:41:23 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:16:37 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@
 int	sort_choose_algorithm(t_psw *game)
 {
 	if (game->stack_a.size <= 3
-		&& sort_upto_3nbs(game->stack_a, &game) == -1)
+		&& sort_upto_3nbs(&game->stack_a, game) == -1)
 		return (-1);
 	// else if (game->stack_a.size > 3 && game->stack_a.size <= 5
 	// 	&& sort_upto_5nbs(stacks, instrs) == -1)

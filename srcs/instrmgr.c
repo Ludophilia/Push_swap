@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/16 19:14:23 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:51:23 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@
 // 	return (0);
 // }
 
-int	insmgr_store_instr(char *type, char *name, t_list **instr_head)
+int	insmgr_store_instr(char *type, char *name, t_psw *game)
 {
 	t_list	*instr_node;
+	t_list	**instr_head;
 	char	*instr;
 
+	instr_head = &game->instrs;
 	instr = ft_strjoin(type, name);
 	if (instr == NULL)
 	{
@@ -92,7 +94,6 @@ int	insmgr_store_instr(char *type, char *name, t_list **instr_head)
 	return (0);
 }
 
-// 17/02 - NEXT UP
 int	insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1, t_psw *game)
 {
 	char	*stack_name;
@@ -102,14 +103,13 @@ int	insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1, t_psw *game)
 		stack_name = stack0->name;
 	else if (!stack0 && stack1)
 		stack_name = stack1->name;
-	else if (stack0 && stack1)
-	{
-		if (!ft_strncmp(type, "r", 2) || !ft_strncmp(type, "rr", 3))
-			stack_name = "r";
-		else if (!ft_strncmp(type, "s", 2))
-			stack_name = "s";
-	}
-	if (insmgr_store_instr(type, stack_name, &game->instrs) == -1)
+	else if (stack0 && stack1
+		&& (!ft_strncmp(type, "r", 2) || !ft_strncmp(type, "rr", 3)))
+		stack_name = "r";
+	else if (stack0 && stack1 && !ft_strncmp(type, "s", 2))
+		stack_name = "s";
+	if (stack_name == NULL
+		|| (stack_name && insmgr_store_instr(type, stack_name, game) == -1))
 		return (-1);
 	return (0);
 }

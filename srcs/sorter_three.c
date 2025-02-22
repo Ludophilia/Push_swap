@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/16 17:55:41 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:51:34 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	sort_get_numbers_and_extrema(int *nbs, t_extr *extr, t_stk *stack)
 	{
 		nbs[i] = *(int *)node->content;
 		if (nbs[i] < extr->min)
-			extr.min = nbs[i];
+			extr->min = nbs[i];
 		if (nbs[i] > extr->max)
-			extr.max = nbs[i];
+			extr->max = nbs[i];
 		node = node->next;
 	}
 }
@@ -64,10 +64,10 @@ int	sort_2nbs(t_stk *stack, t_psw *game)
 
 	sort_get_numbers_and_extrema(nbs, &extr, stack);
 	if (stack->id == ID_STK_A && extr.min == nbs[1] && extr.max == nbs[0]
-		&& game_swap(stack, 0, game) == -1)
+		&& game_swap(stack, NULL, game) == -1)
 		return (-1);
 	else if (stack->id == ID_STK_B && extr.min == nbs[0] && extr.max == nbs[1]
-		&& game_swap(stack, 0, game) == -1)
+		&& game_swap(stack, NULL, game) == -1)
 		return (-1);
 	return (0);
 }

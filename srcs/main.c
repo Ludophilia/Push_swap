@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/16 18:22:57 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:19:31 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	// main_print_instrs(game.instrs);
+	main_print_instrs(game.instrs);
 	stkmgr_free_ressources(&game);
 	return (0);
 }
