@@ -6,44 +6,49 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/13 18:24:18 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:49:14 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-static void	sort5_search_candidates(int candidates[2], t_stk **stacks)
+static void	sort5_get_min_highest(t_pnbr *target_nb, t_stk* stack_a,
+	t_stk* stack_b)
 {
-	t_list	*nodes[2];
+	t_list	*node_a;
+	t_list	*node_b;
 	int		i;
 
-	*(long *)candidates = ((long)INT_MAX << 32) + INT_MAX;
-	nodes[0] = *stacks[0]->head;
-	nodes[1] = *stacks[1]->head;
+	*target_nb = (t_pnbr){.nb = LLONG_MAX, .pos = -1};
+	node_a = stack_a->head;
+	node_b = stack_b->head;
 	i = 0;
-	while (nodes[0])
+	while (node_a)
 	{
-		if (*(int *)nodes[0]->content > *(int *)nodes[1]->content
-			&& *(int *)nodes[0]->content < candidates[0])
+		if (*(int *)node_a->content > *(int *)node_b->content
+			&& *(int *)node_a->content < target_nb->nb)
 		{
-			candidates[0] = *(int *)nodes[0]->content;
-			candidates[1] = i;
+			target_nb->nb = *(int *)node_a->content;
+			target_nb->pos = i;
 		}
-		nodes[0] = nodes[0]->next;
+		node_a = node_a->next;
 		i++;
 	}
-	if (candidates[0] == INT_MAX)
-		stkmgr_get_minimum(candidates, stacks[0]);
+	if (target_nb->pos < 0)
+		stkmgr_get_minimum(targt, stack_a);
 }
 
-static int	sort5_insertion_sort(t_stk **stacks, t_list **instrs)
+// 23/02 - There is still work left to do
+static int	sort5_insertion_sort(t_stk* stack_a, t_stk* stack_b, t_psw *game)
 {
-	int	a_target[2];
+	int	candidates[2];
+	t_pnbr	target_nb;
 
 	while (*stacks[1]->head)
 	{
-		sort5_search_candidates(a_target, stacks);
-		if (sort_rotate_stk(a_target, stacks[0], instrs) == -1
+		sort5_get_min_highest(&target_nb, stack_a, stack_b);
+
+		if (sort_rotate_stk(candidates, stacks[0], instrs) == -1
 			|| game_push(stacks[1], stacks[0], instrs) == -1)
 			return (-1);
 	}
@@ -52,19 +57,18 @@ static int	sort5_insertion_sort(t_stk **stacks, t_list **instrs)
 	return (0);
 }
 
-int	sort_upto_5nbs(t_stk **stacks, t_list **instrs)
+int	sort_upto_5nbs(t_stk* stack_a, t_stk* stack_b, t_psw *game)
 {
-	if (stkmgr_stack_is_sorted(stacks[0], DIR_STRAIGHT) || (stacks[0]->size > 5))
+	if (stkmgr_stack_is_sorted(stack_a, DIR_STRAIGHT))
 		return (0);
-	while (stacks[0]->size > 3)
-		if (game_push(stacks[0], stacks[1], instrs) == -1)
+	while (stack_a->size > 3)
+		if (game_push(stack_a, stack_b, game) == -1)
 			return (-1);
-	if (sort_upto_3nbs(stacks[0], instrs) == -1)
+	if (sort_upto_3nbs(stack_a, game) == -1
+		|| (stack_b->size == 2 && sort_2nbs(stack_b, game) == -1))
 		return (-1);
-	if (stacks[0]->size == 2 && sort_2nbs(stacks[1], instrs) == -1)
-		return (-1);
-	if (stacks[1]->size > 0
-		&& sort5_insertion_sort(stacks, instrs) == -1)
+	if (stack_b->size > 0
+		&& sort5_insertion_sort(stack_a, stack_b, game) == -1)
 		return (-1);
 	return (0);
 }

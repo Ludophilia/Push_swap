@@ -6,20 +6,33 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/16 18:36:02 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 17:23:52 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
+t_list	*stkmgr_stack_pop(t_stk *stack)
+{
+	t_list	*node;
+
+	node = stack->head;
+	if (node == NULL)
+		return (NULL);
+	stack->head = node->next;
+	node->next = NULL;
+	stack->size--;
+	return (node);
+}
+
 void	stkmgr_free_ressources(t_psw *game)
 {
-	ft_lstclear(&game->stack_a.head, free);
-	ft_lstclear(&game->stack_b.head, free);
+	ft_lstclear(&game->stack_a->head, free);
+	ft_lstclear(&game->stack_b->head, free);
 	ft_lstclear(&game->instrs, free);
 }
 
-t_list	*stkmgr_stack_push(int nb, t_stk *stack)
+static t_list	*stkmgr_stack_push(int nb, t_stk *stack)
 {
 	t_list	*node;
 	int		*nb_mem;
@@ -39,32 +52,21 @@ t_list	*stkmgr_stack_push(int nb, t_stk *stack)
 	return (stack->head);
 }
 
-t_list	*stkmgr_stack_pop(t_stk *stack)
-{
-	t_list	*node;
-
-	node = stack->head;
-	if (node == NULL)
-		return (NULL);
-	stack->head = node->next;
-	node->next = NULL;
-	stack->size--;
-	return (node);
-}
-
 int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
 {
 	int	i;
 
-	game->stack_a = (t_stk){.id = ID_STK_A, .name = "a", .head = 0, .size = 0};
-	game->stack_b = (t_stk){.id = ID_STK_B, .name = "b", .head = 0, .size = 0};
+	game->_stack_a = (t_stk){.id = ID_STK_A, .name = "a", .head = 0, .size = 0};
+	game->_stack_b = (t_stk){.id = ID_STK_B, .name = "b", .head = 0, .size = 0};
+	game->stack_a = &game->_stack_a;
+	game->stack_b = &game->_stack_b;
 	game->instrs = NULL;
 	i = size;
 	while (--i >= 0)
 	{
-		if (stkmgr_stack_push(ranked[i], &game->stack_a) == NULL)
+		if (stkmgr_stack_push(ranked[i], game->stack_a) == NULL)
 		{
-			ft_lstclear(&game->stack_a.head, free);
+			ft_lstclear(&game->stack_a->head, free);
 			return (-1);
 		}
 	}

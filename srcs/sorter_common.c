@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/22 14:16:37 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:26:16 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,22 @@
 // 	return (-1);
 // }
 
-// int	sort_rotate_stk(int target[2], t_stk *stack, t_list **instrs)
-// {
-// 	int	fwd;
+int	sort_rotate_stk(int target[2], t_stk *stack, t_list **instrs)
+{
+	int	fwd;
 
-// 	fwd = 1;
-// 	if (target[1] > stack->size / 2)
-// 		fwd = 0;
-// 	while (target[0] != *(int *)(*stack->head)->content)
-// 	{
-// 		if (fwd && game_rotate(stack, 0, instrs) == -1)
-// 			return (-1);
-// 		else if (!fwd && game_rev_rotate(stack, 0, instrs) == -1)
-// 			return (-1);
-// 	}
-// 	return (0);
-// }
+	fwd = 1;
+	if (target[1] > stack->size / 2)
+		fwd = 0;
+	while (target[0] != *(int *)(*stack->head)->content)
+	{
+		if (fwd && game_rotate(stack, 0, instrs) == -1)
+			return (-1);
+		else if (!fwd && game_rev_rotate(stack, 0, instrs) == -1)
+			return (-1);
+	}
+	return (0);
+}
 
 // int	sort_reset_stk(t_stk *stack, t_list **instrs)
 // {
@@ -63,15 +63,15 @@
 // 	return (0);
 // }
 
-// 14/02 - Here we are...
+// 22/02 - Now sort for 5 numbers
 int	sort_choose_algorithm(t_psw *game)
 {
-	if (game->stack_a.size <= 3
-		&& sort_upto_3nbs(&game->stack_a, game) == -1)
+	if (game->stack_a->size <= 3
+		&& sort_upto_3nbs(game->stack_a, game) == -1)
 		return (-1);
-	// else if (game->stack_a.size > 3 && game->stack_a.size <= 5
-	// 	&& sort_upto_5nbs(stacks, instrs) == -1)
-	// 	return (-1);
+	else if (game->stack_a->size > 3 && game->stack_a->size <= 5
+		&& sort_upto_5nbs(game->stack_a, game->stack_b, game) == -1)
+		return (-1);
 	// else if (game->stack_a.size > 5 && game->stack_a.size <= 75
 	// 	&& sort_upto_100nbs(stacks, 2, instrs) == -1)
 	// 	return (-1);

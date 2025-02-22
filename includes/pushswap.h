@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/22 14:14:27 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:27:52 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ typedef struct s_stk
 
 typedef struct s_psw
 {
-	t_stk	stack_a;
-	t_stk	stack_b;
+	t_stk	*stack_a;
+	t_stk	*stack_b;
 	t_list	*instrs;
+	t_stk	_stack_a;
+	t_stk	_stack_b;
 }	t_psw;
 
 typedef struct s_ctr
@@ -48,11 +50,11 @@ typedef struct s_ctr
 	long	k;
 }	t_ctr;
 
-typedef struct s_min
+typedef struct s_pnbr
 {
 	long	nb;
 	int		pos;
-}	t_min;
+}	t_pnbr;
 
 typedef struct s_extr
 {
@@ -68,7 +70,6 @@ int		cli_project_init(int argc, char **argv, t_psw *game);
 
 int		stkmgr_stacks_init(int *ranked, int size, t_psw *game);
 t_list	*stkmgr_stack_pop(t_stk *stack);
-t_list	*stkmgr_stack_push(int nb, t_stk *stack);
 void	stkmgr_free_ressources(t_psw *game);
 
 int		stkmgr_stack_is_sorted(t_stk *stack, int order);
@@ -90,8 +91,8 @@ int		insmgr_store_instr(char *type, char *name, t_psw *game);
 // int		sort_reset_stk(t_stk *stack, t_list **instrs);
 
 int		sort_2nbs(t_stk *stack, t_psw *game);
-int		sort_upto_3nbs(t_stk *stack, t_psw *game);
-// int		sort_upto_5nbs(t_psw *game);
+int		sort_upto_3nbs(t_stk *stack_a, t_psw *game);
+int		sort_upto_5nbs(t_stk* stack_a, t_stk* stack_b, t_psw *game);
 
 // int		sort100_presort(t_psw *game, int divider);
 // int		sort_upto_100nbs(t_psw *game, int divider);

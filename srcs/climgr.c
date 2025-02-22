@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/22 14:38:34 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:28:24 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	*cli_substitute_nbs_to_rank(long *nbs, int size)
 {
 	int		*ranked;
 	t_ctr	ct;
-	t_min	min;
+	t_pnbr	min;
 
 	if (cli_init_ranked_nbs(&ranked, nbs, size) == -1)
 		return (NULL);
@@ -99,7 +99,7 @@ static int	*cli_substitute_nbs_to_rank(long *nbs, int size)
 	while (++ct.i < size)
 	{
 		ct.j = -1;
-		min = (t_min){.nb = LLONG_MAX, .pos = -1};
+		min = (t_pnbr){.nb = LLONG_MAX, .pos = -1};
 		while (++ct.j < size)
 		{
 			if (nbs[ct.j] < min.nb)
