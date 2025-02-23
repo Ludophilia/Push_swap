@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/22 18:27:52 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:40:17 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef enum e_code
 {
+	DIR_REVERSE,
 	DIR_STRAIGHT = (1 << 0),
-	DIR_REVERSE = (1 << 1),
 	ID_STK_A = (1 << 8),
 	ID_STK_B = (1 << 9)
 }	t_code;
@@ -43,18 +43,18 @@ typedef struct s_psw
 	t_stk	_stack_b;
 }	t_psw;
 
+typedef struct s_pnbr
+{
+	long	nb;
+	int		pos;
+}	t_pnbr;
+
 typedef struct s_ctr
 {
 	long	i;
 	long	j;
 	long	k;
 }	t_ctr;
-
-typedef struct s_pnbr
-{
-	long	nb;
-	int		pos;
-}	t_pnbr;
 
 typedef struct s_extr
 {
@@ -71,9 +71,7 @@ int		cli_project_init(int argc, char **argv, t_psw *game);
 int		stkmgr_stacks_init(int *ranked, int size, t_psw *game);
 t_list	*stkmgr_stack_pop(t_stk *stack);
 void	stkmgr_free_ressources(t_psw *game);
-
 int		stkmgr_stack_is_sorted(t_stk *stack, int order);
-// void	stkmgr_get_minimum(int min[2], t_stk *stack);
 // int		stkmgr_is_min(int nb, t_stk *stack);
 
 int		game_rev_rotate(t_stk *stack0, t_stk *stack1, t_psw *game);
@@ -81,14 +79,14 @@ int		game_rotate(t_stk *stack0, t_stk *stack1, t_psw *game);
 int		game_push(t_stk *from_stack, t_stk *to_stack, t_psw *game);
 int		game_swap(t_stk *stack0, t_stk *stack1, t_psw *game);
 
-// int		game_opti_instrs(t_list **instrs);
+// int		insmgr_opti_instrs(t_list **instrs);
 int		insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1,
 		t_psw *game);
 int		insmgr_store_instr(char *type, char *name, t_psw *game);
 
-// int		sort_get_pos_stk(int target, t_stk *stack);
-// int		sort_rotate_stk(int target[2], t_stk *stack, t_list **instrs);
-// int		sort_reset_stk(t_stk *stack, t_list **instrs);
+int		sort_get_nbpos(t_pnbr *target, t_stk *stack);
+int		sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game);
+int		sort_reset_stk(t_stk *stack, t_psw *game);
 
 int		sort_2nbs(t_stk *stack, t_psw *game);
 int		sort_upto_3nbs(t_stk *stack_a, t_psw *game);

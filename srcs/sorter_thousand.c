@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:43:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:01:07 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:33:02 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ static int	sort500_insertion_sort(t_stk **stacks, t_list **instrs)
 		sort500_search_candidates(stacks, nodecost);
 		a_target[0] = nodecost[0];
 		b_target[0] = nodecost[1];
-		a_target[1] = sort_get_pos_stk(a_target[0], stacks[0]);
-		b_target[1] = sort_get_pos_stk(b_target[0], stacks[1]);
+		a_target[1] = sort_get_nbpos(a_target[0], stacks[0]);
+		b_target[1] = sort_get_nbpos(b_target[0], stacks[1]);
 		if (a_target[1] == -1 || b_target[1] == -1)
 			return (-1);
 		if (sort_rotate_stk(a_target, stacks[0], instrs) == -1

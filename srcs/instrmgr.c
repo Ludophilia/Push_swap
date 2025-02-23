@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/22 16:59:23 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:40:17 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 // 	return (0);
 // }
 
-// int	game_opti_instrs(t_list **instrs)
+// int	insmgr_opti_instrs(t_list **instrs)
 // {
 // 	t_list	*nodes[2];
 // 	char	*strs[2];
