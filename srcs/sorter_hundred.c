@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/23 17:33:02 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:57:06 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	sort100_selection_sort(t_stk **stacks, t_list **instrs)
 	return (0);
 }
 
+// 24/03 - Now that's what needed to be done
 int	sort_upto_100nbs(t_stk **stacks, int divider, t_list **instrs)
 {
 	if (sort100_presort(stacks, divider, instrs) == -1

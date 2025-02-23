@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/23 17:38:40 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:56:06 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	sort_reset_stk(t_stk *stack, t_psw *game)
 	return (0);
 }
 
-// 22/02 - Now sort for 5 numbers
+// 24/03 - Now sort for 100 numbers
 int	sort_choose_algorithm(t_psw *game)
 {
 	if (game->stack_a->size <= 3
@@ -72,9 +72,9 @@ int	sort_choose_algorithm(t_psw *game)
 	else if (game->stack_a->size > 3 && game->stack_a->size <= 5
 		&& sort_upto_5nbs(game->stack_a, game->stack_b, game) == -1)
 		return (-1);
-	// else if (game->stack_a.size > 5 && game->stack_a.size <= 75
-	// 	&& sort_upto_100nbs(stacks, 2, instrs) == -1)
-	// 	return (-1);
+	else if (game->stack_a.size > 5 && game->stack_a.size <= 75
+		&& sort_upto_100nbs(stacks, 2, instrs) == -1)
+		return (-1);
 	// else if (game->stack_a.size > 75 && game->stack_a.size <= 250
 	// 	&& sort_upto_100nbs(stacks, 4, instrs) == -1)
 	// 	return (-1);
