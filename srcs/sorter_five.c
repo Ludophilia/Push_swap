@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/23 18:27:27 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/24 14:50:40 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ static int	sort5_get_next_highest_on_stack_a(int nbr_b, t_pnbr *next_high,
 
 static int	sort5_insertion_sort(t_stk *stack_a, t_stk *stack_b, t_psw *game)
 {
-	t_pnbr	min_high;
+	t_pnbr	next_high;
 	int		nbr_b;
 
 	while (stack_b->head != NULL)
 	{
 		nbr_b = *(int *)stack_b->head->content;
-		min_high = (t_pnbr){.nb = LLONG_MAX, .pos = -1};
-		if (sort5_get_next_highest_on_stack_a(nbr_b, &min_high, stack_a)
-			|| sort_rotate_stk(&min_high, stack_a, game) == -1
+		next_high = (t_pnbr){.nb = LLONG_MAX, .pos = -1};
+		if (sort5_get_next_highest_on_stack_a(nbr_b, &next_high, stack_a)
+			|| sort_rotate_stk(&next_high, stack_a, game) == -1
 			|| game_push(stack_b, stack_a, game) == -1)
 			return (-1);
 	}
@@ -83,10 +83,9 @@ int	sort_upto_5nbs(t_stk *stack_a, t_stk *stack_b, t_psw *game)
 		if (game_push(stack_a, stack_b, game) == -1)
 			return (-1);
 	if (sort_upto_3nbs(stack_a, game) == -1
-		|| (stack_b->size == 2 && sort_2nbs(stack_b, game) == -1))
-		return (-1);
-	if (stack_b->size > 0
-		&& sort5_insertion_sort(stack_a, stack_b, game) == -1)
+		|| (stack_b->size == 2 && sort_2nbs(stack_b, game) == -1)
+		|| (stack_b->size > 0
+			&& sort5_insertion_sort(stack_a, stack_b, game) == -1))
 		return (-1);
 	return (0);
 }
