@@ -6,7 +6,7 @@
 #    By: jegerman <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2025/02/22 17:35:09 by jegerman         ###   ########.fr        #
+#    Updated: 2025/02/25 17:44:26 by jegerman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCS += $(SRCS_DIRM)/instrmgr.c
 SRCS += $(SRCS_DIRM)/sorter_common.c
 SRCS += $(SRCS_DIRM)/sorter_three.c
 SRCS += $(SRCS_DIRM)/sorter_five.c
-# SRCS += $(SRCS_DIRM)/sorter_hundred.c
+SRCS += $(SRCS_DIRM)/sorter_hundred.c
 # SRCS += $(SRCS_DIRM)/sorter_thousand.c
 
 SRCS_BON := $(SRCS_DIRB)/main_bonus.c

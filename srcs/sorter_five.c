@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/24 14:50:40 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:21:41 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	sort5_get_minimum(t_pnbr *min, t_stk *stack)
 }
 
 static int	sort5_get_next_highest_on_stack_a(int nbr_b, t_pnbr *next_high,
-	t_stk* stack_a)
+	t_stk *stack_a)
 {
 	t_list	*node_a;
 	int		nbr_a;

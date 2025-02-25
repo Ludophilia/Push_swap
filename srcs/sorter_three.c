@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/22 17:29:45 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:13:53 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ static int	sort_3nbs(t_stk *stack_a, t_psw *game)
 
 	sort_get_numbers_and_extrema(nbs, &extr, stack_a);
 	if (extr.min == nbs[0] && extr.max == nbs[1]
-		&& (game_rev_rotate(stack_a, NULL, game) == -1
-			|| game_swap(stack_a, NULL, game) == -1))
+		&& (game_rev_rotate(stack_a, 0, game) == -1
+			|| game_swap(stack_a, 0, game) == -1))
 		return (-1);
 	else if (extr.min == nbs[1] && extr.max == nbs[2]
-		&& game_swap(stack_a, NULL, game) == -1)
+		&& game_swap(stack_a, 0, game) == -1)
 		return (-1);
 	else if (extr.min == nbs[1] && extr.max == nbs[0]
-		&& game_rotate(stack_a, NULL, game) == -1)
+		&& game_rotate(stack_a, 0, game) == -1)
 		return (-1);
 	else if (extr.min == nbs[2] && extr.max == nbs[1]
-		&& game_rev_rotate(stack_a, NULL, game) == -1)
+		&& game_rev_rotate(stack_a, 0, game) == -1)
 		return (-1);
 	else if (extr.min == nbs[2] && extr.max == nbs[0]
-		&& (game_swap(stack_a, NULL, game) == -1
-			|| game_rev_rotate(stack_a, NULL, game) == -1))
+		&& (game_swap(stack_a, 0, game) == -1
+			|| game_rev_rotate(stack_a, 0, game) == -1))
 		return (-1);
 	return (0);
 }
@@ -64,10 +64,10 @@ int	sort_2nbs(t_stk *stack, t_psw *game)
 
 	sort_get_numbers_and_extrema(nbs, &extr, stack);
 	if (stack->id == ID_STK_A && extr.min == nbs[1] && extr.max == nbs[0]
-		&& game_swap(stack, NULL, game) == -1)
+		&& game_swap(stack, 0, game) == -1)
 		return (-1);
 	else if (stack->id == ID_STK_B && extr.min == nbs[0] && extr.max == nbs[1]
-		&& game_swap(stack, NULL, game) == -1)
+		&& game_swap(stack, 0, game) == -1)
 		return (-1);
 	return (0);
 }

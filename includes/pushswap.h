@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/24 20:45:17 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:03:14 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_extr
 {
 	long	min;
 	long	max;
-	long	rge;
+	long	range;
 	long	cur;
 }	t_extr;
 
@@ -86,7 +86,7 @@ int		insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1,
 		t_psw *game);
 int		insmgr_store_instr(char *type, char *name, t_psw *game);
 
-int		sort_get_nbpos(t_pnbr *target, t_stk *stack);
+int		sort_get_nb_pos(t_pnbr *target, t_stk *stack);
 int		sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game);
 int		sort_reset_stk(t_stk *stack, t_psw *game);
 
@@ -94,8 +94,7 @@ int		sort_2nbs(t_stk *stack, t_psw *game);
 int		sort_upto_3nbs(t_stk *stack_a, t_psw *game);
 int		sort_upto_5nbs(t_stk *stack_a, t_stk *stack_b, t_psw *game);
 
-int		sort100_presort(t_stk *stack_a, t_stk *stack_b, int divider,
-		t_psw *game);
+int		sort100_presort(t_stk *stack_a, int divider, t_psw *game);
 int		sort_upto_100nbs(t_stk *stack_a, t_stk *stack_b, int divider,
 		t_psw *game);
 

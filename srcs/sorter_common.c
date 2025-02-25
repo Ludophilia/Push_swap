@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/24 15:33:06 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:38:48 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ int	sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game)
 		fwd = DIR_REVERSE;
 	while (target->nb != *(int *)stack->head->content)
 	{
-		if (fwd && game_rotate(stack, NULL, game) == -1)
+		if (fwd && game_rotate(stack, 0, game) == -1)
 			return (-1);
-		else if (!fwd && game_rev_rotate(stack, NULL, game) == -1)
+		else if (!fwd && game_rev_rotate(stack, 0, game) == -1)
 			return (-1);
 	}
 	return (0);
 }
 
-int	sort_get_nbpos(t_pnbr *target, t_stk *stack)
+int	sort_get_nb_pos(t_pnbr *target, t_stk *stack)
 {
 	t_list	*node;
 	int		pos;
@@ -39,16 +39,19 @@ int	sort_get_nbpos(t_pnbr *target, t_stk *stack)
 	while (node)
 	{
 		if (*(int *)node->content == target->nb)
+		{
+			target->pos = pos;
 			return (pos);
-		node = node->next;
+		}
 		++pos;
+		node = node->next;
 	}
 	return (-1);
 }
 
 int	sort_reset_stk(t_stk *stack, t_psw *game)
 {
-	t_pnbr	target;
+	t_pnbr	nb;
 	int		dir;
 
 	dir = DIR_STRAIGHT;
@@ -56,14 +59,14 @@ int	sort_reset_stk(t_stk *stack, t_psw *game)
 		dir = DIR_REVERSE;
 	if (stkmgr_stack_is_sorted(stack, dir))
 		return (0);
-	target.nb = 0;
-	target.pos = sort_get_nbpos(&target, stack);
-	if (target.pos == -1 || sort_rotate_stk(&target, stack, game))
+	nb.nb = 0;
+	if (sort_get_nb_pos(&nb, stack) == -1
+		|| sort_rotate_stk(&nb, stack, game))
 		return (-1);
 	return (0);
 }
 
-// 24/03 - Now sort for 100 numbers
+// 25/02 - Now sort for 500 numbers
 int	sort_choose_algorithm(t_psw *game)
 {
 	if (game->stack_a->size <= 3
@@ -75,9 +78,9 @@ int	sort_choose_algorithm(t_psw *game)
 	else if (game->stack_a->size > 5 && game->stack_a->size <= 75
 		&& sort_upto_100nbs(game->stack_a, game->stack_b, 2, game) == -1)
 		return (-1);
-	// else if (game->stack_a.size > 75 && game->stack_a.size <= 250
-	// 	&& sort_upto_100nbs(stacks, 4, instrs) == -1)
-	// 	return (-1);
+	else if (game->stack_a->size > 75 && game->stack_a->size <= 250
+		&& sort_upto_100nbs(game->stack_a, game->stack_b, 4, game) == -1)
+		return (-1);
 	// else if (game->stack_a.size > 250
 	// 	&& sort_over_100nbs(stacks, 9, instrs) == -1)
 	// 	return (-1);

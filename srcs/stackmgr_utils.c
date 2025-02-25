@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 18:06:28 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/23 16:22:13 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:21:16 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	stkmgr_stack_is_sorted(t_stk *stack, int order)
 		if (++pos > 0
 			&& ((order == DIR_STRAIGHT && prev > nb)
 				|| (order == DIR_REVERSE && prev < nb)))
-				return (0);
+			return (0);
 		prev = *(int *)current->content;
 		current = current->next;
 	}
