@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/25 19:03:14 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/26 22:26:36 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,23 @@ typedef struct s_extr
 	long	cur;
 }	t_extr;
 
+typedef struct s_lists
+{
+	t_list	*node;
+	t_list	*next;
+	// int		node_nb; // replace by a function to get number
+	// int		next_nb;
+}	t_lists;
+
+typedef struct s_cost
+{
+	long	nba;
+	long	nbb;
+	long	rots_a;
+	long	rots_b;
+	long	rots_tt;
+}	t_cost;
+
 long	cli_atol(char *str);
 int		cli_init_ranked_nbs(int **ranked, long *nbs, int size);
 void	cli_free_strs(char **strs);
@@ -74,7 +91,7 @@ int		stkmgr_stacks_init(int *ranked, int size, t_psw *game);
 t_list	*stkmgr_stack_pop(t_stk *stack);
 void	stkmgr_free_ressources(t_psw *game);
 int		stkmgr_stack_is_sorted(t_stk *stack, int order);
-// int		stkmgr_is_min(int nb, t_stk *stack);
+int		stkmgr_is_min(t_list *node_test, t_stk *stack);
 
 int		game_rev_rotate(t_stk *stack0, t_stk *stack1, t_psw *game);
 int		game_rotate(t_stk *stack0, t_stk *stack1, t_psw *game);
@@ -89,17 +106,14 @@ int		insmgr_store_instr(char *type, char *name, t_psw *game);
 int		sort_get_nb_pos(t_pnbr *target, t_stk *stack);
 int		sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game);
 int		sort_reset_stk(t_stk *stack, t_psw *game);
-
 int		sort_2nbs(t_stk *stack, t_psw *game);
 int		sort_upto_3nbs(t_stk *stack_a, t_psw *game);
 int		sort_upto_5nbs(t_stk *stack_a, t_stk *stack_b, t_psw *game);
-
 int		sort100_presort(t_stk *stack_a, int divider, t_psw *game);
 int		sort_upto_100nbs(t_stk *stack_a, t_stk *stack_b, int divider,
 		t_psw *game);
-
-// int		sort_over_100nbs(t_psw *game, int divider);
-
+int		sort_over_100nbs(t_stk *stack_a, t_stk *stack_b, int divider,
+		t_psw *game);
 int		sort_choose_algorithm(t_psw *game);
 
 #endif
