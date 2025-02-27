@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:43:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/27 21:38:58 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/27 21:49:56 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	sort500_search_candidates_in_b(t_lists *nodes_a, t_stk *stack_b,
 	node_b = stack_b->head;
 	while (node_b)
 	{
-		sort_optimize_cost(++pos_b, stack_b, &cands);
+		sort_optimize_cost(++pos_b, stack_b, &cands->rots_b);
 		if (cands->rots_a + cands->rots_b < cands->rots_tt)
 			sort500_update_candidates(nodes_a, node_b, cands);
 		node_b = node_b->next;
@@ -60,7 +60,7 @@ static t_cnd	sort500_search_candidates(t_stk *stack_a, t_stk *stack_b)
 	pos_a = -1;
 	while (nodes_a.first && cands.rots_tt != 0)
 	{
-		sort_optimize_cost(++pos_a, stack_a, &cands);
+		sort_optimize_cost(++pos_a, stack_a, &cands.rots_a);
 		if (sort_node_is_min(&nodes_a, stack_a)
 			|| get_nb(nodes_a.first) + 1 != get_nb(nodes_a.next))
 			sort500_search_candidates_in_b(&nodes_a, stack_b, &cands);

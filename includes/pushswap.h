@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/27 21:29:03 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/27 21:50:15 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		insmgr_store_instr(char *type, char *name, t_psw *game);
 int		get_nb(t_list *node);
 int		sort_node_is_min(t_lists *nodes_test, t_stk *stack);
 int		sort_stk_is_sorted(t_stk *stack, int order);
-int		sort_optimize_cost(int pos, t_stk *stack, t_cnd *cands);
+int		sort_optimize_cost(int pos, t_stk *stack, long *cands_rots);
 int		sort_get_nb_pos(t_pnbr *target, t_stk *stack);
 int		sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game);
 int		sort_reset_stk(t_stk *stack, t_psw *game);
