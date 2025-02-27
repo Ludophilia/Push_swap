@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:43:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/27 21:32:33 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/27 21:38:58 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	sort500_update_candidates(t_lists *nodes_a, t_list *node_b,
 {
 	if (nodes_a->next == NULL && get_nb(node_b) < get_nb(nodes_a->first))
 	{
-		cands->nba = get_nb(nodes_a->next);
+		cands->nba = get_nb(nodes_a->first);
 		cands->nbb = get_nb(node_b);
 		cands->rots_tt = cands->rots_a + cands->rots_b;
 	}
