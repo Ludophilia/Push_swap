@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/25 19:13:53 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/27 21:27:57 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	sort_get_numbers_and_extrema(int *nbs, t_extr *extr, t_stk *stack)
 	i = -1;
 	while (++i < stack->size)
 	{
-		nbs[i] = *(int *)node->content;
+		nbs[i] = get_nb(node);
 		if (nbs[i] < extr->min)
 			extr->min = nbs[i];
 		if (nbs[i] > extr->max)
@@ -74,7 +74,7 @@ int	sort_2nbs(t_stk *stack, t_psw *game)
 
 int	sort_upto_3nbs(t_stk *stack_a, t_psw *game)
 {
-	if (stkmgr_stack_is_sorted(stack_a, DIR_STRAIGHT))
+	if (sort_stk_is_sorted(stack_a, DIR_STRAIGHT))
 		return (0);
 	if (stack_a->size == 2 && sort_2nbs(stack_a, game) == -1)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/25 19:16:38 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:38:58 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ static int	sort100_presort_subrange(t_extr *pivr, long nba_lim, t_psw *game)
 	pivot = pivr->min + pivr->range / 2;
 	while (size--)
 	{
-		nba = *(int *)game->stack_a->head->content;
+		nba = get_nb(game->stack_a->head);
 		if (nba < nba_lim && nba >= pivr->min && nba < pivr->max)
 		{
 			if (game_push(game->stack_a, game->stack_b, game) == -1
-				|| (nba >= pivot && game_rotate(game->stack_b, 0, game) == -1))
+				|| (nba >= pivot
+					&& game_rotate(game->stack_b, 0, game) == -1))
 				return (-1);
 		}
 		else
@@ -62,7 +63,7 @@ static int	sort100_selection_sort(t_stk *stack_a, t_stk *stack_b, t_psw *game)
 
 	while (stack_b->size > 1)
 	{
-		nbb.nb = *(int *)stack_a->head->content - 1;
+		nbb.nb = get_nb(stack_a->head) - 1;
 		if (sort_get_nb_pos(&nbb, stack_b) == -1
 			|| sort_rotate_stk(&nbb, stack_b, game) == -1
 			|| game_push(stack_b, stack_a, game) == -1)

@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/26 22:26:36 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/27 21:29:03 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,19 @@ typedef struct s_extr
 
 typedef struct s_lists
 {
-	t_list	*node;
+	t_list	*first;
 	t_list	*next;
-	// int		node_nb; // replace by a function to get number
-	// int		next_nb;
 }	t_lists;
 
-typedef struct s_cost
+typedef struct s_cnd
 {
 	long	nba;
 	long	nbb;
 	long	rots_a;
 	long	rots_b;
 	long	rots_tt;
-}	t_cost;
+}	t_cnd;
+
 
 long	cli_atol(char *str);
 int		cli_init_ranked_nbs(int **ranked, long *nbs, int size);
@@ -90,8 +89,6 @@ int		cli_project_init(int argc, char **argv, t_psw *game);
 int		stkmgr_stacks_init(int *ranked, int size, t_psw *game);
 t_list	*stkmgr_stack_pop(t_stk *stack);
 void	stkmgr_free_ressources(t_psw *game);
-int		stkmgr_stack_is_sorted(t_stk *stack, int order);
-int		stkmgr_is_min(t_list *node_test, t_stk *stack);
 
 int		game_rev_rotate(t_stk *stack0, t_stk *stack1, t_psw *game);
 int		game_rotate(t_stk *stack0, t_stk *stack1, t_psw *game);
@@ -103,6 +100,10 @@ int		insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1,
 		t_psw *game);
 int		insmgr_store_instr(char *type, char *name, t_psw *game);
 
+int		get_nb(t_list *node);
+int		sort_node_is_min(t_lists *nodes_test, t_stk *stack);
+int		sort_stk_is_sorted(t_stk *stack, int order);
+int		sort_optimize_cost(int pos, t_stk *stack, t_cnd *cands);
 int		sort_get_nb_pos(t_pnbr *target, t_stk *stack);
 int		sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game);
 int		sort_reset_stk(t_stk *stack, t_psw *game);
