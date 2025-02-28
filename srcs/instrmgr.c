@@ -6,69 +6,79 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/23 17:40:17 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:14:55 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-// static int	game_cmp_inst(char *ins1, char *ins2, size_t len, char *strs[2])
-// {
-// 	int	res[2];
+static int	game_cmp_inst(char *ins1, char *ins2, size_t len, char *strs[2])
+{
+	int	res[2];
 
-// 	if (strs[0] == NULL || strs[1] == NULL)
-// 		return (0);
-// 	if (ft_strlen(strs[0]) != len || ft_strlen(strs[1]) != len)
-// 		return (0);
-// 	res[0] = (!ft_strncmp(strs[0], ins1, len)
-// 			&& !ft_strncmp(strs[1], ins2, len));
-// 	res[1] = (!ft_strncmp(strs[0], ins2, len)
-// 			&& !ft_strncmp(strs[1], ins1, len));
-// 	return (res[0] || res[1]);
-// }
+	if (strs[0] == NULL || strs[1] == NULL)
+		return (0);
+	if (ft_strlen(strs[0]) != len || ft_strlen(strs[1]) != len)
+		return (0);
+	res[0] = (!ft_strncmp(strs[0], ins1, len)
+			&& !ft_strncmp(strs[1], ins2, len));
+	res[1] = (!ft_strncmp(strs[0], ins2, len)
+			&& !ft_strncmp(strs[1], ins1, len));
+	return (res[0] || res[1]);
+}
 
-// static int	game_smp_inst(char *new, t_list *nodes[2], char *strs[2])
-// {
-// 	new = ft_strdup(new);
-// 	if (new == NULL)
-// 		return (-1);
-// 	free(nodes[0]->content);
-// 	nodes[0]->content = new;
-// 	nodes[0]->next = nodes[1]->next;
-// 	ft_lstdelone(nodes[1], free);
-// 	nodes[1] = nodes[0]->next;
-// 	strs[0] = 0;
-// 	strs[1] = 0;
-// 	return (0);
-// }
+static int	game_smp_inst(char *new, t_list *nodes[2], char *strs[2])
+{
+	new = ft_strdup(new);
+	if (new == NULL)
+		return (-1);
+	free(nodes[0]->content);
+	nodes[0]->content = new;
+	nodes[0]->next = nodes[1]->next;
+	ft_lstdelone(nodes[1], free);
+	nodes[1] = nodes[0]->next;
+	strs[0] = 0;
+	strs[1] = 0;
+	return (0);
+}
 
-// int	insmgr_opti_instrs(t_list **instrs)
-// {
-// 	t_list	*nodes[2];
-// 	char	*strs[2];
+// 28/02 - Last effort before the finish line.
+int	insmgr_opti_instrs(t_list **instrs)
+{
+	t_list	*nodes[2];
+	char	*strs[2];
 
-// 	nodes[0] = *instrs;
-// 	if (*nodes)
-// 		nodes[1] = nodes[0]->next;
-// 	while (nodes[0] && nodes[1])
-// 	{
-// 		strs[0] = (char *)nodes[0]->content;
-// 		strs[1] = (char *)nodes[1]->content;
-// 		if (game_cmp_inst("ra", "rb", 2, strs)
-// 			&& game_smp_inst("rr", nodes, strs) == -1)
-// 			return (-1);
-// 		else if (game_cmp_inst("rra", "rrb", 3, strs)
-// 			&& game_smp_inst("rrr", nodes, strs) == -1)
-// 			return (-1);
-// 		else if (game_cmp_inst("sa", "sb", 2, strs)
-// 			&& game_smp_inst("ss", nodes, strs) == -1)
-// 			return (-1);
-// 		nodes[0] = nodes[0]->next;
-// 		if (*nodes)
-// 			nodes[1] = nodes[1]->next;
-// 	}
-// 	return (0);
-// }
+	nodes[0] = *instrs;
+	if (*nodes)
+		nodes[1] = nodes[0]->next;
+
+
+	while (nodes[0] && nodes[1])
+	{
+		strs[0] = (char *)nodes[0]->content;
+		strs[1] = (char *)nodes[1]->content;
+
+		
+		// Ok I see, it swaps,
+		if (game_cmp_inst("ra", "rb", 2, strs)
+			&& game_smp_inst("rr", nodes, strs) == -1)
+			return (-1);
+		else if (game_cmp_inst("rra", "rrb", 3, strs)
+			&& game_smp_inst("rrr", nodes, strs) == -1)
+			return (-1);
+		else if (game_cmp_inst("sa", "sb", 2, strs)
+			&& game_smp_inst("ss", nodes, strs) == -1)
+			return (-1);
+
+
+		nodes[0] = nodes[0]->next;
+		if (*nodes)
+			nodes[1] = nodes[1]->next;
+	}
+
+
+	return (0);
+}
 
 int	insmgr_store_instr(char *type, char *name, t_psw *game)
 {
