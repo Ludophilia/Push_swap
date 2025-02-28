@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/27 19:42:45 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:40:26 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_list	*stkmgr_stack_push(int nb, t_stk *stack)
 int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
 {
 	int	i;
-	
+
 	game->_stack_a = (t_stk){.id = ID_STK_A, .name = "a", .head = 0, .size = 0};
 	game->stack_a = &game->_stack_a;
 	game->_stack_b = (t_stk){.id = ID_STK_B, .name = "b", .head = 0, .size = 0};

@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:17:19 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/28 14:20:42 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:31:01 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	sort_optimize_cost(int pos, t_stk *stack, long *cands_rots)
 	return (0);
 }
 
-int	sort_node_is_min(t_list *node_test, t_stk *stack)
+int	sort_node_is_smallest(t_list *node_test, t_stk *stack)
 {
 	t_list	*node;
 	int		nb_test;
