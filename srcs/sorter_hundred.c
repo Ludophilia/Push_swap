@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/27 18:38:58 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:42:04 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static int	sort100_presort_subrange(t_extr *pivr, long nba_lim, t_psw *game)
 		{
 			if (game_push(game->stack_a, game->stack_b, game) == -1
 				|| (nba >= pivot
-					&& game_rotate(game->stack_b, 0, game) == -1))
+					&& game_rotate(game->stack_b, NULL, game) == -1))
 				return (-1);
 		}
 		else
-			if (game_rotate(game->stack_a, 0, game) == -1)
+			if (game_rotate(game->stack_a, NULL, game) == -1)
 				return (-1);
 	}
 	return (0);

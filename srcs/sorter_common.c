@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/28 11:58:39 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:43:48 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game)
 		fwd = DIR_REVERSE;
 	while (target->nb != get_nb(stack->head))
 	{
-		if (fwd && game_rotate(stack, 0, game) == -1)
+		if (fwd && game_rotate(stack, NULL, game) == -1)
 			return (-1);
-		else if (!fwd && game_rev_rotate(stack, 0, game) == -1)
+		else if (!fwd && game_rev_rotate(stack, NULL, game) == -1)
 			return (-1);
 	}
 	return (0);
@@ -68,7 +68,6 @@ int	sort_reset_stk(t_stk *stack, t_psw *game)
 	return (0);
 }
 
-// 26/02 - Now sort for 500 numbers
 int	sort_choose_algorithm(t_psw *game)
 {
 	if (game->stack_a->size <= 3
