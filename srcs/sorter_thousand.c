@@ -6,13 +6,13 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:43:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/28 17:30:24 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:25:15 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-static int	sort1000_update_candidates(t_list *node_a, t_list *next_a,
+static int	sort1000_update_ab_candidates(t_list *node_a, t_list *next_a,
 	t_list *node_b, t_cnd *cands)
 {
 	if (next_a == NULL && get_nb(node_b) < get_nb(node_a))
@@ -43,7 +43,7 @@ static int	sort1000_search_candidates_in_b(t_list *node_a, t_list *next_a,
 	{
 		sort_optimize_cost(++pos_b, stack_b, &cands->rots_b);
 		if (cands->rots_a + cands->rots_b < cands->rots_tt)
-			sort1000_update_candidates(node_a, next_a, node_b, cands);
+			sort1000_update_ab_candidates(node_a, next_a, node_b, cands);
 		node_b = node_b->next;
 	}
 	return (0);
@@ -74,7 +74,7 @@ static t_cnd	sort1000_search_candidates(t_stk *stack_a, t_stk *stack_b)
 			next_a = stack_a->head;
 	}
 	return (cands);
-}	
+}
 
 static int	sort1000_insertion_sort(t_stk *stack_a, t_stk *stack_b, t_psw *game)
 {

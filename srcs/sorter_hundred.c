@@ -6,24 +6,24 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/28 17:42:04 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:29:27 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-static int	sort100_presort_subrange(t_extr *pivr, long nba_lim, t_psw *game)
+static int	sort100_presort_subrange(t_extr *pivr, long *nba_lim, t_psw *game)
 {
 	long	nba;
 	long	pivot;
-	int		size;
+	int		size_a;
 
-	size = game->stack_a->size;
+	size_a = game->stack_a->size;
 	pivot = pivr->min + pivr->range / 2;
-	while (size--)
+	while (size_a--)
 	{
 		nba = get_nb(game->stack_a->head);
-		if (nba < nba_lim && nba >= pivr->min && nba < pivr->max)
+		if (nba < *nba_lim && nba >= pivr->min && nba < pivr->max)
 		{
 			if (game_push(game->stack_a, game->stack_b, game) == -1
 				|| (nba >= pivot
@@ -50,7 +50,7 @@ int	sort100_presort(t_stk *stack_a, int divider, t_psw *game)
 	{
 		pivr.min = pivr.range * turn;
 		pivr.max = pivr.range * (turn + 1);
-		if (sort100_presort_subrange(&pivr, nba_lim, game) == -1)
+		if (sort100_presort_subrange(&pivr, &nba_lim, game) == -1)
 			return (-1);
 		++turn;
 	}

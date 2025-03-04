@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/28 17:43:19 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:00:00 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	sort_2nbs(t_stk *stack, t_psw *game)
 
 int	sort_upto_3nbs(t_stk *stack_a, t_psw *game)
 {
-	if (sort_stk_is_sorted(stack_a, DIR_STRAIGHT))
-		return (0);
 	if (stack_a->size == 2 && sort_2nbs(stack_a, game) == -1)
 		return (-1);
 	else if (stack_a->size == 3 && sort_3nbs(stack_a, game) == -1)

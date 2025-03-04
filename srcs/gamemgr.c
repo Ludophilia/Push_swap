@@ -6,11 +6,22 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/22 16:54:31 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:44:03 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
+
+static t_list	*game_lstseclast(t_list *lst)
+{
+	while (lst)
+	{
+		if (lst->next != NULL && lst->next->next == NULL)
+			return (lst);
+		lst = lst->next;
+	}
+	return (NULL);
+}
 
 int	game_push(t_stk *from_stack, t_stk *to_stack, t_psw *game)
 {
@@ -84,17 +95,6 @@ int	game_rotate(t_stk *stack0, t_stk *stack1, t_psw *game)
 		&& insmgr_choose_instr("r", stacks[0], stacks[1], game) == -1)
 		return (-1);
 	return (0);
-}
-
-static t_list	*game_lstseclast(t_list *lst)
-{
-	while (lst)
-	{
-		if (lst->next != NULL && lst->next->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (NULL);
 }
 
 int	game_rev_rotate(t_stk *stack0, t_stk *stack1, t_psw *game)

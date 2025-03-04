@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/28 17:43:48 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:01:12 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int	sort_reset_stk(t_stk *stack, t_psw *game)
 
 int	sort_choose_algorithm(t_psw *game)
 {
+	if (game->stack_b->size == 0
+		&& sort_stk_is_sorted(game->stack_a, DIR_STRAIGHT))
+		return (0);
 	if (game->stack_a->size <= 3
 		&& sort_upto_3nbs(game->stack_a, game) == -1)
 		return (-1);
