@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/02/28 18:01:00 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:30:47 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ typedef enum e_code
 	DIR_REVERSE,
 	DIR_STRAIGHT = (1 << 0),
 	ID_STK_A = (1 << 8),
-	ID_STK_B = (1 << 9)
+	ID_STK_B = (1 << 9),
+	OP_RR = (1 << 16),
+	OP_SS = (1 << 17),
+	OP_RRR = (1 << 18)
 }	t_code;
 
 typedef struct s_stk
@@ -88,10 +91,10 @@ int		game_rotate(t_stk *stack0, t_stk *stack1, t_psw *game);
 int		game_push(t_stk *from_stack, t_stk *to_stack, t_psw *game);
 int		game_swap(t_stk *stack0, t_stk *stack1, t_psw *game);
 
-int		insmgr_opti_instrs(t_list **instrs);
-int		insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1,
+int		inmg_opti_instrs(t_list **instrs);
+int		inmg_choose_instr(char *type, t_stk *stack0, t_stk *stack1,
 			t_psw *game);
-int		insmgr_store_instr(char *type, char *name, t_psw *game);
+int		inmg_store_instr(char *type, char *name, t_psw *game);
 
 int		get_nb(t_list *node);
 int		sort_optimize_cost(int pos, t_stk *stack, long *cands_rots);

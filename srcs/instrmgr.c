@@ -6,75 +6,73 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/04 19:32:20 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:00:03 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-static int	game_cmp_inst(char *int_1, char *int_2, t_list *curr_int,
-	t_list *next_int)
+static int	inmg_chk_inst(char *curr_it, char *next_it, char *inst_ref1,
+	char *inst_ref2)
 {
-	char	*curr_intc;
-	char	*next_intc;
-	size_t	len;
-	int		ret[2];
-	
-	curr_intc = (char *)curr_int->content;
-	next_intc = (char *)next_int->content;
-	len = ft_strlen(int_1);
-	if (len != ft_strlen(int_2))
-		return (-1);
-	ret[0] = (!ft_strncmp(curr_intc, int_1, len)
-			&& !ft_strncmp(next_intc, int_2, len));
-	ret[1] = (!ft_strncmp(curr_intc, int_2, len)
-			&& !ft_strncmp(next_intc, int_1, len));
-	if (ret[0] == 0 && ret[1] == 0)
-		return (-1);
-	return (ret[0] || ret[1]);
+	size_t	ref_len;
+	int		inst_test[2];
+
+	ref_len = ft_strlen(inst_ref1);
+	if (ref_len != ft_strlen(inst_ref2))
+		return (0);
+	inst_test[0] = (!ft_strncmp(curr_it, inst_ref1, ref_len)
+			&& !ft_strncmp(next_it, inst_ref2, ref_len));
+	inst_test[1] = (!ft_strncmp(curr_it, inst_ref2, ref_len)
+			&& !ft_strncmp(next_it, inst_ref1, ref_len));
+	return (inst_test[0] || inst_test[1]);
 }
 
-static int	game_smp_inst(char *new, t_list *nodes[2])
+static int	inmg_smp_inst(char *smpl_it, t_list *instr_node)
 {
-	new = ft_strdup(new);
-	if (new == NULL)
+	t_list	*next_node;
+
+	next_node = instr_node->next;
+	smpl_it = ft_strdup(smpl_it);
+	if (smpl_it == NULL)
 		return (-1);
-	free(nodes[0]->content);
-	nodes[0]->content = new;
-	nodes[0]->next = nodes[1]->next;
-	ft_lstdelone(nodes[1], free);
-	nodes[1] = nodes[0]->next;
+	free(instr_node->content);
+	instr_node->content = smpl_it;
+	instr_node->next = next_node->next;
+	ft_lstdelone(next_node, free);
 	return (0);
 }
 
-// 28/02 - Last effort before the finish line.
-int	insmgr_opti_instrs(t_list **instrs)
+int	inmg_opti_instrs(t_list **instrs)
 {
-	t_list	*curr_int;
-	t_list	*next_int;
+	t_list	*instr_node;
+	char	*curr_it;
+	char	*next_it;
+	int		opt_type;
 
-	curr_int = *instrs;
-	if (curr_int)
-		next_int = curr_int->next;
-	while (curr_int && next_int)
+	instr_node = *instrs;
+	while (instr_node && instr_node->next)
 	{
-		if (game_cmp_inst("ra", "rb", curr_int, next_int)
-			&& game_smp_inst("rr", nodes, strs) == -1)
+		curr_it = (char *)instr_node->content;
+		next_it = (char *)instr_node->next->content;
+		if (inmg_chk_inst(curr_it, next_it, "ra", "rb"))
+			opt_type = OP_RR;
+		else if (inmg_chk_inst(curr_it, next_it, "sa", "sb"))
+			opt_type = OP_SS;
+		else if (inmg_chk_inst(curr_it, next_it, "rra", "rrb"))
+			opt_type = OP_RRR;
+		if ((opt_type & OP_RR) && inmg_smp_inst("rr", instr_node) == -1)
+			return (-1);	
+		else if ((opt_type & OP_SS) && inmg_smp_inst("ss", instr_node) == -1)
 			return (-1);
-		else if (game_cmp_inst("rra", "rrb", 3, strs)
-			&& game_smp_inst("rrr", nodes, strs) == -1)
+		else if ((opt_type & OP_RRR) && inmg_smp_inst("rrr", instr_node) == -1)
 			return (-1);
-		else if (game_cmp_inst("sa", "sb", 2, strs)
-			&& game_smp_inst("ss", nodes, strs) == -1)
-			return (-1);
-		curr_int = curr_int->next;
-		if (curr_int)
-			next_int = next_int->next;
+		instr_node = instr_node->next;
 	}
 	return (0);
 }
 
-int	insmgr_store_instr(char *type, char *name, t_psw *game)
+int	inmg_store_instr(char *type, char *name, t_psw *game)
 {
 	t_list	*instr_node;
 	t_list	**instr_head;
@@ -98,7 +96,7 @@ int	insmgr_store_instr(char *type, char *name, t_psw *game)
 	return (0);
 }
 
-int	insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1, t_psw *game)
+int	inmg_choose_instr(char *type, t_stk *stack0, t_stk *stack1, t_psw *game)
 {
 	char	*stack_name;
 
@@ -113,7 +111,7 @@ int	insmgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1, t_psw *game)
 	else if (stack0 && stack1 && !ft_strncmp(type, "s", 2))
 		stack_name = "s";
 	if (stack_name == NULL
-		|| (stack_name && insmgr_store_instr(type, stack_name, game) == -1))
+		|| (stack_name && inmg_store_instr(type, stack_name, game) == -1))
 		return (-1);
 	return (0);
 }
