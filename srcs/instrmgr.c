@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/05 21:00:03 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:34:51 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,16 @@ int	inmg_opti_instrs(t_list **instrs)
 	{
 		curr_it = (char *)instr_node->content;
 		next_it = (char *)instr_node->next->content;
+		opt_type = 0;
 		if (inmg_chk_inst(curr_it, next_it, "ra", "rb"))
 			opt_type = OP_RR;
 		else if (inmg_chk_inst(curr_it, next_it, "sa", "sb"))
 			opt_type = OP_SS;
 		else if (inmg_chk_inst(curr_it, next_it, "rra", "rrb"))
 			opt_type = OP_RRR;
-		if ((opt_type & OP_RR) && inmg_smp_inst("rr", instr_node) == -1)
-			return (-1);	
-		else if ((opt_type & OP_SS) && inmg_smp_inst("ss", instr_node) == -1)
-			return (-1);
-		else if ((opt_type & OP_RRR) && inmg_smp_inst("rrr", instr_node) == -1)
+		if ((opt_type == OP_RR && inmg_smp_inst("rr", instr_node) == -1)
+			|| (opt_type == OP_SS && inmg_smp_inst("ss", instr_node) == -1)
+			|| (opt_type == OP_RRR && inmg_smp_inst("rrr", instr_node) == -1))
 			return (-1);
 		instr_node = instr_node->next;
 	}
