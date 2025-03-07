@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 12:58:40 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/11 18:04:20 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:27:05 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	exc_choose_handler(char *instr, int (**handler)(t_stk *, t_stk *))
 		*handler = gameinst_rotate;
 	else if (instr_len == 4 && instr[0] == 'r' && instr[1] == 'r')
 		*handler = gameinst_rev_rotate;
-	if (*handler)
-		return (0);
-	return (-1);
+	if (*handler == NULL)
+		return (-1);
+	return (0);
 }
 
 static int	exc_config_args(char *instr, t_stk **stacks, t_stk *stkargs[2])
