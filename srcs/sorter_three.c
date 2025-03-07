@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/04 17:00:00 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:22:39 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,18 @@ static int	sort_3nbs(t_stk *stack_a, t_psw *game)
 	t_extr	extr;
 
 	sort_get_numbers_and_extrema(nbs, &extr, stack_a);
-	if (extr.min == nbs[0] && extr.max == nbs[1]
-		&& (game_rev_rotate(stack_a, NULL, game) == -1
-			|| game_swap(stack_a, NULL, game) == -1))
-		return (-1);
-	else if (extr.min == nbs[1] && extr.max == nbs[2]
-		&& game_swap(stack_a, NULL, game) == -1)
-		return (-1);
-	else if (extr.min == nbs[1] && extr.max == nbs[0]
-		&& game_rotate(stack_a, NULL, game) == -1)
-		return (-1);
-	else if (extr.min == nbs[2] && extr.max == nbs[1]
-		&& game_rev_rotate(stack_a, NULL, game) == -1)
-		return (-1);
-	else if (extr.min == nbs[2] && extr.max == nbs[0]
-		&& (game_swap(stack_a, NULL, game) == -1
-			|| game_rev_rotate(stack_a, NULL, game) == -1))
+	if ((extr.min == nbs[0] && extr.max == nbs[1]
+			&& (game_rev_rotate(stack_a, NULL, game) == -1
+				|| game_swap(stack_a, NULL, game) == -1))
+		|| (extr.min == nbs[1] && extr.max == nbs[2]
+			&& game_swap(stack_a, NULL, game) == -1)
+		|| (extr.min == nbs[1] && extr.max == nbs[0]
+			&& game_rotate(stack_a, NULL, game) == -1)
+		|| (extr.min == nbs[2] && extr.max == nbs[1]
+			&& game_rev_rotate(stack_a, NULL, game) == -1)
+		|| (extr.min == nbs[2] && extr.max == nbs[0]
+			&& (game_swap(stack_a, NULL, game) == -1
+				|| game_rev_rotate(stack_a, NULL, game) == -1)))
 		return (-1);
 	return (0);
 }
@@ -63,20 +59,18 @@ int	sort_2nbs(t_stk *stack, t_psw *game)
 	t_extr	extr;
 
 	sort_get_numbers_and_extrema(nbs, &extr, stack);
-	if (stack->id == ID_STK_A && extr.min == nbs[1] && extr.max == nbs[0]
-		&& game_swap(stack, NULL, game) == -1)
-		return (-1);
-	else if (stack->id == ID_STK_B && extr.min == nbs[0] && extr.max == nbs[1]
-		&& game_swap(stack, NULL, game) == -1)
+	if ((stack->id == ID_STK_A && extr.min == nbs[1] && extr.max == nbs[0]
+			&& game_swap(stack, NULL, game) == -1)
+		|| (stack->id == ID_STK_B && extr.min == nbs[0] && extr.max == nbs[1]
+			&& game_swap(stack, NULL, game) == -1))
 		return (-1);
 	return (0);
 }
 
 int	sort_upto_3nbs(t_stk *stack_a, t_psw *game)
 {
-	if (stack_a->size == 2 && sort_2nbs(stack_a, game) == -1)
-		return (-1);
-	else if (stack_a->size == 3 && sort_3nbs(stack_a, game) == -1)
+	if ((stack_a->size == 2 && sort_2nbs(stack_a, game) == -1)
+		|| (stack_a->size == 3 && sort_3nbs(stack_a, game) == -1))
 		return (-1);
 	return (0);
 }

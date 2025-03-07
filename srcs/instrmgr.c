@@ -6,13 +6,13 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/06 18:34:51 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:29:42 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-static int	inmg_chk_inst(char *curr_it, char *next_it, char *inst_ref1,
+static int	inmg_chk_instr(char *curr_it, char *next_it, char *inst_ref1,
 	char *inst_ref2)
 {
 	size_t	ref_len;
@@ -28,7 +28,7 @@ static int	inmg_chk_inst(char *curr_it, char *next_it, char *inst_ref1,
 	return (inst_test[0] || inst_test[1]);
 }
 
-static int	inmg_smp_inst(char *smpl_it, t_list *instr_node)
+static int	inmg_smp_instr(char *smpl_it, t_list *instr_node)
 {
 	t_list	*next_node;
 
@@ -56,15 +56,15 @@ int	inmg_opti_instrs(t_list **instrs)
 		curr_it = (char *)instr_node->content;
 		next_it = (char *)instr_node->next->content;
 		opt_type = 0;
-		if (inmg_chk_inst(curr_it, next_it, "ra", "rb"))
+		if (inmg_chk_instr(curr_it, next_it, "ra", "rb"))
 			opt_type = OP_RR;
-		else if (inmg_chk_inst(curr_it, next_it, "sa", "sb"))
+		else if (inmg_chk_instr(curr_it, next_it, "sa", "sb"))
 			opt_type = OP_SS;
-		else if (inmg_chk_inst(curr_it, next_it, "rra", "rrb"))
+		else if (inmg_chk_instr(curr_it, next_it, "rra", "rrb"))
 			opt_type = OP_RRR;
-		if ((opt_type == OP_RR && inmg_smp_inst("rr", instr_node) == -1)
-			|| (opt_type == OP_SS && inmg_smp_inst("ss", instr_node) == -1)
-			|| (opt_type == OP_RRR && inmg_smp_inst("rrr", instr_node) == -1))
+		if ((opt_type == OP_RR && inmg_smp_instr("rr", instr_node) == -1)
+			|| (opt_type == OP_SS && inmg_smp_instr("ss", instr_node) == -1)
+			|| (opt_type == OP_RRR && inmg_smp_instr("rrr", instr_node) == -1))
 			return (-1);
 		instr_node = instr_node->next;
 	}
