@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:16:21 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/07 18:19:14 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:54:23 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int	instmgr_analyse_instr(char *instr)
 	return (0);
 }
 
+// 8/03 - Yeah let's get started on that front.
 int	instmgr_get_instrs(t_list **instrs)
 {
 	char	*input;
