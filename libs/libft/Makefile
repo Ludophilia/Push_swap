@@ -6,7 +6,7 @@
 #    By: jegerman <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/06 12:44:08 by jegerman          #+#    #+#              #
-#    Updated: 2025/02/11 16:07:02 by jegerman         ###   ########.fr        #
+#    Updated: 2025/03/08 17:41:11 by jegerman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,12 @@ CFLAGS := -Wall -Wextra -Werror
 ARFLAGS := rcs
 
 SRCS_LFTD := srcs/libft
-SRCS_PFDB := srcs/ft_printf
+SRCS_PFBD := srcs/ft_printf
+SRCS_GNLBD := srcs/get_next_line
 
 INCL_LFT := includes/libft
 INCL_PFB := includes/ft_printf
+INCL_GNLB := includes/get_next_line
 
 SRCS_LFT := $(SRCS_LFTD)/ft_isalpha.c
 SRCS_LFT += $(SRCS_LFTD)/ft_isdigit.c
@@ -67,20 +69,23 @@ SRCS_LFT += $(SRCS_LFTD)/ft_lstclear_bonus.c
 SRCS_LFT += $(SRCS_LFTD)/ft_lstiter_bonus.c
 SRCS_LFT += $(SRCS_LFTD)/ft_lstmap_bonus.c
 
-SRCS_PFB := $(SRCS_PFDB)/ft_printf_bonus.c
-SRCS_PFB += $(SRCS_PFDB)/printer_bonus.c
-SRCS_PFB += $(SRCS_PFDB)/processor_bonus.c
-SRCS_PFB += $(SRCS_PFDB)/parser_bonus.c
-SRCS_PFB += $(SRCS_PFDB)/parser_helpers_bonus.c
-SRCS_PFB += $(SRCS_PFDB)/processor_helpers_bonus.c
-SRCS_PFB += $(SRCS_PFDB)/flag_helpers_bonus.c
-SRCS_PFB += $(SRCS_PFDB)/bufferer_bonus.c
-SRCS_PFB += $(SRCS_PFDB)/bufferer_helpers_bonus.c
+SRCS_PFB := $(SRCS_PFBD)/ft_printf_bonus.c
+SRCS_PFB += $(SRCS_PFBD)/printer_bonus.c
+SRCS_PFB += $(SRCS_PFBD)/processor_bonus.c
+SRCS_PFB += $(SRCS_PFBD)/parser_bonus.c
+SRCS_PFB += $(SRCS_PFBD)/parser_helpers_bonus.c
+SRCS_PFB += $(SRCS_PFBD)/processor_helpers_bonus.c
+SRCS_PFB += $(SRCS_PFBD)/flag_helpers_bonus.c
+SRCS_PFB += $(SRCS_PFBD)/bufferer_bonus.c
+SRCS_PFB += $(SRCS_PFBD)/bufferer_helpers_bonus.c
+
+SRCS_GNLB := $(SRCS_GNLBD)/get_next_line_bonus.c
 
 OBJ_LFT := $(SRCS_LFT:.c=.o)
 OBJ_PFB := $(SRCS_PFB:.c=.o)
+OBJ_GNLB := $(SRCS_GNLB:.c=.o)
 
-OBJS := $(OBJ_LFT) $(OBJ_PFB)
+OBJS := $(OBJ_LFT) $(OBJ_PFB) $(OBJ_GNLB)
 
 all: $(NAME)
 
@@ -90,11 +95,14 @@ $(NAME): $(OBJS)
 $(SRCS_LFTD)/%.o: $(SRCS_LFTD)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $< -I$(INCL_LFT)
 
-$(SRCS_PFDB)/%.o: $(SRCS_PFDB)/%.c
+$(SRCS_PFBD)/%.o: $(SRCS_PFBD)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $< -I$(INCL_PFB) -I$(INCL_LFT)
 
+$(SRCS_GNLBD)/%.o: $(SRCS_GNLBD)/%.c
+	$(CC) $(CFLAGS) -o $@ -c $< -I$(INCL_GNLB) -I$(INCL_LFT)
+
 clean:
-	rm -f $(OBJS) $(OBJSB)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
