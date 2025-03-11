@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:50:17 by jegerman          #+#    #+#             */
-/*   Updated: 2025/03/11 18:34:39 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:28:58 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include "pushswap.h"
 
 int	instmgr_load_instrs(t_psw *game);
-int	exc_execute_instrs(t_list **instrs, t_stk **stacks);
+int	stkmgr_exec_instrs(t_list **instrs, t_stk **stacks);
 
 #endif

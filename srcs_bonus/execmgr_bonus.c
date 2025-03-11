@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 12:58:40 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/07 18:27:05 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:28:58 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static int	exc_execute_instr(char *instr, t_stk **stacks)
 	return (0);
 }
 
-int	exc_execute_instrs(t_list **instrs, t_stk **stacks)
+// 11/03 - Why not rename it stkmgr_execute_instrs
+int	stkmgr_exec_instrs(t_psw *game)
 {
 	t_list	*instr;
 

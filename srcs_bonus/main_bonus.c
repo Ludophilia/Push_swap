@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:23:21 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/11 18:34:58 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:28:58 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[])
 	if (status == -1 && ft_dprintf(2, "Error\n"))
 		return (1);
 	if ((instmgr_load_instrs(&game) == -1 && ft_dprintf(2, "Error\n"))
-		|| exc_execute_instrs(instrs, stacks) == -1)
+		|| stkmgr_exec_instrs(&game) == -1)
 	{
 		stkmgr_free_ressources(&game);
 		return (1);
