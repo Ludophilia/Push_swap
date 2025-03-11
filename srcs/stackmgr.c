@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2025/02/28 15:40:26 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:42:08 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,33 @@ static t_list	*stkmgr_stack_push(int nb, t_stk *stack)
 	return (stack->head);
 }
 
-int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
+static int	stkmgr_stacks_bulk_push(int *arr_nbs, int size, t_psw *game)
 {
 	int	i;
 
-	game->_stack_a = (t_stk){.id = ID_STK_A, .name = "a", .head = 0, .size = 0};
-	game->stack_a = &game->_stack_a;
-	game->_stack_b = (t_stk){.id = ID_STK_B, .name = "b", .head = 0, .size = 0};
-	game->stack_b = &game->_stack_b;
-	game->instrs = NULL;
 	i = size;
 	while (--i >= 0)
 	{
-		if (stkmgr_stack_push(ranked[i], game->stack_a) == NULL)
+		if (stkmgr_stack_push(arr_nbs[i], game->stack_a) == NULL)
 		{
 			ft_lstclear(&game->stack_a->head, free);
 			return (-1);
 		}
 	}
+	return (0);
+}
+
+int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
+{
+	game->_stack_a = (t_stk){.id = ID_STKA, .name = "a", .head = 0, .size = 0};
+	game->stack_a = &game->_stack_a;
+	game->_stack_b = (t_stk){.id = ID_STKB, .name = "b", .head = 0, .size = 0};
+	game->stack_b = &game->_stack_b;
+	game->instrs = NULL;
+	game->names_l3 = (char *[]){"sa\n", "sb\n", "ss\n", "pa\n", "pb\n",
+		"ra\n", "rb\n", "rr\n", NULL};
+	game->names_l4 = (char *[]){"rra\n", "rrb\n", "rrr\n", NULL};
+	if (stkmgr_stacks_bulk_push(ranked, size, game) == -1)
+		return (-1);
 	return (0);
 }

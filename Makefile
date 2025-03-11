@@ -6,7 +6,7 @@
 #    By: jegerman <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2025/03/07 18:45:16 by jegerman         ###   ########.fr        #
+#    Updated: 2025/03/11 14:01:43 by jegerman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ SRCS += $(SRCS_DIRM)/sorter_utils.c
 # SRCS_BON += $(SRCS_DIRM)/climgr_utils.c
 # SRCS_BON += $(SRCS_DIRM)/stackmgr.c
 # SRCS_BON += $(SRCS_DIRM)/gamemgr.c
-# SRCS_BON += $(SRCS_DIRM)/instrmgr.c
 # SRCS_BON += $(SRCS_DIRB)/execmgr_bonus.c
 # SRCS_BON += $(SRCS_DIRB)/instrmgr_bonus.c
 

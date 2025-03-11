@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:05:39 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/07 15:22:39 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:38:10 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	sort_2nbs(t_stk *stack, t_psw *game)
 	t_extr	extr;
 
 	sort_get_numbers_and_extrema(nbs, &extr, stack);
-	if ((stack->id == ID_STK_A && extr.min == nbs[1] && extr.max == nbs[0]
+	if ((stack->id == ID_STKA && extr.min == nbs[1] && extr.max == nbs[0]
 			&& game_swap(stack, NULL, game) == -1)
-		|| (stack->id == ID_STK_B && extr.min == nbs[0] && extr.max == nbs[1]
+		|| (stack->id == ID_STKB && extr.min == nbs[0] && extr.max == nbs[1]
 			&& game_swap(stack, NULL, game) == -1))
 		return (-1);
 	return (0);

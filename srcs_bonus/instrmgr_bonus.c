@@ -6,76 +6,61 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:16:21 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/08 16:54:23 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:34:21 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap_bonus.h"
 
-static int	instmgr_check_instr(char *instr, size_t len, char **game_instrs)
+static int	instmgr_store_instr(char *instr_name, t_psw *game)
 {
-	int	match;
+	t_list	*instr_node;
 
-	match = -1;
-	while (*game_instrs)
+	instr_node = ft_lstnew(instr_name);
+	if (instr_node == NULL)
 	{
-		if (ft_strncmp(instr, *game_instrs, len) == 0)
-			match++;
-		game_instrs++;
-	}
-	return (match);
-}
-
-static int	instmgr_store_instr(char *instr, t_list **instrs)
-{
-	t_list	*new_instr;
-
-	new_instr = ft_lstnew(instr);
-	if (new_instr == NULL)
-	{
-		free(instr);
-		ft_lstclear(instrs, free);
+		ft_lstclear(&game->instrs, free);
 		return (-1);
 	}
-	ft_lstadd_back(instrs, new_instr);
+	ft_lstadd_back(&game->instrs, instr_node);
 	return (0);
 }
 
-static int	instmgr_analyse_instr(char *instr)
+static int	instmgr_chk_instr(char *instr_name, t_psw *game)
 {
-	char	**inst_3l;
-	char	**inst_4l;
-	size_t	inst_len;
+	char	**instr_names;
+	size_t	instr_len;
 
-	inst_len = ft_strlen(instr);
-	if (inst_len < 3 || inst_len > 4)
+	instr_len = ft_strlen(instr_name);
+	if (instr_len != 3 || instr_len != 4)
 		return (-1);
-	inst_3l = (char *[]){"sa\n", "sb\n", "ss\n", "pa\n", "pb\n",
-		"ra\n", "rb\n", "rr\n", NULL};
-	inst_4l = (char *[]){"rra\n", "rrb\n", "rrr\n", NULL};
-	if (inst_len == 3 && instmgr_check_instr(instr, 4, inst_3l) == -1)
-		return (-1);
-	else if (inst_len == 4 && instmgr_check_instr(instr, 5, inst_4l) == -1)
-		return (-1);
-	return (0);
+	if (instr_len == 3)
+		instr_names = game->names_l3;
+	else
+		instr_names = game->names_l4;
+	while (*instr_names)
+	{
+		if (ft_strncmp(instr_name, *instr_names, instr_len) == 0)
+			return (0);
+		++instr_names;
+	}
+	return (-1);
 }
 
-// 8/03 - Yeah let's get started on that front.
-int	instmgr_get_instrs(t_list **instrs)
+int	instmgr_load_instrs(t_psw *game)
 {
-	char	*input;
+	char	*instr_name;
 
-	input = get_next_line(0);
-	while (input)
+	instr_name = get_next_line(STDIN_FILENO);
+	while (instr_name)
 	{
-		if (instmgr_analyse_instr(input) == -1)
+		if (instmgr_chk_instr(instr_name, game) == -1
+			|| instmgr_store_instr(instr_name, game) == -1)
 		{
-			free(input);
+			free(instr_name);
 			return (-1);
 		}
-		if (instmgr_store_instr(input, instrs) == -1)
-			return (-1);
-		input = get_next_line(0);
+		instr_name = get_next_line(STDIN_FILENO);
 	}
 	return (0);
 }

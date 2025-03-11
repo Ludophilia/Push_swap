@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:35:02 by jegerman          #+#    #+#             */
-/*   Updated: 2025/03/05 20:30:47 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:43:09 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef enum e_code
 {
 	DIR_REVERSE,
 	DIR_STRAIGHT = (1 << 0),
-	ID_STK_A = (1 << 8),
-	ID_STK_B = (1 << 9),
+	ID_STKA = (1 << 8),
+	ID_STKB = (1 << 9),
 	OP_RR = (1 << 16),
 	OP_SS = (1 << 17),
 	OP_RRR = (1 << 18)
@@ -44,6 +44,8 @@ typedef struct s_psw
 	t_list	*instrs;
 	t_stk	_stack_a;
 	t_stk	_stack_b;
+	char	**names_l3;
+	char	**names_l4;
 }	t_psw;
 
 typedef struct s_pnbr

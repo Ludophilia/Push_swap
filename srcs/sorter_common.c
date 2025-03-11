@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/07 14:32:07 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:38:10 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	sort_reset_stk(t_stk *stack, t_psw *game)
 	int		dir;
 
 	dir = DIR_STRAIGHT;
-	if (stack->id == ID_STK_B)
+	if (stack->id == ID_STKB)
 		dir = DIR_REVERSE;
 	if (sort_stk_is_sorted(stack, dir))
 		return (0);
