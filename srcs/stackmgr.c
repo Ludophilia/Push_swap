@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/11 17:42:08 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:59:47 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,6 @@ int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
 	game->_stack_b = (t_stk){.id = ID_STKB, .name = "b", .head = 0, .size = 0};
 	game->stack_b = &game->_stack_b;
 	game->instrs = NULL;
-	game->names_l3 = (char *[]){"sa\n", "sb\n", "ss\n", "pa\n", "pb\n",
-		"ra\n", "rb\n", "rr\n", NULL};
-	game->names_l4 = (char *[]){"rra\n", "rrb\n", "rrr\n", NULL};
 	if (stkmgr_stacks_bulk_push(ranked, size, game) == -1)
 		return (-1);
 	return (0);

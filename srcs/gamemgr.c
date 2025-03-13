@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/07 18:12:56 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:36:51 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ static t_list	*game_lstseclast(t_list *lst)
 int	game_push(t_stk *from_stack, t_stk *to_stack, t_psw *game)
 {
 	t_list	*from_node;
+	char 	*inst_name;
 
-	// if (from_stack->size == 0)
-	// 	return (0);
 	from_node = stkmgr_stack_pop(from_stack);
 	if (from_node == NULL)
 		return (-1);
@@ -37,7 +36,9 @@ int	game_push(t_stk *from_stack, t_stk *to_stack, t_psw *game)
 	else
 		ft_lstadd_front(&to_stack->head, from_node);
 	to_stack->size++;
-	if (game != NULL && inmg_store_instr("p", to_stack->name, game) == -1)
+	inst_name = ft_strjoin("p", to_stack->name);
+	if (inst_name == NULL
+		|| (game != NULL && imgr_store_instr(inst_name, game) == -1))
 		return (-1);
 	return (0);
 }
@@ -66,7 +67,7 @@ int	game_swap(t_stk *stack0, t_stk *stack1, t_psw *game)
 			stacks[i] = NULL;
 	}
 	if (game != NULL && (*stacks || stacks[1])
-		&& inmg_choose_instr("s", *stacks, stacks[1], game) == -1)
+		&& imgr_choose_instr("s", *stacks, stacks[1], game) == -1)
 		return (-1);
 	return (0);
 }
@@ -94,7 +95,7 @@ int	game_rotate(t_stk *stack0, t_stk *stack1, t_psw *game)
 			stacks[i] = NULL;
 	}
 	if (game != NULL && (*stacks || stacks[1])
-		&& inmg_choose_instr("r", *stacks, stacks[1], game) == -1)
+		&& imgr_choose_instr("r", *stacks, stacks[1], game) == -1)
 		return (-1);
 	return (0);
 }
@@ -121,8 +122,8 @@ int	game_rev_rotate(t_stk *stack0, t_stk *stack1, t_psw *game)
 		else
 			stacks[i] = NULL;
 	}
-	if (game != NULL && (*stacks || stacks[1])
-		&& inmg_choose_instr("rr", *stacks, stacks[1], game) == -1)
+	if (game != NULL && (stacks[0] || stacks[1])
+		&& imgr_choose_instr("rr", *stacks, stacks[1], game) == -1)
 		return (-1);
 	return (0);
 }

@@ -6,41 +6,19 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/11 17:38:10 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:50:00 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-int	sort_stk_is_sorted(t_stk *stack, int order)
-{
-	int		pos;
-	int		prev;
-	int		nb;
-	t_list	*current;
-
-	current = stack->head;
-	pos = -1;
-	while (current)
-	{
-		nb = get_nb(current);
-		if (++pos > 0
-			&& ((order == DIR_STRAIGHT && prev > nb)
-				|| (order == DIR_REVERSE && prev < nb)))
-			return (0);
-		prev = nb;
-		current = current->next;
-	}
-	return (1);
-}
-
 int	sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game)
 {
 	int	fwd;
 
-	fwd = DIR_STRAIGHT;
+	fwd = DIR_FWD;
 	if (target->pos > stack->size / 2)
-		fwd = DIR_REVERSE;
+		fwd = DIR_REV;
 	while (target->nb != get_nb(stack->head))
 	{
 		if (fwd && game_rotate(stack, NULL, game) == -1)
@@ -56,9 +34,9 @@ int	sort_reset_stk(t_stk *stack, t_psw *game)
 	t_pnbr	nb;
 	int		dir;
 
-	dir = DIR_STRAIGHT;
+	dir = DIR_FWD;
 	if (stack->id == ID_STKB)
-		dir = DIR_REVERSE;
+		dir = DIR_REV;
 	if (sort_stk_is_sorted(stack, dir))
 		return (0);
 	nb.nb = 0;
@@ -76,7 +54,7 @@ int	sort_choose_algorithm(t_psw *game)
 	stack_a = game->stack_a;
 	stack_b = game->stack_b;
 	if (stack_b->size == 0
-		&& sort_stk_is_sorted(stack_a, DIR_STRAIGHT))
+		&& sort_stk_is_sorted(stack_a, DIR_FWD))
 		return (0);
 	if ((stack_a->size <= 3
 			&& sort_upto_3nbs(stack_a, game) == -1)

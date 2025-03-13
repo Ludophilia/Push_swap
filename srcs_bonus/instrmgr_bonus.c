@@ -6,61 +6,48 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:16:21 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/11 18:34:21 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:30:23 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap_bonus.h"
 
-static int	instmgr_store_instr(char *instr_name, t_psw *game)
+int	imgr_chk_instr(char *inst_name, size_t inst_len, char *inst_refs, ...)
 {
-	t_list	*instr_node;
+	va_list	refs;
 
-	instr_node = ft_lstnew(instr_name);
-	if (instr_node == NULL)
+	va_start(refs, inst_refs);
+	while (inst_refs)
 	{
-		ft_lstclear(&game->instrs, free);
-		return (-1);
-	}
-	ft_lstadd_back(&game->instrs, instr_node);
-	return (0);
-}
-
-static int	instmgr_chk_instr(char *instr_name, t_psw *game)
-{
-	char	**instr_names;
-	size_t	instr_len;
-
-	instr_len = ft_strlen(instr_name);
-	if (instr_len != 3 || instr_len != 4)
-		return (-1);
-	if (instr_len == 3)
-		instr_names = game->names_l3;
-	else
-		instr_names = game->names_l4;
-	while (*instr_names)
-	{
-		if (ft_strncmp(instr_name, *instr_names, instr_len) == 0)
+		if (ft_strncmp(inst_name, inst_refs, inst_len) == 0)
+		{
+			va_end(refs);
 			return (0);
-		++instr_names;
+		}
+		inst_refs = va_arg(refs, char *);
 	}
+	va_end(refs);
 	return (-1);
 }
 
-int	instmgr_load_instrs(t_psw *game)
+int	imgr_load_instrs(t_psw *game)
 {
-	char	*instr_name;
+	char	*inst_name;
+	size_t	inst_len;
 
-	instr_name = get_next_line(STDIN_FILENO);
-	while (instr_name)
+	inst_name = get_next_line(STDIN_FILENO);
+	while (inst_name)
 	{
-		if (instmgr_chk_instr(instr_name, game) == -1
-			|| instmgr_store_instr(instr_name, game) == -1)
-		{
-			free(instr_name);
+		inst_len = ft_strlen(inst_name);
+		if (inst_len != 3 || inst_len != 4)
 			return (-1);
-		}
-		instr_name = get_next_line(STDIN_FILENO);
+		if ((inst_len == 3 && imgr_chk_instr(inst_name, 3, "sa\n", "sb\n",
+				"ss\n", "pa\n", "pb\n", "ra\n", "rb\n", "rr\n", 0) == -1)
+			|| (inst_len == 4 && imgr_chk_instr(inst_name, 4, "rra\n",
+				"rrb\n", "rrr\n", 0) == -1)
+			|| imgr_store_instr(inst_name, game) == -1)
+			return (-1);
+		inst_name = get_next_line(STDIN_FILENO);
 	}
 	return (0);
 }

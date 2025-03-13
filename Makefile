@@ -6,7 +6,7 @@
 #    By: jegerman <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/31 19:18:21 by jgermany          #+#    #+#              #
-#    Updated: 2025/03/11 14:01:43 by jegerman         ###   ########.fr        #
+#    Updated: 2025/03/13 20:50:52 by jegerman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CFLAGS := -Wall -Wextra -Werror
 LIBFLAGS := -lft -L$(FT)
 
 all: CFLAGS += -I$(INCL_DIRM)
-bonus: CFLAGS += -I$(INCL_DIRB) -I$(INCL_DIRM)
+bonus: CFLAGS += -I$(INCL_DIRM) -I$(INCL_DIRB)
 
 SRCS := $(SRCS_DIRM)/main.c
 SRCS += $(SRCS_DIRM)/climgr.c
@@ -40,13 +40,15 @@ SRCS += $(SRCS_DIRM)/sorter_hundred.c
 SRCS += $(SRCS_DIRM)/sorter_thousand.c
 SRCS += $(SRCS_DIRM)/sorter_utils.c
 
-# SRCS_BON := $(SRCS_DIRB)/main_bonus.c
-# SRCS_BON += $(SRCS_DIRM)/climgr.c
-# SRCS_BON += $(SRCS_DIRM)/climgr_utils.c
-# SRCS_BON += $(SRCS_DIRM)/stackmgr.c
-# SRCS_BON += $(SRCS_DIRM)/gamemgr.c
-# SRCS_BON += $(SRCS_DIRB)/execmgr_bonus.c
-# SRCS_BON += $(SRCS_DIRB)/instrmgr_bonus.c
+SRCS_BON := $(SRCS_DIRB)/main_bonus.c
+SRCS_BON += $(SRCS_DIRM)/climgr.c
+SRCS_BON += $(SRCS_DIRM)/climgr_utils.c
+SRCS_BON += $(SRCS_DIRM)/stackmgr.c
+SRCS_BON += $(SRCS_DIRB)/stackmgr_bonus.c
+SRCS_BON += $(SRCS_DIRM)/gamemgr.c
+SRCS_BON += $(SRCS_DIRM)/instrmgr.c
+SRCS_BON += $(SRCS_DIRB)/instrmgr_bonus.c
+SRCS_BON += $(SRCS_DIRM)/sorter_utils.c
 
 OBJS := $(SRCS:.c=.o)
 OBJS_BON := $(SRCS_BON:.c=.o)
@@ -63,7 +65,9 @@ $(NAME) :$(OBJS)
 	make -C $(FT) all
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBFLAGS)
 
-%.o :$(INCL_DIRM)/pushswap.h $(INCL_DIRB)/pushswap_bonus.h
+%.o :$(INCL_DIRM)/pushswap.h
+
+%_bonus.o :$(INCL_DIRM)/pushswap.h $(INCL_DIRB)/pushswap_bonus.h
 
 clean:
 	make -C $(FT) clean
