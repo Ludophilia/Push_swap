@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/14 18:47:21 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:53:42 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
 	i = size;
 	while (--i >= 0)
 	{
-		if (stkmgr_stack_push(arr_nbs[i], game->stack_a) == NULL)
+		if (stkmgr_stack_push(ranked[i], game->stack_a) == NULL)
 		{
 			ft_lstclear(&game->stack_a->head, free);
 			return (-1);
