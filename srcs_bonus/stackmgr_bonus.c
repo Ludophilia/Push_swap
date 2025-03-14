@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 12:58:40 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/13 19:02:28 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:21:25 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	stkmgr_config_args(char *inst_name, t_stk **stk_args, t_psw *game)
 {
 	if (!imgr_chk_instr(inst_name, 3,
-			"sa\n", "ra\n", "rra", "pb\n", "ss\n","rr\n", "rrr", 0))
+			"sa\n", "ra\n", "rra", "pb\n", "ss\n", "rr\n", "rrr", 0))
 		stk_args[0] = game->stack_a;
 	else if (!imgr_chk_instr(inst_name, 3, "pa\n", "sb\n", "rb\n", "rrb", 0))
 		stk_args[0] = game->stack_b;
