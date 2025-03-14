@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:16:21 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/14 18:23:51 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:28:30 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,20 @@ int	imgr_load_instrs(t_psw *game)
 	{
 		inst_len = ft_strlen(inst_name);
 		if (inst_len < 3 && inst_len > 4)
+		{
+			free(inst_name);
 			return (-1);
+		}
 		if ((inst_len == 3 && imgr_chk_instr(inst_name, 3, "sa\n", "sb\n",
 					"ss\n", "pa\n", "pb\n", "ra\n", "rb\n", "rr\n", 0) == -1)
 			|| (inst_len == 4 && imgr_chk_instr(inst_name, 4, "rra\n",
 					"rrb\n", "rrr\n", 0) == -1)
+			// 14/03 - OH MY GOD, It will execute even if the instr is aie
 			|| imgr_store_instr(inst_name, game) == -1)
-			return (-1);
+			{
+				free(inst_name); // ??
+				return (-1);
+			}
 		inst_name = get_next_line(STDIN_FILENO);
 	}
 	return (0);
