@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 13:40:36 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/13 16:59:47 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/14 18:47:21 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,15 @@ static t_list	*stkmgr_stack_push(int nb, t_stk *stack)
 	return (stack->head);
 }
 
-static int	stkmgr_stacks_bulk_push(int *arr_nbs, int size, t_psw *game)
+int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
 {
 	int	i;
 
+	game->_stack_a = (t_stk){.id = ID_STKA, .name = "a", .head = 0, .size = 0};
+	game->stack_a = &game->_stack_a;
+	game->_stack_b = (t_stk){.id = ID_STKB, .name = "b", .head = 0, .size = 0};
+	game->stack_b = &game->_stack_b;
+	game->instrs = NULL;
 	i = size;
 	while (--i >= 0)
 	{
@@ -65,17 +70,5 @@ static int	stkmgr_stacks_bulk_push(int *arr_nbs, int size, t_psw *game)
 			return (-1);
 		}
 	}
-	return (0);
-}
-
-int	stkmgr_stacks_init(int *ranked, int size, t_psw *game)
-{
-	game->_stack_a = (t_stk){.id = ID_STKA, .name = "a", .head = 0, .size = 0};
-	game->stack_a = &game->_stack_a;
-	game->_stack_b = (t_stk){.id = ID_STKB, .name = "b", .head = 0, .size = 0};
-	game->stack_b = &game->_stack_b;
-	game->instrs = NULL;
-	if (stkmgr_stacks_bulk_push(ranked, size, game) == -1)
-		return (-1);
 	return (0);
 }
