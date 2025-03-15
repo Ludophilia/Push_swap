@@ -3,68 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_five.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 19:18:02 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/23 18:40:33 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:21:09 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
-static void	sort5_search_candidates(int candidates[2], t_stk **stacks)
+static void	sort5_get_minimum(t_pnbr *min, t_stk *stack)
 {
-	t_list	*nodes[2];
-	int		i;
+	t_list	*node;
+	int		pos;
 
-	*(long *)candidates = ((long)INT_MAX << 32) + INT_MAX;
-	nodes[0] = *stacks[0]->head;
-	nodes[1] = *stacks[1]->head;
-	i = 0;
-	while (nodes[0])
+	node = stack->head;
+	pos = 0;
+	while (node)
 	{
-		if (*(int *)nodes[0]->content > *(int *)nodes[1]->content
-			&& *(int *)nodes[0]->content < candidates[0])
+		if (get_nb(node) < min->nb)
 		{
-			candidates[0] = *(int *)nodes[0]->content;
-			candidates[1] = i;
+			min->nb = get_nb(node);
+			min->pos = pos;
 		}
-		nodes[0] = nodes[0]->next;
-		i++;
+		++pos;
+		node = node->next;
 	}
-	if (candidates[0] == INT_MAX)
-		stkmgr_get_minimum(candidates, stacks[0]);
 }
 
-static int	sort5_insertion_sort(t_stk **stacks, t_list **instrs)
+static int	sort5_get_next_highest_on_stack_a(int nbr_b, t_pnbr *next_high_a,
+	t_stk *stack_a)
 {
-	int	a_target[2];
+	t_list	*node_a;
+	int		nbr_a;
+	int		pos_a;
 
-	while (*stacks[1]->head)
+	node_a = stack_a->head;
+	pos_a = 0;
+	while (node_a)
 	{
-		sort5_search_candidates(a_target, stacks);
-		if (sort_rotate_stk(a_target, stacks[0], instrs) == -1
-			|| game_push(stacks[1], stacks[0], instrs) == -1)
+		nbr_a = get_nb(node_a);
+		if (nbr_a > nbr_b && nbr_a < next_high_a->nb)
+		{
+			next_high_a->nb = nbr_a;
+			next_high_a->pos = pos_a;
+		}
+		++pos_a;
+		node_a = node_a->next;
+	}
+	if (next_high_a->pos < 0)
+		sort5_get_minimum(next_high_a, stack_a);
+	return (0);
+}
+
+static int	sort5_insertion_sort(t_stk *stack_a, t_stk *stack_b, t_psw *game)
+{
+	t_pnbr	next_high_a;
+	int		nbr_b;
+
+	while (stack_b->head != NULL)
+	{
+		nbr_b = get_nb(stack_b->head);
+		next_high_a = (t_pnbr){.nb = LLONG_MAX, .pos = -1};
+		if (sort5_get_next_highest_on_stack_a(nbr_b, &next_high_a, stack_a)
+			|| sort_rotate_stk(&next_high_a, stack_a, game) == -1
+			|| game_push(stack_b, stack_a, game) == -1)
 			return (-1);
 	}
-	if (sort_reset_stk(stacks[0], instrs) == -1)
+	if (sort_reset_stk(stack_a, game) == -1)
 		return (-1);
 	return (0);
 }
 
-int	sort_upto_5nbs(t_stk **stacks, t_list **instrs)
+int	sort_upto_5nbs(t_stk *stack_a, t_stk *stack_b, t_psw *game)
 {
-	if (stkmgr_stack_is_sorted(stacks[0], 0) || (stacks[0]->size > 5))
-		return (0);
-	while (stacks[0]->size > 3)
-		if (game_push(stacks[0], stacks[1], instrs) == -1)
+	while (stack_a->size > 3)
+		if (game_push(stack_a, stack_b, game) == -1)
 			return (-1);
-	if (sort_upto_3nbs(stacks[0], instrs) == -1)
-		return (-1);
-	if (stacks[0]->size == 2 && sort_2nbs(stacks[1], instrs) == -1)
-		return (-1);
-	if (stacks[1]->size > 0
-		&& sort5_insertion_sort(stacks, instrs) == -1)
+	if (sort_upto_3nbs(stack_a, game) == -1
+		|| (stack_b->size == 2 && sort_2nbs(stack_b, game) == -1)
+		|| (stack_b->size > 0
+			&& sort5_insertion_sort(stack_a, stack_b, game) == -1))
 		return (-1);
 	return (0);
 }

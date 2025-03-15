@@ -3,78 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   instrmgr_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:16:21 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/27 14:32:36 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:29:49 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "instrmgr_bonus.h"
+#include "pushswap_bonus.h"
 
-static int	instmgr_check_instr(char *instr, size_t len, char **game_instrs)
+int	imgr_is_instr(char *inst_name, size_t inst_len, char *inst_refs, ...)
 {
-	int	match;
+	va_list	refs;
 
-	match = -1;
-	while (*game_instrs)
+	va_start(refs, inst_refs);
+	while (inst_refs)
 	{
-		if (ft_strncmp(instr, *game_instrs, len) == 0)
-			match++;
-		game_instrs++;
+		if (ft_strncmp(inst_name, inst_refs, inst_len) == 0)
+		{
+			va_end(refs);
+			return (1);
+		}
+		inst_refs = va_arg(refs, char *);
 	}
-	return (match);
-}
-
-static int	instmgr_store_instr(char *instr, t_list **instrs)
-{
-	t_list	*new_instr;
-
-	new_instr = ft_lstnew(instr);
-	if (new_instr == NULL)
-	{
-		free(instr);
-		ft_lstclear(instrs, free);
-		return (-1);
-	}
-	ft_lstadd_back(instrs, new_instr);
+	va_end(refs);
 	return (0);
 }
 
-static int	instmgr_analyse_instr(char *instr)
+static int	imgr_chk_if_instr_valid(char *inst_name)
 {
-	char	**inst_3l;
-	char	**inst_4l;
 	size_t	inst_len;
 
-	inst_len = ft_strlen(instr);
-	if (inst_len < 3 || inst_len > 4)
+	inst_len = ft_strlen(inst_name);
+	if (inst_len < 3 && inst_len > 4)
 		return (-1);
-	inst_3l = (char *[]){"sa\n", "sb\n", "ss\n", "pa\n", "pb\n",
-		"ra\n", "rb\n", "rr\n", NULL};
-	inst_4l = (char *[]){"rra\n", "rrb\n", "rrr\n", NULL};
-	if (inst_len == 3 && instmgr_check_instr(instr, 4, inst_3l) == -1)
-		return (-1);
-	else if (inst_len == 4 && instmgr_check_instr(instr, 5, inst_4l) == -1)
-		return (-1);
-	return (0);
+	if ((inst_len == 3 && imgr_is_instr(inst_name, 3, "sa\n", "sb\n",
+				"ss\n", "pa\n", "pb\n", "ra\n", "rb\n", "rr\n", 0))
+		|| (inst_len == 4 && imgr_is_instr(inst_name, 4, "rra\n",
+				"rrb\n", "rrr\n", 0)))
+		return (0);
+	return (-1);
 }
 
-int	instmgr_get_instrs(t_list **instrs)
+int	imgr_load_instrs(t_psw *game)
 {
-	char	*input;
+	char	*inst_name;
 
-	input = get_next_line(0);
-	while (input)
+	inst_name = get_next_line(STDIN_FILENO);
+	while (inst_name)
 	{
-		if (instmgr_analyse_instr(input) == -1)
+		if (imgr_chk_if_instr_valid(inst_name) == -1
+			|| imgr_store_instr(inst_name, game) == -1)
 		{
-			free(input);
+			free(inst_name);
 			return (-1);
 		}
-		if (instmgr_store_instr(input, instrs) == -1)
-			return (-1);
-		input = get_next_line(0);
+		inst_name = get_next_line(STDIN_FILENO);
 	}
 	return (0);
 }

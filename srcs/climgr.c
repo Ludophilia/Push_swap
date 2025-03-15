@@ -3,126 +3,122 @@
 /*                                                        :::      ::::::::   */
 /*   climgr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 12:22:03 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/25 19:45:26 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:28:24 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "climgr.h"
+#include "pushswap.h"
 
-static int	cli_check_if_full_digits(char **args)
+static int	cli_check_if_full_digits(char **argv)
 {
-	int		ij[2];
-	char	*arg;
+	t_ctr	ct;
 
-	if (*args == NULL)
+	if (*argv == NULL)
 		return (-1);
-	ij[0] = -1;
-	while (args[++ij[0]])
+	ct.i = -1;
+	while (argv[++ct.i])
 	{
-		arg = args[ij[0]];
-		ij[1] = 0;
-		if (arg[ij[1]] == '-' || arg[ij[1]] == '+')
-			ij[1]++;
-		if (ft_isdigit(arg[ij[1]]) == 0)
-			return (-1);
-		while (ft_isdigit(arg[ij[1]]))
-			ij[1]++;
-		if (arg[ij[1]] != 0)
+		ct.j = 0;
+		if (argv[ct.i][ct.j] == '-' || argv[ct.i][ct.j] == '+')
+			ct.j++;
+		while (ft_isdigit(argv[ct.i][ct.j]))
+			ct.j++;
+		if (argv[ct.i][ct.j] != '\0')
 			return (-1);
 	}
 	return (0);
 }
 
-static int	*cli_integerize_args(char **argv, int argc)
+static long	*cli_conv_args_to_nbs(char **argv, int argc)
 {
-	int		*nbs;
-	int		ij[2];
+	long	*nbs;
+	t_ctr	ct;
 	long	candidate;
 
-	nbs = ft_calloc(argc, sizeof(int));
+	nbs = ft_calloc(argc, sizeof(long));
 	if (nbs == NULL)
 		return (NULL);
-	ij[0] = -1;
-	while (argv[++ij[0]])
+	ct.i = -1;
+	while (argv[++ct.i])
 	{
-		candidate = cli_atol(argv[ij[0]]);
-		ij[1] = -1;
-		while (++ij[1] < ij[0])
-			if (nbs[ij[1]] == candidate)
-				candidate = (2147483647L + 1);
-		if (candidate > INT_MAX || candidate < INT_MIN)
+		candidate = cli_atol(argv[ct.i]);
+		ct.j = -1;
+		while (++ct.j < ct.i)
+			if (nbs[ct.j] == candidate)
+				candidate = LLONG_MAX;
+		if (candidate < INT_MIN || candidate > INT_MAX)
 		{
 			free(nbs);
 			return (NULL);
 		}
-		nbs[ij[0]] = candidate;
+		nbs[ct.i] = candidate;
 	}
 	return (nbs);
 }
 
-static int	*cli_substitute_nbs_by_rank(int *nbs, int size)
+static long	*cli_get_nbs_from_argv(char **argv, int *argcp)
 {
-	int	ijk[3];
-	int	min[2];
-	int	*subt_nbs_tmp[2];
+	long	*cli_nbs;
+	int		on_heap;
 
-	if (cli_set_subt_nbs(subt_nbs_tmp, ijk, nbs, size) == -1)
-		return (NULL);
-	while (++ijk[0] < size)
+	on_heap = 0;
+	if (*argcp == 1 && ft_strchr(*argv, ' '))
 	{
-		ijk[1] = -1;
-		*(long *)min = INT_MAX;
-		while (++ijk[1] < size)
-		{
-			if (nbs[ijk[1]] <= min[0] && !cli_is_nb_in_nbs(
-					nbs[ijk[1]], subt_nbs_tmp[1], ijk[0]))
-			{
-				min[0] = nbs[ijk[1]];
-				min[1] = ijk[1];
-			}
-		}
-		subt_nbs_tmp[1][ijk[2]] = min[0];
-		subt_nbs_tmp[0][min[1]] = ijk[2]++;
-	}
-	free(nbs);
-	free(subt_nbs_tmp[1]);
-	return (*subt_nbs_tmp);
-}
-
-static int	*cli_get_nbs_from_argv(char **argv, int *argc_ptr)
-{
-	int	*cli_nbs;
-	int	sp;
-
-	sp = 0;
-	if (*argc_ptr == 1)
-	{
+		on_heap = 1;
 		argv = ft_split(*argv, ' ');
 		if (argv == NULL)
 			return (NULL);
-		*argc_ptr = cli_strslen(argv);
-		sp = 1;
+		*argcp = cli_strslen(argv);
 	}
 	if (cli_check_if_full_digits(argv) == -1)
 	{
-		if (sp == 1)
+		if (on_heap)
 			cli_free_strs(argv);
 		return (NULL);
 	}
-	cli_nbs = cli_integerize_args(argv, *argc_ptr);
-	if (sp == 1)
+	cli_nbs = cli_conv_args_to_nbs(argv, *argcp);
+	if (on_heap)
 		cli_free_strs(argv);
 	if (cli_nbs == NULL)
 		return (NULL);
 	return (cli_nbs);
 }
 
-int	cli_project_init(int argc, char **argv, t_stk *stks[3], t_list **instrs)
+static int	*cli_substitute_nbs_to_rank(long *nbs, int size)
 {
-	int	*cli_nbs;
+	int		*ranked;
+	t_ctr	ct;
+	t_pnbr	min;
+
+	if (cli_init_ranked_nbs(&ranked, nbs, size) == -1)
+		return (NULL);
+	ct = (t_ctr){.i = -1, .k = 0};
+	while (++ct.i < size)
+	{
+		ct.j = -1;
+		min = (t_pnbr){.nb = LLONG_MAX, .pos = -1};
+		while (++ct.j < size)
+		{
+			if (nbs[ct.j] < min.nb)
+			{
+				min.nb = nbs[ct.j];
+				min.pos = ct.j;
+			}
+		}
+		nbs[min.pos] = LLONG_MAX;
+		ranked[min.pos] = ct.k++;
+	}
+	free(nbs);
+	return (ranked);
+}
+
+int	cli_project_init(int argc, char **argv, t_psw *game)
+{
+	long	*cli_nbs;
+	int		*ranked;
 
 	if (argc == 1)
 		return (0);
@@ -131,14 +127,14 @@ int	cli_project_init(int argc, char **argv, t_stk *stks[3], t_list **instrs)
 	cli_nbs = cli_get_nbs_from_argv(argv, &argc);
 	if (cli_nbs == NULL)
 		return (-1);
-	cli_nbs = cli_substitute_nbs_by_rank(cli_nbs, argc);
-	if (cli_nbs == NULL)
+	ranked = cli_substitute_nbs_to_rank(cli_nbs, argc);
+	if (ranked == NULL)
 		return (-1);
-	if (stkmgr_stacks_init(argc, cli_nbs, stks) == -1)
+	if (stkmgr_stacks_init(ranked, argc, game) == -1)
 	{
-		free(cli_nbs);
+		free(ranked);
 		return (-1);
 	}
-	*instrs = 0;
+	free(ranked);
 	return (1);
 }

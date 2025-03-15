@@ -3,67 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_hundred.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 18:29:47 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/23 18:38:07 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:29:27 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
-int	sort100_presort(t_stk **stacks, int divider, t_list **instrs)
+static int	sort100_presort_subrange(t_extr *pivr, long *nba_lim, t_psw *game)
 {
-	int	ij[2];
-	int	piv[3];
-	int	nod[2];
+	long	nba;
+	long	pivot;
+	int		size_a;
 
-	nod[1] = stacks[0]->size - 3;
-	piv[2] = stacks[0]->size / divider;
-	ij[0] = -1;
-	while (stacks[0]->size > 3 && ++ij[0] > -1)
+	size_a = game->stack_a->size;
+	pivot = pivr->min + pivr->range / 2;
+	while (size_a--)
 	{
-		ij[1] = stacks[0]->size;
-		*(long *)piv = (piv[2] * (ij[0] + 1L) << 32) + piv[2] * ij[0];
-		while (ij[1]-- > 0)
+		nba = get_nb(game->stack_a->head);
+		if (nba < *nba_lim && nba >= pivr->min && nba < pivr->max)
 		{
-			nod[0] = *(int *)(*stacks[0]->head)->content;
-			if (nod[0] < nod[1] && (nod[0] >= piv[0] && nod[0] < piv[1]))
-				if (game_push(stacks[0], stacks[1], instrs) == -1
-					|| (nod[0] >= (piv[0] + (piv[1] - piv[0]) / 2)
-						&& game_rotate(stacks[1], 0, instrs) == -1))
-					return (-1);
-			if (!(nod[0] < nod[1] && (nod[0] >= piv[0] && nod[0] < piv[1]))
-				&& game_rotate(stacks[0], 0, instrs) == -1)
+			if (game_push(game->stack_a, game->stack_b, game) == -1
+				|| (nba >= pivot
+					&& game_rotate(game->stack_b, NULL, game) == -1))
 				return (-1);
 		}
+		else
+			if (game_rotate(game->stack_a, NULL, game) == -1)
+				return (-1);
 	}
 	return (0);
 }
 
-static int	sort100_selection_sort(t_stk **stacks, t_list **instrs)
+int	sort100_presort(t_stk *stack_a, int divider, t_psw *game)
 {
-	int	b_target[2];
+	int		turn;
+	t_extr	pivr;
+	long	nba_lim;
 
-	while (stacks[1]->size > 1)
+	nba_lim = stack_a->size - 3;
+	pivr.range = stack_a->size / divider;
+	turn = 0;
+	while (stack_a->size > 3)
 	{
-		b_target[0] = *(int *)(*stacks[0]->head)->content - 1;
-		b_target[1] = sort_get_pos_stk(b_target[0], stacks[1]);
-		if (b_target[1] == -1
-			|| sort_rotate_stk(b_target, stacks[1], instrs) == -1
-			|| game_push(stacks[1], stacks[0], instrs) == -1)
+		pivr.min = pivr.range * turn;
+		pivr.max = pivr.range * (turn + 1);
+		if (sort100_presort_subrange(&pivr, &nba_lim, game) == -1)
+			return (-1);
+		++turn;
+	}
+	return (0);
+}
+
+static int	sort100_selection_sort(t_stk *stack_a, t_stk *stack_b, t_psw *game)
+{
+	t_pnbr	nbb;
+
+	while (stack_b->size > 1)
+	{
+		nbb.nb = get_nb(stack_a->head) - 1;
+		if (sort_get_nb_pos(&nbb, stack_b) == -1
+			|| sort_rotate_stk(&nbb, stack_b, game) == -1
+			|| game_push(stack_b, stack_a, game) == -1)
 			return (-1);
 	}
-	if (game_push(stacks[1], stacks[0], instrs) == -1)
+	if (game_push(stack_b, stack_a, game) == -1)
 		return (-1);
 	return (0);
 }
 
-int	sort_upto_100nbs(t_stk **stacks, int divider, t_list **instrs)
+int	sort_upto_100nbs(t_stk *stack_a, t_stk *stack_b, int divider, t_psw *game)
 {
-	if (sort100_presort(stacks, divider, instrs) == -1
-		|| sort_upto_3nbs(stacks[0], instrs) == -1
-		|| sort100_selection_sort(stacks, instrs) == -1)
+	if (sort100_presort(stack_a, divider, game) == -1
+		|| sort_upto_3nbs(stack_a, game) == -1
+		|| sort100_selection_sort(stack_a, stack_b, game) == -1)
 		return (-1);
 	return (0);
 }

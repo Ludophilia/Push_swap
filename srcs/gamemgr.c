@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   gamemgr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:05:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/06 17:02:01 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:08:29 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gamemgr.h"
+#include "pushswap.h"
 
-int	game_push(t_stk *from_stack, t_stk *to_stack, t_list **instr_head)
+static t_list	*game_lstseclast(t_list *lst)
+{
+	while (lst)
+	{
+		if (lst->next != NULL && lst->next->next == NULL)
+			return (lst);
+		lst = lst->next;
+	}
+	return (NULL);
+}
+
+int	game_push(t_stk *from_stack, t_stk *to_stack, t_psw *game)
 {
 	t_list	*from_node;
 
@@ -20,48 +31,50 @@ int	game_push(t_stk *from_stack, t_stk *to_stack, t_list **instr_head)
 	if (from_node == NULL)
 		return (-1);
 	if (to_stack->head == NULL)
-		*to_stack->head = from_node;
+		to_stack->head = from_node;
 	else
-		ft_lstadd_front(to_stack->head, from_node);
+		ft_lstadd_front(&to_stack->head, from_node);
 	to_stack->size++;
-	if (game_store_instr("p", to_stack->name, instr_head) == -1)
+	if (game != NULL
+		&& imgr_choose_instr("p", to_stack, NULL, game) == -1)
 		return (-1);
 	return (0);
 }
 
-int	game_swap(t_stk *stack0, t_stk *stack1, t_list **instr_head)
+int	game_swap(t_stk *stack0, t_stk *stack1, t_psw *game)
 {
 	t_stk	**stacks;
-	t_list	*nodes[2];
+	t_list	*first;
+	t_list	*second;
+	void	*tmp;
 	int		i;
 
 	stacks = (t_stk *[3]){stack0, stack1, 0};
 	i = -1;
 	while (stacks[++i])
 	{
-		if (*stacks[i]->head && (*stacks[i]->head)->next)
+		if (stacks[i]->head && (stacks[i]->head)->next)
 		{
-			nodes[0] = *stacks[i]->head;
-			nodes[1] = (*stacks[i]->head)->next;
-			nodes[0]->next = nodes[1]->next;
-			nodes[1]->next = nodes[0];
-			*stacks[i]->head = nodes[1];
+			first = stacks[i]->head;
+			second = (stacks[i]->head)->next;
+			tmp = first->content;
+			first->content = second->content;
+			second->content = tmp;
 		}
 		else
-			stacks[i] = 0;
+			stacks[i] = NULL;
 	}
-	if (stacks[0] || stacks[1])
-	{
-		if (game_choose_instr("s", stacks[0], stacks[1], instr_head) == -1)
-			return (-1);
-	}
+	if (game != NULL && (stacks[0] || stacks[1])
+		&& imgr_choose_instr("s", stacks[0], stacks[1], game) == -1)
+		return (-1);
 	return (0);
 }
 
-int	game_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head)
+int	game_rotate(t_stk *stack0, t_stk *stack1, t_psw *game)
 {
 	t_stk	**stacks;
-	t_list	*nodes[2];
+	t_list	*first;
+	t_list	*last;
 	int		i;
 
 	stacks = (t_stk *[3]){stack0, stack1, 0};
@@ -70,27 +83,26 @@ int	game_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 	{
 		if (stacks[i]->size > 1)
 		{
-			nodes[0] = *stacks[i]->head;
-			nodes[1] = ft_lstlast(*stacks[i]->head);
-			*stacks[i]->head = nodes[0]->next;
-			nodes[1]->next = nodes[0];
-			nodes[0]->next = NULL;
+			first = stacks[i]->head;
+			last = ft_lstlast(stacks[i]->head);
+			stacks[i]->head = first->next;
+			last->next = first;
+			first->next = NULL;
 		}
 		else
-			stacks[i] = 0;
+			stacks[i] = NULL;
 	}
-	if (stacks[0] || stacks[1])
-	{
-		if (game_choose_instr("r", stacks[0], stacks[1], instr_head) == -1)
-			return (-1);
-	}
+	if (game != NULL && (stacks[0] || stacks[1])
+		&& imgr_choose_instr("r", stacks[0], stacks[1], game) == -1)
+		return (-1);
 	return (0);
 }
 
-int	game_rev_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head)
+int	game_rev_rotate(t_stk *stack0, t_stk *stack1, t_psw *game)
 {
 	t_stk	**stacks;
-	t_list	*nodes[2];
+	t_list	*last;
+	t_list	*second_last;
 	int		i;
 
 	stacks = (t_stk *[3]){stack0, stack1, 0};
@@ -99,19 +111,17 @@ int	game_rev_rotate(t_stk *stack0, t_stk *stack1, t_list **instr_head)
 	{
 		if (stacks[i]->size > 1)
 		{
-			nodes[0] = game_lstseclast(*stacks[i]->head);
-			nodes[1] = ft_lstlast(*stacks[i]->head);
-			nodes[1]->next = *stacks[i]->head;
-			*stacks[i]->head = nodes[1];
-			nodes[0]->next = NULL;
+			second_last = game_lstseclast(stacks[i]->head);
+			last = ft_lstlast(stacks[i]->head);
+			last->next = stacks[i]->head;
+			stacks[i]->head = last;
+			second_last->next = NULL;
 		}
 		else
-			stacks[i] = 0;
+			stacks[i] = NULL;
 	}
-	if (stacks[0] || stacks[1])
-	{
-		if (game_choose_instr("rr", stacks[0], stacks[1], instr_head) == -1)
-			return (-1);
-	}
+	if (game != NULL && (stacks[0] || stacks[1])
+		&& imgr_choose_instr("rr", stacks[0], stacks[1], game) == -1)
+		return (-1);
 	return (0);
 }

@@ -3,69 +3,112 @@
 /*                                                        :::      ::::::::   */
 /*   instrmgr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/20 13:35:21 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:37:45 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gamemgr.h"
+#include "pushswap.h"
 
-void	game_print_instrs(t_list *start)
+static int	imgr_is_next_two_instrs(t_list *inst_node, char *inst_ref1,
+	char *inst_ref2)
 {
-	while (start)
-	{
-		ft_printf("%s\n", (char *)start->content);
-		start = start->next;
-	}
+	size_t	ref_len;
+	int		inst_test[2];
+	char	*curr_it;
+	char	*next_it;
+
+	curr_it = (char *)inst_node->content;
+	next_it = (char *)inst_node->next->content;
+	ref_len = ft_strlen(inst_ref1);
+	if (ref_len != ft_strlen(inst_ref2)
+		|| ref_len != ft_strlen(curr_it)
+		|| ref_len != ft_strlen(next_it))
+		return (0);
+	inst_test[0] = (!ft_strncmp(curr_it, inst_ref1, ref_len)
+			&& !ft_strncmp(next_it, inst_ref2, ref_len));
+	inst_test[1] = (!ft_strncmp(curr_it, inst_ref2, ref_len)
+			&& !ft_strncmp(next_it, inst_ref1, ref_len));
+	return (inst_test[0] || inst_test[1]);
 }
 
-int	game_choose_instr(char *type, t_stk *stk0, t_stk *stk1, t_list **head)
+static int	imgr_smp_instr(char *smpl_it, t_list *inst_node)
 {
-	char	*stk_name;
+	t_list	*next_node;
 
-	stk_name = NULL;
-	if (stk0 && !stk1)
-		stk_name = stk0->name;
-	else if (!stk0 && stk1)
-		stk_name = stk1->name;
-	else if (stk0 && stk1)
-	{
-		if (!ft_strncmp(type, "r", 2) || !ft_strncmp(type, "rr", 3))
-			stk_name = "r";
-		else if (!ft_strncmp(type, "s", 2))
-			stk_name = "s";
-	}
-	if (game_store_instr(type, stk_name, head) == -1)
+	next_node = inst_node->next;
+	smpl_it = ft_strdup(smpl_it);
+	if (smpl_it == NULL)
 		return (-1);
+	free(inst_node->content);
+	inst_node->content = smpl_it;
+	inst_node->next = next_node->next;
+	ft_lstdelone(next_node, free);
 	return (0);
 }
 
-int	game_opti_instrs(t_list **instrs)
+int	imgr_opti_instrs(t_list **instrs)
 {
-	t_list	*nodes[2];
-	char	*strs[2];
+	t_list	*inst_node;
+	int		opt_type;
 
-	nodes[0] = *instrs;
-	if (*nodes)
-		nodes[1] = nodes[0]->next;
-	while (nodes[0] && nodes[1])
+	inst_node = *instrs;
+	while (inst_node && inst_node->next)
 	{
-		strs[0] = (char *)nodes[0]->content;
-		strs[1] = (char *)nodes[1]->content;
-		if (game_cmp_inst("ra", "rb", 2, strs)
-			&& game_smp_inst("rr", nodes, strs) == -1)
+		opt_type = -1;
+		if (imgr_is_next_two_instrs(inst_node, "ra", "rb"))
+			opt_type = OP_RR;
+		else if (imgr_is_next_two_instrs(inst_node, "sa", "sb"))
+			opt_type = OP_SS;
+		else if (imgr_is_next_two_instrs(inst_node, "rra", "rrb"))
+			opt_type = OP_RRR;
+		if ((opt_type == OP_RR
+				&& imgr_smp_instr("rr", inst_node) == -1)
+			|| (opt_type == OP_SS
+				&& imgr_smp_instr("ss", inst_node) == -1)
+			|| (opt_type == OP_RRR
+				&& imgr_smp_instr("rrr", inst_node) == -1))
 			return (-1);
-		else if (game_cmp_inst("rra", "rrb", 3, strs)
-			&& game_smp_inst("rrr", nodes, strs) == -1)
-			return (-1);
-		else if (game_cmp_inst("sa", "sb", 2, strs)
-			&& game_smp_inst("ss", nodes, strs) == -1)
-			return (-1);
-		nodes[0] = nodes[0]->next;
-		if (*nodes)
-			nodes[1] = nodes[1]->next;
+		inst_node = inst_node->next;
 	}
+	return (0);
+}
+
+int	imgr_store_instr(char *inst_name, t_psw *game)
+{
+	t_list	*inst_node;
+
+	inst_node = ft_lstnew(inst_name);
+	if (inst_node == NULL)
+	{
+		free(inst_name);
+		return (-1);
+	}
+	ft_lstadd_back(&game->instrs, inst_node);
+	return (0);
+}
+
+int	imgr_choose_instr(char *type, t_stk *stack0, t_stk *stack1, t_psw *game)
+{
+	char	*stack_name;
+	char	*inst_name;
+
+	stack_name = NULL;
+	if (stack0 && !stack1)
+		stack_name = stack0->name;
+	else if (!stack0 && stack1)
+		stack_name = stack1->name;
+	else if (stack0 && stack1
+		&& (!ft_strncmp(type, "r", 2) || !ft_strncmp(type, "rr", 3)))
+		stack_name = "r";
+	else if (stack0 && stack1 && !ft_strncmp(type, "s", 2))
+		stack_name = "s";
+	inst_name = ft_strjoin(type, stack_name);
+	if (inst_name == NULL
+		|| stack_name == NULL
+		|| imgr_store_instr(inst_name, game) == -1)
+		return (-1);
 	return (0);
 }

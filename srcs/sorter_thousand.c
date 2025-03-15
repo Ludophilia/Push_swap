@@ -3,113 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_thousand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:43:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/24 22:10:03 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:25:15 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
-static void	sort500_update_nodecost(t_list *nodas[2], t_list *nodb,
-int nodecost[5])
+static int	sort1000_update_ab_candidates(t_list *node_a, t_list *next_a,
+	t_list *node_b, t_cnd *cands)
 {
-	if (!nodas[1] && *(int *)nodb->content < *(int *)nodas[0]->content)
+	if (next_a == NULL && get_nb(node_b) < get_nb(node_a))
 	{
-		nodecost[0] = *(int *)nodas[0]->content;
-		nodecost[1] = *(int *)nodb->content;
-		nodecost[4] = nodecost[2] + nodecost[3];
+		cands->nba = get_nb(node_a);
+		cands->nbb = get_nb(node_b);
+		cands->rots_tt = cands->rots_a + cands->rots_b;
 	}
-	else if (nodas[1] && *(int *)nodb->content > *(int *)nodas[0]->content
-		&& *(int *)nodb->content < *(int *)nodas[1]->content)
+	else if (next_a && get_nb(node_b) > get_nb(node_a)
+		&& get_nb(node_b) < get_nb(next_a))
 	{
-		nodecost[0] = *(int *)nodas[1]->content;
-		nodecost[1] = *(int *)nodb->content;
-		nodecost[4] = nodecost[2] + nodecost[3];
+		cands->nba = get_nb(next_a);
+		cands->nbb = get_nb(node_b);
+		cands->rots_tt = cands->rots_a + cands->rots_b;
 	}
+	return (0);
 }
 
-static void	sort500_update_costs_for_b(t_stk **stacks, t_list *noda,
-t_list *noda_next, int nodecost[5])
+static int	sort1000_search_candidates_in_b(t_list *node_a, t_list *next_a,
+	t_stk *stack_b, t_cnd *cands)
 {
-	t_list	*nodas[2];
-	t_list	*nodb;
-	int		j;
+	t_list	*node_b;
+	int		pos_b;
 
-	j = -1;
-	nodb = *stacks[1]->head;
-	nodas[0] = noda;
-	nodas[1] = noda_next;
-	while (nodb && ++j > -1)
+	pos_b = -1;
+	node_b = stack_b->head;
+	while (node_b)
 	{
-		nodecost[3] = j;
-		if (j > stacks[1]->size / 2)
-			nodecost[3] = stacks[1]->size - j;
-		if (nodecost[2] + nodecost[3] < nodecost[4])
-			sort500_update_nodecost(nodas, nodb, nodecost);
-		nodb = nodb->next;
+		sort_optimize_cost(++pos_b, stack_b, &cands->rots_b);
+		if (cands->rots_a + cands->rots_b < cands->rots_tt)
+			sort1000_update_ab_candidates(node_a, next_a, node_b, cands);
+		node_b = node_b->next;
 	}
+	return (0);
 }
 
-static void	sort500_search_candidates(t_stk **stacks, int nodecost[5])
+static t_cnd	sort1000_search_candidates(t_stk *stack_a, t_stk *stack_b)
 {
-	t_list	*noda[2];
-	int		i;
+	t_cnd	cands;
+	t_list	*node_a;
+	t_list	*next_a;
+	int		pos_a;
 
-	nodecost[0] = INT_MAX;
-	nodecost[1] = INT_MAX;
-	nodecost[4] = INT_MAX;
-	noda[0] = *stacks[0]->head;
-	noda[1] = noda[0]->next;
-	i = -1;
-	while (noda[0] && noda[1] && nodecost[4] != 0 && ++i > -1)
+	cands = (t_cnd){.nba = LLONG_MAX, .nbb = LLONG_MAX, .rots_tt = LLONG_MAX};
+	node_a = stack_a->head;
+	next_a = stack_a->head->next;
+	pos_a = -1;
+	while (node_a && cands.rots_tt > 1)
 	{
-		nodecost[2] = i;
-		if (i > stacks[0]->size / 2)
-			nodecost[2] = stacks[0]->size - i;
-		if (stkmgr_is_min(*(int *)noda[0]->content, stacks[0]))
-			sort500_update_costs_for_b(stacks, noda[0], NULL, nodecost);
-		if (*(int *)noda[0]->content + 1 != *(int *)noda[1]->content)
-			sort500_update_costs_for_b(stacks, noda[0], noda[1], nodecost);
-		noda[0] = noda[0]->next;
-		if (noda[0] && noda[0]->next)
-			noda[1] = noda[0]->next;
-		else if (noda[0] && noda[0]->next == NULL)
-			noda[1] = *stacks[0]->head;
+		sort_optimize_cost(++pos_a, stack_a, &cands.rots_a);
+		if (sort_node_is_smallest(node_a, stack_a))
+			sort1000_search_candidates_in_b(node_a, NULL, stack_b, &cands);
+		if (get_nb(node_a) + 1 != get_nb(next_a))
+			sort1000_search_candidates_in_b(node_a, next_a, stack_b, &cands);
+		node_a = node_a->next;
+		if (node_a && node_a->next)
+			next_a = node_a->next;
+		else if (node_a && node_a->next == NULL)
+			next_a = stack_a->head;
 	}
+	return (cands);
 }
 
-static int	sort500_insertion_sort(t_stk **stacks, t_list **instrs)
+static int	sort1000_insertion_sort(t_stk *stack_a, t_stk *stack_b, t_psw *game)
 {
-	int	a_target[2];
-	int	b_target[2];
-	int	nodecost[5];
+	t_cnd	cands;
+	t_pnbr	nba;
+	t_pnbr	nbb;
 
-	while (stacks[1]->size != 0)
+	while (stack_b->size)
 	{
-		sort500_search_candidates(stacks, nodecost);
-		a_target[0] = nodecost[0];
-		b_target[0] = nodecost[1];
-		a_target[1] = sort_get_pos_stk(a_target[0], stacks[0]);
-		b_target[1] = sort_get_pos_stk(b_target[0], stacks[1]);
-		if (a_target[1] == -1 || b_target[1] == -1)
-			return (-1);
-		if (sort_rotate_stk(a_target, stacks[0], instrs) == -1
-			|| sort_rotate_stk(b_target, stacks[1], instrs) == -1
-			|| game_push(stacks[1], stacks[0], instrs) == -1)
+		cands = sort1000_search_candidates(stack_a, stack_b);
+		nba.nb = cands.nba;
+		nbb.nb = cands.nbb;
+		if (sort_get_nb_pos(&nba, stack_a) == -1
+			|| sort_get_nb_pos(&nbb, stack_b) == -1
+			|| sort_rotate_stk(&nba, stack_a, game) == -1
+			|| sort_rotate_stk(&nbb, stack_b, game) == -1
+			|| game_push(stack_b, stack_a, game) == -1)
 			return (-1);
 	}
-	if (sort_reset_stk(stacks[0], instrs) == -1)
+	if (sort_reset_stk(stack_a, game) == -1)
 		return (-1);
 	return (0);
 }
 
-int	sort_over_100nbs(t_stk **stacks, int divider, t_list **instrs)
+int	sort_over_100nbs(t_stk *stack_a, t_stk *stack_b, int divider, t_psw *game)
 {
-	if (sort100_presort(stacks, divider, instrs) == -1
-		|| sort_upto_3nbs(stacks[0], instrs) == -1
-		|| sort500_insertion_sort(stacks, instrs) == -1)
+	if (sort100_presort(stack_a, divider, game) == -1
+		|| sort_upto_3nbs(stack_a, game) == -1
+		|| sort1000_insertion_sort(stack_a, stack_b, game) == -1)
 		return (-1);
 	return (0);
 }

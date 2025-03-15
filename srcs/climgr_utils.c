@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   climgr_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:25:41 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/25 18:52:26 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:13:26 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "climgr.h"
+#include "pushswap.h"
 
 void	cli_free_strs(char **strs)
 {
@@ -20,6 +20,17 @@ void	cli_free_strs(char **strs)
 	while (strs[++i])
 		free(strs[i]);
 	free(strs);
+}
+
+int	cli_init_ranked_nbs(int **ranked, long *nbs, int size)
+{
+	*ranked = ft_calloc(size, sizeof(int));
+	if (*ranked == NULL)
+	{
+		free(nbs);
+		return (-1);
+	}
+	return (0);
 }
 
 int	cli_strslen(char **strs)
@@ -55,35 +66,4 @@ long	cli_atol(char *str)
 		i++;
 	}
 	return (sign * res);
-}
-
-int	cli_is_nb_in_nbs(int nb, int *nbs, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-		if (nb == nbs[i])
-			return (1);
-	return (0);
-}
-
-int	cli_set_subt_nbs(int **subt_nbs_tmp, int *ijk, int *nbs, int size)
-{
-	ijk[0] = -1;
-	ijk[2] = 0;
-	subt_nbs_tmp[0] = ft_calloc(size, sizeof(int));
-	if (subt_nbs_tmp[0] == NULL)
-	{
-		free(nbs);
-		return (-1);
-	}
-	subt_nbs_tmp[1] = ft_calloc(size, sizeof(int));
-	if (subt_nbs_tmp[1] == NULL)
-	{
-		free(nbs);
-		free(*subt_nbs_tmp);
-		return (-1);
-	}
-	return (0);
 }

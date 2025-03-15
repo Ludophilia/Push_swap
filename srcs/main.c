@@ -3,34 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/24 23:34:54 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:01:46 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "pushswap.h"
+
+static void	main_print_instrs(t_list *start)
+{
+	while (start)
+	{
+		ft_printf("%s\n", (char *)start->content);
+		start = start->next;
+	}
+}
 
 int	main(int argc, char **argv)
 {
-	t_stk	*stacks[3];
-	t_list	*instrs[1];
-	int		init_status;
+	t_psw	game;
+	int		status;
 
-	init_status = cli_project_init(argc, argv, stacks, instrs);
-	if (init_status == 0)
+	status = cli_project_init(argc, argv, &game);
+	if (status == 0)
 		return (0);
-	if (init_status == -1 && ft_dprintf(2, "Error\n"))
+	if (status == -1 && ft_dprintf(2, "Error\n"))
 		return (1);
-	if (stkmgr_stack_is_sorted(stacks[0], 0) == 0
-		&& (sort_choose_algorithm(stacks, instrs) == -1
-			|| game_opti_instrs(instrs) == -1))
+	if (!sort_stk_is_sorted(game.stack_a, DIR_FWD)
+		&& (sort_choose_algorithm(&game) == -1
+			|| imgr_opti_instrs(&game.instrs) == -1))
 	{
-		stkmgr_free_ressources(stacks, instrs);
+		stkmgr_free_ressources(&game);
 		return (1);
 	}
-	game_print_instrs(*instrs);
-	stkmgr_free_ressources(stacks, instrs);
+	main_print_instrs(game.instrs);
+	stkmgr_free_ressources(&game);
 	return (0);
 }

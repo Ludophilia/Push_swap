@@ -3,81 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   sorter_common.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgermany <nyaritakunai@outlook.com>        +#+  +:+       +#+        */
+/*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:46:10 by jgermany          #+#    #+#             */
-/*   Updated: 2023/09/25 17:22:10 by jgermany         ###   ########.fr       */
+/*   Updated: 2025/03/13 20:50:00 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sorter.h"
+#include "pushswap.h"
 
-int	sort_get_pos_stk(int target, t_stk *stack)
-{
-	t_list	*node;
-	int		i;
-
-	i = 0;
-	node = *stack->head;
-	while (node)
-	{
-		if (*(int *)node->content == target)
-			return (i);
-		i++;
-		node = node->next;
-	}
-	return (-1);
-}
-
-int	sort_rotate_stk(int target[2], t_stk *stack, t_list **instrs)
+int	sort_rotate_stk(t_pnbr *target, t_stk *stack, t_psw *game)
 {
 	int	fwd;
 
-	fwd = 1;
-	if (target[1] > stack->size / 2)
-		fwd = 0;
-	while (target[0] != *(int *)(*stack->head)->content)
+	fwd = DIR_FWD;
+	if (target->pos > stack->size / 2)
+		fwd = DIR_REV;
+	while (target->nb != get_nb(stack->head))
 	{
-		if (fwd && game_rotate(stack, 0, instrs) == -1)
+		if (fwd && game_rotate(stack, NULL, game) == -1)
 			return (-1);
-		else if (!fwd && game_rev_rotate(stack, 0, instrs) == -1)
+		else if (!fwd && game_rev_rotate(stack, NULL, game) == -1)
 			return (-1);
 	}
 	return (0);
 }
 
-int	sort_reset_stk(t_stk *stack, t_list **instrs)
+int	sort_reset_stk(t_stk *stack, t_psw *game)
 {
-	int		target[2];
-	int		rev;
+	t_pnbr	nb;
+	int		dir;
 
-	rev = 0;
-	if (*stack->name == 'b')
-		rev = 1;
-	if (stkmgr_stack_is_sorted(stack, rev))
+	dir = DIR_FWD;
+	if (stack->id == ID_STKB)
+		dir = DIR_REV;
+	if (sort_stk_is_sorted(stack, dir))
 		return (0);
-	target[0] = 0;
-	target[1] = sort_get_pos_stk(target[0], stack);
-	if (target[1] == -1 || sort_rotate_stk(target, stack, instrs))
+	nb.nb = 0;
+	if (sort_get_nb_pos(&nb, stack) == -1
+		|| sort_rotate_stk(&nb, stack, game))
 		return (-1);
 	return (0);
 }
 
-int	sort_choose_algorithm(t_stk **stacks, t_list **instrs)
+int	sort_choose_algorithm(t_psw *game)
 {
-	if (stacks[0]->size <= 3 && sort_upto_3nbs(stacks[0], instrs) == -1)
-		return (-1);
-	else if (stacks[0]->size > 3 && stacks[0]->size <= 5
-		&& sort_upto_5nbs(stacks, instrs) == -1)
-		return (-1);
-	else if (stacks[0]->size > 5 && stacks[0]->size <= 75
-		&& sort_upto_100nbs(stacks, 2, instrs) == -1)
-		return (-1);
-	else if (stacks[0]->size > 75 && stacks[0]->size <= 250
-		&& sort_upto_100nbs(stacks, 4, instrs) == -1)
-		return (-1);
-	else if (stacks[0]->size > 250
-		&& sort_over_100nbs(stacks, 9, instrs) == -1)
+	t_stk	*stack_a;
+	t_stk	*stack_b;
+
+	stack_a = game->stack_a;
+	stack_b = game->stack_b;
+	if (stack_b->size == 0
+		&& sort_stk_is_sorted(stack_a, DIR_FWD))
+		return (0);
+	if ((stack_a->size <= 3
+			&& sort_upto_3nbs(stack_a, game) == -1)
+		|| (stack_a->size > 3 && stack_a->size <= 5
+			&& sort_upto_5nbs(stack_a, stack_b, game) == -1)
+		|| (stack_a->size > 5 && stack_a->size <= 75
+			&& sort_upto_100nbs(stack_a, stack_b, 2, game) == -1)
+		|| (stack_a->size > 75 && stack_a->size <= 250
+			&& sort_upto_100nbs(stack_a, stack_b, 4, game) == -1)
+		|| (stack_a->size > 250
+			&& sort_over_100nbs(stack_a, stack_b, 5, game) == -1))
 		return (-1);
 	return (0);
 }
