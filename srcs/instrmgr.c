@@ -6,13 +6,13 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:47:44 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/14 18:03:44 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:37:45 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-static int	imgr_chk_next_two_instrs(t_list *inst_node, char *inst_ref1,
+static int	imgr_is_next_two_instrs(t_list *inst_node, char *inst_ref1,
 	char *inst_ref2)
 {
 	size_t	ref_len;
@@ -58,11 +58,11 @@ int	imgr_opti_instrs(t_list **instrs)
 	while (inst_node && inst_node->next)
 	{
 		opt_type = -1;
-		if (imgr_chk_next_two_instrs(inst_node, "ra", "rb"))
+		if (imgr_is_next_two_instrs(inst_node, "ra", "rb"))
 			opt_type = OP_RR;
-		else if (imgr_chk_next_two_instrs(inst_node, "sa", "sb"))
+		else if (imgr_is_next_two_instrs(inst_node, "sa", "sb"))
 			opt_type = OP_SS;
-		else if (imgr_chk_next_two_instrs(inst_node, "rra", "rrb"))
+		else if (imgr_is_next_two_instrs(inst_node, "rra", "rrb"))
 			opt_type = OP_RRR;
 		if ((opt_type == OP_RR
 				&& imgr_smp_instr("rr", inst_node) == -1)
