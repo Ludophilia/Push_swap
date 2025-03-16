@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:16:34 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/14 15:01:46 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/16 12:51:40 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 			|| imgr_opti_instrs(&game.instrs) == -1))
 	{
 		stkmgr_free_ressources(&game);
-		return (1);
+		return (2);
 	}
 	main_print_instrs(game.instrs);
 	stkmgr_free_ressources(&game);

@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:23:21 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/15 18:05:40 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/16 13:16:13 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	main(int argc, char *argv[])
 		return (0);
 	if (status == -1 && ft_dprintf(2, "Error\n"))
 		return (1);
-	if ((imgr_load_instrs(&game) == -1 || stkmgr_exec_instrs(&game) == -1)
-		&& ft_dprintf(2, "Error\n"))
+	if ((imgr_load_instrs(&game) == -1 && ft_dprintf(2, "Error\n"))
+		|| (stkmgr_exec_instrs(&game) == -1 && ft_printf("KO\n")))
 	{
 		stkmgr_free_ressources(&game);
-		return (1);
+		return (2);
 	}
 	if (game.stack_b->size == 0 && sort_stk_is_sorted(game.stack_a, DIR_FWD))
 		ft_printf("OK\n");
