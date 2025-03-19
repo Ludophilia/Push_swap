@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:16:21 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/19 11:46:08 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:56:11 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static int	imgr_chk_if_instr_valid(char *inst_name)
 	if (inst_len != 3 && inst_len != 4)
 		return (-1);
 	if ((inst_len == 3 && imgr_is_instr(inst_name, 3, "sa\n", "sb\n",
-				"ss\n", "pa\n", "pb\n", "ra\n", "rb\n", "rr\n", 0))
+				"ss\n", "pa\n", "pb\n", "ra\n", "rb\n", "rr\n", NULL))
 		|| (inst_len == 4 && imgr_is_instr(inst_name, 4, "rra\n",
-				"rrb\n", "rrr\n", 0)))
+				"rrb\n", "rrr\n", NULL)))
 		return (0);
 	return (-1);
 }

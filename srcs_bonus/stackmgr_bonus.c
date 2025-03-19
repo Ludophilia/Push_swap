@@ -6,7 +6,7 @@
 /*   By: jegerman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 12:58:40 by jgermany          #+#    #+#             */
-/*   Updated: 2025/03/15 17:31:34 by jegerman         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:00:24 by jegerman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static int	stkmgr_config_args(char *inst_name, t_stk **stk_args, t_psw *game)
 {
 	if (imgr_is_instr(inst_name, 3,
-			"sa\n", "ra\n", "rra", "pb\n", "ss\n", "rr\n", "rrr", 0))
+			"sa\n", "ra\n", "rra", "pb\n", "ss\n", "rr\n", "rrr", NULL))
 		stk_args[0] = game->stack_a;
-	else if (imgr_is_instr(inst_name, 3, "pa\n", "sb\n", "rb\n", "rrb", 0))
+	else if (imgr_is_instr(inst_name, 3, "pa\n", "sb\n", "rb\n", "rrb", NULL))
 		stk_args[0] = game->stack_b;
-	if (imgr_is_instr(inst_name, 3, "pa\n", 0))
+	if (imgr_is_instr(inst_name, 3, "pa\n", NULL))
 		stk_args[1] = game->stack_a;
-	else if (imgr_is_instr(inst_name, 3, "pb\n", "ss\n", "rr\n", "rrr", 0))
+	else if (imgr_is_instr(inst_name, 3, "pb\n", "ss\n", "rr\n", "rrr", NULL))
 		stk_args[1] = game->stack_b;
 	if (stk_args[0] == NULL && stk_args[1] == NULL)
 		return (-1);
